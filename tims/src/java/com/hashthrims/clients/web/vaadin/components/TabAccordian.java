@@ -1,0 +1,67 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.hashthrims.clients.web.vaadin.components;
+
+import com.hashthrims.clients.web.vaadin.HashThrimsMain;
+
+import com.vaadin.ui.Accordion;
+import com.vaadin.ui.VerticalLayout;
+
+/**
+ *
+ * @author boniface
+ */
+public class TabAccordian extends Accordion  {
+
+    private HashThrimsMain main;
+    public static final String MANAGE_PEOPLE = "Manage People";
+    public static final String REPORTS = "Generate Reports";
+    public static final String CONFIGURE_SYSTEM = "Configure System";
+    public static final String SYSTEM_USERS = "Manage System Users";
+    public static final String COURSES = " Manage Training";
+    public static final String CHANGE_PASSWORD = "Change Your Details";
+    
+    public TabAccordian(HashThrimsMain app) {
+        main =app;
+        setSizeFull();
+
+        //Configure Manage People Menu
+        VerticalLayout managePeople = new VerticalLayout();
+        ManagePeopleTreeMenu managePeopleTree = new ManagePeopleTreeMenu(main);
+        managePeople.addComponent(managePeopleTree);
+        addTab(managePeople, MANAGE_PEOPLE, null);
+
+        // Manage Courses
+        VerticalLayout courses = new VerticalLayout();
+        ManageCoursesTreeMenu manageCoursesTree = new ManageCoursesTreeMenu(main);
+        courses.addComponent(manageCoursesTree);
+        addTab(courses, COURSES, null);
+
+        // Manage Reports
+        VerticalLayout reports = new VerticalLayout();
+        GenerateReportsTreeMenu reportTree = new GenerateReportsTreeMenu(app);
+        reports.addComponent(reportTree);
+        //addTab(reports, REPORTS, null);
+
+        // Change Your  Details
+        VerticalLayout changeYourDetails = new VerticalLayout();
+        ChangeUserDetailsTreeMenu userDatailsTree = new ChangeUserDetailsTreeMenu(app);
+        changeYourDetails.addComponent(userDatailsTree);
+        addTab(changeYourDetails, CHANGE_PASSWORD, null);
+
+        // Configure System Menu
+        VerticalLayout configureSystem = new VerticalLayout();
+        ConfigureSystemTreeMenu configureTree = new ConfigureSystemTreeMenu(main);
+        configureSystem.addComponent(configureTree);
+        addTab(configureSystem, CONFIGURE_SYSTEM, null);
+
+        //Configure System Users
+        VerticalLayout systemUsers = new VerticalLayout();
+        ManageSystemUsersTreeMenu systemUsersTree = new ManageSystemUsersTreeMenu(app);
+        systemUsers.addComponent(systemUsersTree);
+        addTab(systemUsers, SYSTEM_USERS, null);
+    }
+
+}
