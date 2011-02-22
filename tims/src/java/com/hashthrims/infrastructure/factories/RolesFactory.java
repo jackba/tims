@@ -24,7 +24,7 @@ private ApplicationContext ctx = GetContext.getApplicationContext();
     public Roles createRoles(String description, String roleName, Users user){
         Roles c = new Roles();
         c.setRoleName(roleName);
-        c.setUser(user);
+       
        
         return c;
     }

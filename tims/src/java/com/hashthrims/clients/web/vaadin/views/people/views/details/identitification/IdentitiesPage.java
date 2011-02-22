@@ -103,9 +103,9 @@ public class IdentitiesPage extends VerticalLayout implements ClickListener, Val
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getIdentitiesService().remove(values);
-                    final Person p = data.getPersonService().find(person.getId());
-                    final PersonDetailsView view = new PersonDetailsView(p, main, "IDS");
+                    person.getIdentities().remove(values);
+                    data.getPersonService().merge(person);
+                    final PersonDetailsView view = new PersonDetailsView(person, main, "IDS");
                     main.mainView.setSecondComponent(view);
 
                 }

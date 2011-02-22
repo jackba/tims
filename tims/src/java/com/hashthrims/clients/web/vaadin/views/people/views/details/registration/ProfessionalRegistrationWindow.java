@@ -107,7 +107,8 @@ public class ProfessionalRegistrationWindow extends Window implements ClickListe
         vals.put("licenceNumber", licenceNumber);
       
         final ProfessionalRegistration profesionRegistration  = factory.updateProfessionalRegistration(registrationBody, vals,registrationDate,expirationDate,id);
-        data.getProfessionalRegistrationService().merge(profesionRegistration);
+        person.getProfessionalRegistration().add(profesionRegistration);
+        data.getPersonService().merge(person);
     }
 
     private void saveRegistration(Form formData) {

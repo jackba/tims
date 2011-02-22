@@ -11,7 +11,6 @@ import com.hashthrims.clients.web.vaadin.views.people.views.details.contacts.for
 import com.hashthrims.clients.web.vaadin.views.people.views.details.contacts.form.ContactsForm;
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.Person;
-import com.hashthrims.infrastructure.factories.PersonFactory;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
@@ -102,13 +101,13 @@ public class ContactsWindow extends Window implements ClickListener {
         c.setNotes(notes);
         c.setTelephoneNumber(telephoneNumber);
 
-
-        data.getContactsService().merge(c);
+        person.getContacts().add(c);
+        data.getPersonService().merge(person);
+       
 
     }
 
     private void saveContacts(Form formData) {
-        PersonFactory factory = data.getPersonFactory();
         String mailingAddress = fieldValues.getStringFields(formData.getField("mailingAddress").getValue());
         String telephoneNumber = fieldValues.getStringFields(formData.getField("telephoneNumber").getValue());
         String cellnumber = fieldValues.getStringFields(formData.getField("cellnumber").getValue());

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.clients.web.vaadin.views.users.tables;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
@@ -11,38 +10,49 @@ import com.hashthrims.domain.Roles;
 import com.hashthrims.domain.Users;
 import com.vaadin.ui.*;
 import java.util.List;
+
 /**
  *
  * @author abismail
  */
-public class UserTable extends Table{
- private static ClientDataService data = new ClientDataService();
-private Long id;
-private Roles role;
+public class UserTable extends Table {
+
+    private static ClientDataService data = new ClientDataService();
+    private Long id;
     private HashThrimsMain main;
 
     public UserTable(HashThrimsMain app) {
         this.main = app;
-        // Make Table fill all space
         setSizeFull();
-        // Define the names and data types of columns.
         addContainerProperty("FirstName", String.class, null);
-        addContainerProperty("Middle Name(s) ", String.class, null);
-        addContainerProperty("Last Name ", String.class, null);
-        addContainerProperty("Username ", String.class, null);
-        addContainerProperty("Role  ", String.class, null);
+        addContainerProperty("Middle Name(s)", String.class, null);
+        addContainerProperty("Last Name", String.class, null);
+        addContainerProperty("Username", String.class, null);
+        addContainerProperty("Roles", String.class, null);
         // Add Data Columns
-        List<Users> countries = data.getUsersService().findAll();
-        for (Users country : countries) {
-            id = ((Roles)country.getRoles()).getId();
-            role = data.getRolesService().find(id);
-            addItem(new Object[]{country.getFirstname(), country.getMiddlename(), country.getLastname(), country.getEmail(), role.getRoleName()}, country.getId());
+        List<Users> users = data.getUsersService().findAll();
+        for (Users user : users) {
+            addItem(new Object[]{user.getFirstname(),
+                        user.getMiddlename(),
+                        user.getLastname(),
+                        user.getEmail(),
+                        (getRoles(user.getRoles()))}, user.getId());
         }
-        // Allow selecting items from the table.
+
         setNullSelectionAllowed(false);
 
         setSelectable(true);
-        // Send changes in selection immediately to server.
         setImmediate(true);
+    }
+
+    private String getRoles(List<Roles> roles) {
+        final StringBuilder st = new StringBuilder();
+        if (roles!=null) {
+            for (Roles role : roles) {
+                st.append(" ");
+                st.append(role.getRoleName());
+            }
+        }
+        return st.toString();
     }
 }

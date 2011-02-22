@@ -126,10 +126,9 @@ public class EmployeePositionPage extends VerticalLayout implements ClickListene
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getEmployeePositionService().remove(values);
-                    final Person p = data.getPersonService().find(person.getId());
-                    final PersonDetailsView view = new PersonDetailsView(p, main, "POS");
-                    
+                    person.getPosition().remove(values);
+                    data.getPersonService().merge(person);
+                    final PersonDetailsView view = new PersonDetailsView(person, main, "POS");
                     main.mainView.setSecondComponent(view);
 
                 }

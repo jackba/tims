@@ -102,7 +102,8 @@ public class EducationHistoryWindow extends Window implements ClickListener {
         vals.put("major", major);
         EducationHistory educationHistory = factory.updateEducationHistory(country, vals,graduationDate,degreeType,id );
 
-        data.getEducationHistoryService().merge(educationHistory);
+        person.getEducationHistory().add(educationHistory);
+        data.getPersonService().merge(person);
     }
 
 

@@ -84,7 +84,8 @@ public class EvaluateCourseWindow extends Window implements ClickListener {
         Long evaluation = Long.parseLong(formData.getField("evaluation").getValue().toString());
         Date date = fieldValues.getDateFields(formData.getField("evaluationDate").getValue());
         EmployeeCourses ec = factory.updateEvalaution(id, evaluation,date);
-        data.getEmployeeCourseService().merge(ec);
+        person.getCourses().add(ec);
+        data.getPersonService().persist(person);
     }
 
   

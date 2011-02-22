@@ -91,7 +91,8 @@ public class EducationHistoryTable extends Table {
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getEducationHistoryService().remove(educationHistory);
+                    p.getEducationHistory().remove(educationHistory);
+                    data.getPersonService().merge(p);
                     final PersonDetailsView view = new PersonDetailsView(p, main, "EDU");
                     main.mainView.setSecondComponent(view);
 

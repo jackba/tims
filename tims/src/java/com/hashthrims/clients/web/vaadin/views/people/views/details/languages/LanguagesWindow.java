@@ -104,8 +104,8 @@ public class LanguagesWindow extends Window implements ClickListener {
         vals.put("reading", reading);
         vals.put("writing", writing);
         EmployeeLanguages employeeLanguage  = factory.updateLanguages(lang, vals,id);
-        //person.getLanguages().add(employeeLanguage);
-        data.getEmployeeLanguagesService().merge(employeeLanguage);
+        person.getLanguages().add(employeeLanguage);
+        data.getPersonService().merge(person);
     }
 
     private void saveLanguages(Form formData) {

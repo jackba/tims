@@ -1,0 +1,7 @@
+ExcessiveImports
+SingularField
+MethodArgumentCouldBeFinal
+CallSuperInConstructor
+AvoidInstantiatingObjectsInLoops
+PositionLiteralsFirstInComparisons
+BeanMembersShouldSerialize

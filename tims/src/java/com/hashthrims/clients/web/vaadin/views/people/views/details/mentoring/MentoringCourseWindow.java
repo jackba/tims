@@ -108,7 +108,8 @@ public class MentoringCourseWindow extends Window implements ClickListener {
         val.put("mentoringSession", mentoringSession);
         final EmployeeMentoring ec = factory.updateMentoringSession(val, mentoringDate, id);
 
-        data.gettrainingService().merge(ec);
+        person.getMentoring().add(ec);
+        data.getPersonService().merge(person);
     }
 
     private void saveMentoringCourse(Form formData) {

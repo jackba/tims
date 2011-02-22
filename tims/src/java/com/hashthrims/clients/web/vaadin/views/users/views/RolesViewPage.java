@@ -42,7 +42,7 @@ public class RolesViewPage extends VerticalLayout implements
         main = app;
         setSizeFull();
         cf = new UsersForm();
-        form = cf.createCadreFrom();
+        form = cf.createUserForm();
 
         // Add Listeners
         cf.getSave().addListener((ClickListener) this);

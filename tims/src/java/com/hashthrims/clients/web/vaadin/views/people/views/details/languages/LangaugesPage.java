@@ -108,9 +108,9 @@ public class LangaugesPage extends VerticalLayout implements ClickListener, Valu
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getEmployeeLanguagesService().remove(values);
-                    final Person p = data.getPersonService().find(person.getId());
-                    final PersonDetailsView view = new PersonDetailsView(p, main, "LANG");
+                    person.getLanguages().remove(values);
+                    data.getPersonService().merge(person);
+                    final PersonDetailsView view = new PersonDetailsView(person, main, "LANG");
                     main.mainView.setSecondComponent(view);
 
                 }

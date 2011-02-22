@@ -20,7 +20,7 @@ public class UsersBean implements Serializable{
     private String lastname;
     private String middlename;
     private boolean enabled;
-    private List<Long> roles;
+    private List<String> roles;
 
     /**
      * @return the id
@@ -123,14 +123,14 @@ public class UsersBean implements Serializable{
     /**
      * @return the roles
      */
-    public List<Long> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
     /**
      * @param roles the roles to set
      */
-    public void setRoles(List<Long> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 }

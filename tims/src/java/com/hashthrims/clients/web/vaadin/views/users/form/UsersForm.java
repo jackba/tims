@@ -6,6 +6,7 @@ package com.hashthrims.clients.web.vaadin.views.users.form;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
@@ -34,7 +35,7 @@ public class UsersForm {
     public UsersForm() {
     }
 
-    public Form createCadreFrom() {
+    public Form createUserForm() {
         final Form form = new Form();
         form.setCaption("Users");
         form.setImmediate(false);
@@ -162,7 +163,7 @@ public class UsersForm {
 
             Field field = super.createField(item, propertyId, uiContext);
             if ("email".equals(propertyId)) {
-                field = new TextField("Email Address:");
+                field = new TextField("Username(Email Address):");
                 ((TextField) field).setColumns(30);
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);
@@ -192,14 +193,12 @@ public class UsersForm {
                 ((TextField) field).setRequired(true);
                 ((TextField) field).setRequiredError("Please Enter Cadre");
             } else if ("enabled".equals(propertyId)) {
-                field = new TextField("Activate Account:");
-                ((TextField) field).setColumns(30);
-                ((TextField) field).setNullRepresentation("");
-                ((TextField) field).setRequired(true);
-                ((TextField) field).setRequiredError("Please Enter Cadre");
+                field = new CheckBox("Activate Account:");
+                ((CheckBox) field).setSizeFull();
+                ((CheckBox) field).setRequiredError("Please Enter Cadre");
             } else if ("roles".equals(propertyId)) {
 
-                selectTrainees = new ListSelect("Select Roles:");
+                selectTrainees = new ListSelect("Select Permissions:");
                 selectTrainees.setImmediate(true);
 
                 selectTrainees.addItem("ROLE_ADMIN");
@@ -211,7 +210,7 @@ public class UsersForm {
                 selectTrainees.addItem("ROLE_MANAGER");
                 selectTrainees.setItemCaption("ROLE_MANAGER", "System Manager");
 
-                selectTrainees.addItem("ROLE_ADMIN");
+                selectTrainees.addItem("ROLE_TRAINER");
                 selectTrainees.setItemCaption("ROLE_TRAINER", "Trainer");
 
                 selectTrainees.setNewItemsAllowed(false);
@@ -222,7 +221,7 @@ public class UsersForm {
                 selectTrainees.setImmediate(true);
                 return selectTrainees;
             } else if ("id".equals(propertyId)) {
-                field = new TextField("Cadre ID:");
+                field = new TextField("User ID:");
                 ((TextField) field).setVisible(false);
             }
             return field;

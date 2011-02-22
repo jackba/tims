@@ -6,7 +6,6 @@ package com.hashthrims.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +25,7 @@ public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     @Column(unique = true)
     private String email;
     private String passwd;
@@ -33,8 +33,8 @@ public class Users implements Serializable {
     private String lastname;
     private String middlename;
     private boolean enabled;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "person_id")
     private List<Roles> roles;
 
     public Long getId() {
@@ -140,21 +140,6 @@ public class Users implements Serializable {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    /**
-     * @return the roles
-     */
-    public List<Roles> getRoles() {
-        return roles;
-    }
-
-    /**
-     * @param roles the roles to set
-     */
-    public void setRoles(List<Roles> roles) {
-        this.setRoles(roles);
-    }
-
     /**
      * @return the email
      */
@@ -167,6 +152,20 @@ public class Users implements Serializable {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the roles
+     */
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
     }
 
     

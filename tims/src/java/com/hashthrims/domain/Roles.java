@@ -5,12 +5,10 @@
 package com.hashthrims.domain;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 /**
  *
@@ -25,9 +23,7 @@ public class Roles implements Serializable {
     private Long id;
     private String roleName;
     private String email;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Users user;
-
+    
     public Long getId() {
         return id;
     }
@@ -77,19 +73,7 @@ public class Roles implements Serializable {
 
    
 
-    /**
-     * @return the user
-     */
-    public Users getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(Users user) {
-        this.user = user;
-    }
+    
 
     /**
      * @return the email

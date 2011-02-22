@@ -110,7 +110,8 @@ public class ScheduleCourseWindow extends Window implements ClickListener {
 
 
         EmployeeCourses ec = factory.updateEmployeeCourse(st, dates, retraining);
-        data.getEmployeeCourseService().merge(ec);
+        person.getCourses().add(ec);
+        data.getPersonService().persist(person);
     }
 
     private void saveShortCourse(Form formData) {

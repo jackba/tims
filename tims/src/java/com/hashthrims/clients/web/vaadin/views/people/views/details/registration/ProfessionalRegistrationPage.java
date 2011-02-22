@@ -117,9 +117,9 @@ public class ProfessionalRegistrationPage extends VerticalLayout implements Clic
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getProfessionalRegistrationService().remove(values);
-                    final Person p = data.getPersonService().find(person.getId());
-                    final PersonDetailsView view = new PersonDetailsView(p, main, "REG");
+                    person.getProfessionalRegistration().remove(values);
+                    data.getPersonService().merge(person);
+                    final PersonDetailsView view = new PersonDetailsView(person, main, "REG");
                     main.mainView.setSecondComponent(view);
 
                 }

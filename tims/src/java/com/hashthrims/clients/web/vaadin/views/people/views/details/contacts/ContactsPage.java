@@ -123,9 +123,9 @@ public class ContactsPage extends VerticalLayout implements ClickListener, Value
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getContactsService().remove(values);
-                    final Person p = data.getPersonService().find(person.getId());
-                    final PersonDetailsView view = new PersonDetailsView(p, main, "CONTACTS");
+                    person.getContacts().remove(values);
+                    data.getPersonService().merge(person);
+                    final PersonDetailsView view = new PersonDetailsView(person, main, "CONTACTS");
                     main.mainView.setSecondComponent(view);
 
                 }

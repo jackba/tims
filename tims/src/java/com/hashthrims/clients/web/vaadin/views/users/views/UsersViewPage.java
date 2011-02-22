@@ -4,14 +4,17 @@
  */
 package com.hashthrims.clients.web.vaadin.views.users.views;
 
-
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
+import com.hashthrims.clients.web.vaadin.views.users.ManageUsersMenuView;
 import com.hashthrims.clients.web.vaadin.views.users.form.UsersForm;
 import com.hashthrims.clients.web.vaadin.views.users.model.UsersBean;
 import com.hashthrims.clients.web.vaadin.views.users.tables.UserTable;
+import com.hashthrims.clients.web.vaadin.views.users.util.PasswordFactory;
+import com.hashthrims.domain.Roles;
 import com.hashthrims.domain.Users;
 import com.hashthrims.infrastructure.factories.UsersFactory;
+import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -23,6 +26,10 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.VerticalLayout;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -37,12 +44,13 @@ public class UsersViewPage extends VerticalLayout implements
     private static final ClientDataService data = new ClientDataService();
     private final UserTable table;
     private final UsersFactory factory = data.getUsersFactory();
+    private DataFieldsUtil fieldValues = new DataFieldsUtil();
 
     public UsersViewPage(HashThrimsMain app) {
         main = app;
         setSizeFull();
         pform = new UsersForm();
-        form = pform.createCadreFrom();
+        form = pform.createUserForm();
 
         // Add Listeners
         pform.getSave().addListener((ClickListener) this);
@@ -68,15 +76,21 @@ public class UsersViewPage extends VerticalLayout implements
     public void valueChange(ValueChangeEvent event) {
         final Property property = event.getProperty();
 
+        final List<String> formRoles = new ArrayList<String>();
+
         if (property == table) {
             final Item record = table.getItem(table.getValue());
             final UsersBean user = new UsersBean();
-            user.setEmail(record.getItemProperty("Job Title").toString());
-           // user.setEnabled(record.getItemProperty("Job Code").toString());
-            user.setFirstname(record.getItemProperty("Job Description").toString());
-//            job.setSalaryGrade(record.getItemProperty("Salary Grade").getValue().toString());
-            user.setLastname(record.getItemProperty("Classification").getValue().toString());
-            user.setMiddlename(record.getItemProperty("Cadre").getValue().toString());
+            user.setEmail(record.getItemProperty("Username").toString());
+            user.setFirstname(record.getItemProperty("FirstName").toString());
+            user.setLastname(record.getItemProperty("Last Name").getValue().toString());
+            user.setMiddlename(record.getItemProperty("Middle Name(s)").getValue().toString());
+            Users userId = data.getUsersService().find(new Long(table.getValue().toString()));
+            List<Roles> userRoles = userId.getRoles();
+            for (Roles role : userRoles) {
+                formRoles.add(role.getRoleName());
+            }
+            user.setRoles(formRoles);
             user.setId(new Long(table.getValue().toString()));
             if (user != form.getItemDataSource()) {
                 final BeanItem item = new BeanItem(user);
@@ -99,8 +113,8 @@ public class UsersViewPage extends VerticalLayout implements
     public void buttonClick(ClickEvent event) {
         final Button source = event.getButton();
         if (source == pform.getSave()) {
-            saveNewDistrict(form);
-         //   main.mainView.setSecondComponent(new CreateUsersStructureMenuView(main, "Users"));
+            saveNewUser(form);
+            main.mainView.setSecondComponent(new ManageUsersMenuView(main, "USERS"));
         } else if (source == pform.getEdit()) {
             form.setReadOnly(false);
             pform.getSave().setVisible(false);
@@ -109,50 +123,75 @@ public class UsersViewPage extends VerticalLayout implements
             pform.getDelete().setVisible(false);
             pform.getUpdate().setVisible(true);
         } else if (source == pform.getCancel()) {
-         //   main.mainView.setSecondComponent(new CreateUsersStructureMenuView(main, "Users"));
+            main.mainView.setSecondComponent(new ManageUsersMenuView(main, "USERS"));
         } else if (source == pform.getUpdate()) {
-            saveEditedDistrict(form);
+            updateNewUser(form);
 
-         //   main.mainView.setSecondComponent(new CreateUsersStructureMenuView(main, "Users"));
+            main.mainView.setSecondComponent(new ManageUsersMenuView(main, "USERS"));
 
         } else if (source == pform.getDelete()) {
-            deleteDistrict(form);
-        //    main.mainView.setSecondComponent(new CreateUsersStructureMenuView(main, "Users"));
+            deleteUser(form);
+            main.mainView.setSecondComponent(new ManageUsersMenuView(main, "USERS"));
 
         }
 
     }
 
-    public void saveNewDistrict(Form form) {
+    public void saveNewUser(Form form) {
 
-        final String title = form.getField("title").getValue().toString();
-        final String description = form.getField("description").getValue().toString();
-        final String code = form.getField("code").getValue().toString();
-//        String salaryGrade = form.getField("salaryGrade").getValue().toString();
-        final String jobClassification = form.getField("jobClassification").getValue().toString();
-        final String cadre = form.getField("cadre").getValue().toString();
+        final String email = form.getField("email").getValue().toString();
+        final String firstname = form.getField("firstname").getValue().toString();
+        final String passwd = PasswordFactory.getNewPassword();
+        final String middlename = form.getField("middlename").getValue().toString();
+        final String lastname = form.getField("lastname").getValue().toString();
+        final String enabled = form.getField("enabled").getValue().toString();
+        final boolean activitate = Boolean.valueOf(enabled);
+        Map<String, String> userValues = new HashMap<String, String>();
+        userValues.put("email", email);
+        userValues.put("firstname", firstname);
+        userValues.put("passwd", passwd);
+        userValues.put("middlename", middlename);
+        userValues.put("lastname", lastname);
 
-       // final Users d = factory.createJob(title, description, code, jobClassification, cadre);
-       // data.getUserservice().persist(d);
+        Object roles = form.getField("roles").getValue();
+        List<String> userRoles = fieldValues.getSelectListFields(roles);
+        final Users user = factory.createNewUser(userValues, userRoles, activitate);
+        data.getUsersService().persist(user);
 
     }
 
-    public void saveEditedDistrict(Form form) {
+    public void updateNewUser(Form form) {
+        final String email = form.getField("email").getValue().toString();
+        final Long id = Long.parseLong(form.getField("id").getValue().toString());
+        final String firstname = form.getField("firstname").getValue().toString();     
+        final String middlename = form.getField("middlename").getValue().toString();
+        final String lastname = form.getField("lastname").getValue().toString();
+        final String enabled = form.getField("enabled").getValue().toString();
+        final boolean activitate = Boolean.valueOf(enabled);
 
-        final String title = form.getField("title").getValue().toString();
-        final String description = form.getField("description").getValue().toString();
-        final String code = form.getField("code").getValue().toString();
-        //final String salaryGrade = form.getField("salaryGrade").getValue().toString();
-        final String jobClassification = form.getField("jobClassification").getValue().toString();
-        final String cadre = form.getField("cadre").getValue().toString();
-        final Long UsersId = Long.parseLong(form.getField("UsersId").getValue().toString());
-       // final Users j = factory.updateJob(title, description, code, jobClassification, cadre, UsersId);
-      //  data.getUserservice().merge(j);
+
+
+
+
+        Map<String, String> userValues = new HashMap<String, String>();
+        userValues.put("email", email);
+        userValues.put("firstname", firstname);
+        userValues.put("middlename", middlename);
+        userValues.put("lastname", lastname);
+        userValues.put("enabled", enabled);
+
+        Object roles = form.getField("roles").getValue();
+        List<String> userRoles = fieldValues.getSelectListFields(roles);
+
+        final Users user = factory.updateUser(userValues, userRoles, activitate, id);
+        data.getUsersService().merge(user);
+
+
     }
 
-    public void deleteDistrict(Form form) {
-        final Long UsersId = Long.parseLong(form.getField("UsersId").getValue().toString());
-        final Users c = factory.loadUsers(UsersId);
-       // data.getUserservice().remove(c);
+    public void deleteUser(Form form) {
+        final Long id = Long.parseLong(form.getField("id").getValue().toString());
+        final Users c = factory.loadUser(id);
+        data.getUsersService().remove(c);
     }
 }

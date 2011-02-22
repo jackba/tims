@@ -99,7 +99,8 @@ public class EmployeePositionWindow extends Window implements ClickListener {
         final Positions position = data.getPositionsService().find(positionId);
 
         EmployeePosition employeePositions = factory.updateEmployeePosition(position, status, startDate, endDate, id);
-        data.getEmployeePositionService().merge(employeePositions);
+        person.getPosition().add(employeePositions);
+        data.getPersonService().merge(person);
     }
 
     private void saveEmployeePosition(Form formData) {
