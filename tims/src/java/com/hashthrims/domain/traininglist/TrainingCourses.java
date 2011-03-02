@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
  * @author boniface
  */
 @Entity
-public class TrainingCourses implements Serializable {
+public class TrainingCourses implements Serializable,Comparable<TrainingCourses> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -201,5 +201,10 @@ public class TrainingCourses implements Serializable {
      */
     public void setCourseFunders(List<CourseFunders> courseFunders) {
         this.courseFunders = courseFunders;
+    }
+
+    @Override
+    public int compareTo(TrainingCourses o) {
+       return courseName.compareTo(o.courseName);
     }
 }

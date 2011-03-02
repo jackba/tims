@@ -26,6 +26,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Runo;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -109,6 +110,7 @@ public class EmployeePositionForm {
                 return selectStatus;
             } else if ("facility".equals(propertyId)) {
                 List<Facility> facilities = data.getFacilityService().findAll();
+                Collections.sort(facilities);
                 selectFacilityList = new Select("Facility");
                 for (Facility fac : facilities) {
                     selectFacilityList.addItem(fac.getId());

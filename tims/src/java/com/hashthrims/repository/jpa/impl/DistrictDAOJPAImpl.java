@@ -11,6 +11,7 @@ import com.hashthrims.repository.jpa.DistrictDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DistrictDAOJPAImpl  implements DistrictDAO {
 
-    @PersistenceContext
+    @PersistenceContext(type=PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override

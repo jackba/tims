@@ -23,6 +23,7 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -127,6 +128,7 @@ public class PositionForm {
                 selectFacility.setImmediate(true);
                 
                 facilities = data.getFacilityService().findAll();
+                Collections.sort(facilities);
                 for (Facility f : facilities) {
                     selectFacility.addItem(f.getId());
                     selectFacility.setItemCaption(f.getId(),f.getFacilityName());

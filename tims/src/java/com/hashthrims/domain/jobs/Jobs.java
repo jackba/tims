@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
  * @author boniface
  */
 @Entity
-public class Jobs implements Serializable {
+public class Jobs implements Serializable, Comparable<Jobs>{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -150,6 +150,11 @@ public class Jobs implements Serializable {
      */
     public void setCadres(Cadres cadres) {
         this.cadres = cadres;
+    }
+
+    @Override
+    public int compareTo(Jobs o) {
+        return jobTittle.compareTo(o.jobTittle);
     }
 
     

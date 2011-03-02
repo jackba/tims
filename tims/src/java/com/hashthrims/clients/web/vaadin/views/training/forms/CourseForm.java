@@ -28,6 +28,8 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Runo;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -166,6 +168,7 @@ public class CourseForm {
                 return selectTrainingFunders;
             } else if ("competency".equals(propertyId)) {
                 competenciesLists = data.getCompetencyList().findAll();
+                Collections.sort(competenciesLists);
                 selectCompetencies = new ListSelect("Competencies:");
                 for (CompetencyList ss : competenciesLists) {
                     selectCompetencies.addItem(ss.getComp_name());

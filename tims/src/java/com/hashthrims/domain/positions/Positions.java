@@ -23,7 +23,7 @@ import javax.persistence.OneToOne;
  * @author boniface
  */
 @Entity
-public class Positions implements Serializable {
+public class Positions implements Serializable,Comparable<Positions> {
 
     private static long serialVersionUID = 1L;
 
@@ -224,6 +224,11 @@ public class Positions implements Serializable {
      */
     public void setSupervisor(Positions supervisor) {
         this.supervisor = supervisor;
+    }
+
+    @Override
+    public int compareTo(Positions o) {
+        return positionCode.compareTo(o.positionCode);
     }
 
 }

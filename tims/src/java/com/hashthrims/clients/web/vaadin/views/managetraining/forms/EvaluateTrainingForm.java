@@ -29,6 +29,7 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Runo;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -107,7 +108,9 @@ public class EvaluateTrainingForm {
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             } else if ("facultyId".equals(propertyId)) {
                 List<Facility> facilities = data.getFacilityService().findAll();
+                 Collections.sort(facilities);
                 selectFacilities = new Select("Select Facility:");
+
                 for (Facility facility : facilities) {
                     selectFacilities.addItem(facility.getId());
                     selectFacilities.setItemCaption(facility.getId(), facility.getFacilityName());
@@ -128,6 +131,7 @@ public class EvaluateTrainingForm {
                 selectTrainees.setMultiSelect(true);
                 if (fac != null) {
                     List<Person> persons = data.getPersonService().findAll();
+                     Collections.sort(persons);
                     personsLists = personIfacility.getPeopleInFacility(persons, fac);
                     for (Person attendee : personsLists) {
                         selectTrainees.addItem(attendee.getId());

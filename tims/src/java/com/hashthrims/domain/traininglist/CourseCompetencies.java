@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author boniface
  */
 @Entity
-public class CourseCompetencies implements Serializable {
+public class CourseCompetencies implements Serializable,Comparable<CourseCompetencies> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -83,6 +83,11 @@ public class CourseCompetencies implements Serializable {
      */
     public void setCompetencyId(Long competencyId) {
         this.competencyId = competencyId;
+    }
+
+    @Override
+    public int compareTo(CourseCompetencies o) {
+        return competencyName.compareTo(o.competencyName);
     }
 
 }

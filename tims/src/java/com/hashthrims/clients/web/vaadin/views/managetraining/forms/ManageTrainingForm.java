@@ -141,6 +141,7 @@ public class ManageTrainingForm {
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             } else if ("facultyId".equals(propertyId)) {
                 List<Facility> facilities = data.getFacilityService().findAll();
+                Collections.sort(facilities);
                 selectFacilities = new Select("Select Facility:");
                 for (Facility facility : facilities) {
                     selectFacilities.addItem(facility.getId());

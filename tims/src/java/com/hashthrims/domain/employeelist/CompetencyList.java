@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
  * @author boniface
  */
 @Entity
-public class CompetencyList implements Serializable {
+public class CompetencyList implements Serializable ,Comparable<CompetencyList>{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -105,6 +105,11 @@ public class CompetencyList implements Serializable {
      */
     public void setCompType(CompetencyType compType) {
         this.compType = compType;
+    }
+
+    @Override
+    public int compareTo(CompetencyList o) {
+       return compName.compareTo(o.compName);
     }
 
 }

@@ -23,7 +23,7 @@ import javax.persistence.OneToOne;
  * @author boniface
  */
 @Entity
-public class Facility implements Serializable {
+public class Facility implements Serializable,Comparable<Facility> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -144,6 +144,11 @@ public class Facility implements Serializable {
      */
     public void setPositions(List<Positions> positions) {
         this.positions = positions;
+    }
+
+    @Override
+    public int compareTo(Facility o) {
+        return facilityName.compareTo(o.facilityName);
     }
 
 }
