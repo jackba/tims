@@ -78,7 +78,7 @@ public class DepartmentViewPage extends VerticalLayout implements
             if (department != form.getItemDataSource()) {
                 final BeanItem item = new BeanItem(department);
                 form.setItemDataSource(item);
-                // BUG enabling this Disables form.setVisibleItemProperties(cf.orderList());
+                form.setVisibleItemProperties(cf.orderList());
 
                 form.setReadOnly(true);
                 //Buttons Behaviou

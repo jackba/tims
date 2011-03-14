@@ -7,7 +7,6 @@ package com.hashthrims.clients.web.vaadin.components;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.managementoring.ManageMentoringMenuView;
 import com.hashthrims.clients.web.vaadin.views.managetraining.ManageTrainingMenuView;
-import com.hashthrims.clients.web.vaadin.views.reports.ReportsMenuView;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Tree;
@@ -26,7 +25,7 @@ public class ManageCoursesTreeMenu extends Tree implements ItemClickListener {
         this.main = app;
 
         addItem(MANAGE_COURSES);
-       // addItem(MANAGE_MENTORING);
+        addItem(MANAGE_MENTORING);
         /*
          * We want items to be selectable but do not want the user to be able to
          * de-select an item.

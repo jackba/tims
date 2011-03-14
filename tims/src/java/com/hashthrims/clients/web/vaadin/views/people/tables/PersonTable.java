@@ -11,6 +11,7 @@ import com.hashthrims.clients.web.vaadin.views.people.forms.PersonEditForm;
 import com.hashthrims.clients.web.vaadin.views.people.models.PersonBean;
 import com.hashthrims.clients.web.vaadin.views.people.views.PersonDetailsView;
 import com.hashthrims.domain.Person;
+import com.hashthrims.infrastructure.util.GetUserCredentials;
 import com.hashthrims.infrastructure.util.TimsUtil;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
@@ -24,6 +25,7 @@ import java.util.List;
 public class PersonTable extends Table {
 
     private static ClientDataService data = new ClientDataService();
+     private final GetUserCredentials user = new GetUserCredentials();
     private HashThrimsMain main;
     private TimsUtil st = new TimsUtil();
     private List<Person> persons;
@@ -40,7 +42,9 @@ public class PersonTable extends Table {
         addContainerProperty("Facility", String.class, null);
         addContainerProperty("Details", Button.class, null);
         addContainerProperty("Edit", Button.class, null);
-        addContainerProperty("Delete", Button.class, null);
+        if (user.isUserWithRole("ROLE_ADMIN")) {
+            addContainerProperty("Delete", Button.class, null);
+        }
 
 
         // Add Data Columns
@@ -100,13 +104,25 @@ public class PersonTable extends Table {
             delete.setStyleName(Reindeer.BUTTON_LINK);
             edit.setStyleName(Reindeer.BUTTON_LINK);
             detailsField.setStyleName(Reindeer.BUTTON_LINK);
-            addItem(new Object[]{person.getPersonName(),
-                        person.getPersonSurname(),
-                        st.getPositionTitle(person.getPosition()),
-                        st.getFacilityName(person.getPosition()),
-                        detailsField,
-                        edit,
-                        delete}, person.getId());
+
+            if (user.isUserWithRole("ROLE_ADMIN")) {
+                addItem(new Object[]{person.getPersonName(),
+                            person.getPersonSurname(),
+                            st.getPositionTitle(person.getPosition()),
+                            st.getFacilityName(person.getPosition()),
+                            detailsField,
+                            edit,
+                            delete}, person.getId());
+            } else {
+
+                addItem(new Object[]{person.getPersonName(),
+                            person.getPersonSurname(),
+                            st.getPositionTitle(person.getPosition()),
+                            st.getFacilityName(person.getPosition()),
+                            detailsField,
+                            edit}, person.getId());
+
+            }
         }
 
         // Allow selecting items from the table.

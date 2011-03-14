@@ -1,0 +1,48 @@
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+
+
+    <global-method-security secured-annotations="enabled">
+		<!-- AspectJ pointcut expression that locates our "post" method and applies security that way
+		<protect-pointcut expression="execution(* bigbank.*Service.post*(..))" access="ROLE_TELLER"/>
+		-->
+    </global-method-security>
+
+    <http auto-config="true">
+
+        <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/VAADIN/**" filters="none" />
+        <intercept-url pattern="/ws/**" filters="none" />
+        <intercept-url pattern="/forgot/**" filters="none" />
+        <intercept-url pattern="/*.jsp" filters="none" />
+         <intercept-url pattern="/*.css" filters="none" />
+        <intercept-url pattern="/register/**" filters="none" />
+        <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_ACC,ROLE_ADMIN,ROLE_MANAGER" />
+        <form-login login-page='/login.jsp'/>
+
+        <!--<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/> -->
+
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+            <password-encoder hash="md5"/>
+            <jdbc-user-service  data-source-ref="dataSource"
+users-by-username-query="SELECT email, passwd, enabled FROM Users u where u.email=?"
+authorities-by-username-query="SELECT u.email, r.rolename FROM Users u, Roles r
+			       WHERE u.id = r.person_id AND u.email=?"
+	 />
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- Configure the authentication provider -->
+</beans:beans>
+
+

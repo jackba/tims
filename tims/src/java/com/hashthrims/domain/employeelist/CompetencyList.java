@@ -6,6 +6,7 @@
 package com.hashthrims.domain.employeelist;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class CompetencyList implements Serializable ,Comparable<CompetencyList>{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(length=1000)
     private String compName;
     @OneToOne
     private CompetencyType compType;

@@ -277,6 +277,10 @@ public final class PasswordGenerator {
         }
     }
 
+    public String getStaticPassword() {
+        return "20TimsUseRs11";
+    }
+
     /*--------------------------------------------------------
     Wrapper classes and interface to mimic the array of
     function references functionality required.

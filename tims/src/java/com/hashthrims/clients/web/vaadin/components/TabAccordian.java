@@ -5,6 +5,7 @@
 package com.hashthrims.clients.web.vaadin.components;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
+import com.hashthrims.infrastructure.util.GetUserCredentials;
 
 import com.vaadin.ui.Accordion;
 import com.vaadin.ui.VerticalLayout;
@@ -15,22 +16,25 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class TabAccordian extends Accordion  {
 
-    private HashThrimsMain main;
+    private final HashThrimsMain main;
     public static final String MANAGE_PEOPLE = "Manage People";
     public static final String REPORTS = "Generate Reports";
     public static final String CONFIGURE_SYSTEM = "Configure System";
     public static final String SYSTEM_USERS = "Manage System Users";
     public static final String COURSES = " Manage Training";
     public static final String CHANGE_PASSWORD = "Change Your Details";
+    private final GetUserCredentials user;
     
     public TabAccordian(HashThrimsMain app) {
         main =app;
+        user = new GetUserCredentials();
         setSizeFull();
 
         //Configure Manage People Menu
         VerticalLayout managePeople = new VerticalLayout();
         ManagePeopleTreeMenu managePeopleTree = new ManagePeopleTreeMenu(main);
         managePeople.addComponent(managePeopleTree);
+
         addTab(managePeople, MANAGE_PEOPLE, null);
 
         // Manage Courses
@@ -55,13 +59,19 @@ public class TabAccordian extends Accordion  {
         VerticalLayout configureSystem = new VerticalLayout();
         ConfigureSystemTreeMenu configureTree = new ConfigureSystemTreeMenu(main);
         configureSystem.addComponent(configureTree);
-        addTab(configureSystem, CONFIGURE_SYSTEM, null);
+
+        if (user.isUserWithRole("ROLE_ADMIN")) {
+            addTab(configureSystem, CONFIGURE_SYSTEM, null);
+        }
 
         //Configure System Users
         VerticalLayout systemUsers = new VerticalLayout();
         ManageSystemUsersTreeMenu systemUsersTree = new ManageSystemUsersTreeMenu(app);
         systemUsers.addComponent(systemUsersTree);
-        addTab(systemUsers, SYSTEM_USERS, null);
+
+        if (user.isUserWithRole("ROLE_ADMIN")) {
+            addTab(systemUsers, SYSTEM_USERS, null);
+        }
     }
 
 }

@@ -5,10 +5,8 @@
 package com.hashthrims.clients.web.vaadin.components;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
-import com.hashthrims.clients.web.vaadin.views.manageuserprofiles.ResetPasswordViewPage;
-import com.hashthrims.clients.web.vaadin.views.manageuserprofiles.UpdateProfileViewPage;
-import com.hashthrims.clients.web.vaadin.views.reports.ReportsMenuView;
 import com.hashthrims.clients.web.vaadin.views.users.ManageUsersMenuView;
+import com.hashthrims.clients.web.vaadin.views.users.views.PasswordResetViewPage;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Tree;
@@ -52,7 +50,7 @@ public class ManageSystemUsersTreeMenu extends Tree implements ItemClickListener
     }
 
     private void showChangePasswordViewPage() {
-        ResetPasswordViewPage w = new ResetPasswordViewPage(main);
+        PasswordResetViewPage w = new PasswordResetViewPage(main);
         main.mainView.setSecondComponent(w);
     }
 

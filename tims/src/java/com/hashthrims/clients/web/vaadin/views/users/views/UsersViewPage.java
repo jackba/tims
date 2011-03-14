@@ -141,8 +141,8 @@ public class UsersViewPage extends VerticalLayout implements
 
         final String email = form.getField("email").getValue().toString();
         final String firstname = form.getField("firstname").getValue().toString();
-        final String passwd = PasswordFactory.getNewPassword();
-        final String middlename = form.getField("middlename").getValue().toString();
+        final String passwd = PasswordFactory.getNewStaticPassword();
+        final String middlename = fieldValues.getStringFields(form.getField("middlename").getValue());
         final String lastname = form.getField("lastname").getValue().toString();
         final String enabled = form.getField("enabled").getValue().toString();
         final boolean activitate = Boolean.valueOf(enabled);
@@ -164,7 +164,7 @@ public class UsersViewPage extends VerticalLayout implements
         final String email = form.getField("email").getValue().toString();
         final Long id = Long.parseLong(form.getField("id").getValue().toString());
         final String firstname = form.getField("firstname").getValue().toString();     
-        final String middlename = form.getField("middlename").getValue().toString();
+        final String middlename = fieldValues.getStringFields(form.getField("middlename").getValue());
         final String lastname = form.getField("lastname").getValue().toString();
         final String enabled = form.getField("enabled").getValue().toString();
         final boolean activitate = Boolean.valueOf(enabled);

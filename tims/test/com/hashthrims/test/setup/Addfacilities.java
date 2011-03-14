@@ -18,17 +18,12 @@ import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.domain.positions.Status;
 import com.hashthrims.domain.regionlist.AddressType;
 import com.hashthrims.domain.regionlist.City;
-import com.hashthrims.domain.regionlist.Country;
-import com.hashthrims.domain.regionlist.County;
 import com.hashthrims.domain.regionlist.District;
-import com.hashthrims.domain.regionlist.Province;
 import com.hashthrims.repository.jpa.AddressTypeDAO;
 import com.hashthrims.repository.jpa.CadresDAO;
-import com.hashthrims.repository.jpa.CityDAO;
 import com.hashthrims.repository.jpa.ClassificationDAO;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
-import com.hashthrims.repository.jpa.CountryDAO;
 import com.hashthrims.repository.jpa.CountyDAO;
 import com.hashthrims.repository.jpa.DemographyDAO;
 import com.hashthrims.repository.jpa.DepartmentDAO;
@@ -39,9 +34,7 @@ import com.hashthrims.repository.jpa.JobsDAO;
 import com.hashthrims.repository.jpa.PersonDAO;
 import com.hashthrims.repository.jpa.PositionTypesDAO;
 import com.hashthrims.repository.jpa.PositionsDAO;
-import com.hashthrims.repository.jpa.RegionDAO;
 import com.hashthrims.repository.jpa.StatusDAO;
-import com.hashthrims.repository.jpa.impl.FacilityDAOJPAImpl;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -64,16 +57,13 @@ import org.junit.Test;
  */
 public class Addfacilities {
 
-    private static Long countryId;
     private FacilityTypeDAO faciliTypeDAO;
-    private RegionDAO provinceDAO;
-    private CountyDAO countyDAO;
     private DistrictDAO subDistrictDAO;
-    private CityDAO cityDAO;
     private FacilityDAO facilityDAO;
     private JobsDAO jobsDAO;
     private CadresDAO cadresDAO;
     private ClassificationDAO classificationDAO;
+    private CountyDAO countyDAO;
     private static ApplicationContext ctx;
 
     public Addfacilities() {
@@ -206,7 +196,7 @@ public class Addfacilities {
 
     }
 
-    @Test
+    @Ignore
     public void addJobPositions() {
         countyDAO = (CountyDAO) ctx.getBean("countyDAO");
         facilityDAO = (FacilityDAO) ctx.getBean("facilityDAO");
@@ -262,7 +252,7 @@ public class Addfacilities {
         PersonDAO personDAO = (PersonDAO) ctx.getBean("personDAO");
         DemographyDAO demographyDAO = (DemographyDAO) ctx.getBean("demographyDAO");
         subDistrictDAO = (DistrictDAO) ctx.getBean("districtDAO");
-        AddressTypeDAO addressTypeDAO = (AddressTypeDAO)ctx.getBean("addressTypeDAO");
+        AddressTypeDAO addressTypeDAO = (AddressTypeDAO) ctx.getBean("addressTypeDAO");
 
 
         try {
@@ -271,7 +261,7 @@ public class Addfacilities {
 
             HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
             HSSFSheet worksheet = workbook.getSheet("people");
-            System.out.println("THE VALUES IN THE SHEET ARE "+worksheet.getPhysicalNumberOfRows());
+            System.out.println("THE VALUES IN THE SHEET ARE " + worksheet.getPhysicalNumberOfRows());
             for (int i = 0; i < worksheet.getPhysicalNumberOfRows(); i++) {
 
                 double lv = Double.parseDouble(worksheet.getRow(i).getCell(3).toString());
@@ -299,16 +289,16 @@ public class Addfacilities {
                 person.setPersonSurname(worksheet.getRow(i).getCell(0).toString());
                 person.setPersonName(worksheet.getRow(i).getCell(1).toString());
                 person.setPersonOtherName(worksheet.getRow(i).getCell(2).toString());
-                
+
                 District subDistrict = subDistrictDAO.find(lte);
-                
+
                 List<City> cities = subDistrict.getCities();
                 for (City city : cities) {
-                     person.setResidence(city);                    
+                    person.setResidence(city);
                 }
                 personDAO.persist(person);
 
-               
+
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {

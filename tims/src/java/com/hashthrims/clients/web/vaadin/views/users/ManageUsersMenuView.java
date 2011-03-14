@@ -4,12 +4,7 @@
  */
 package com.hashthrims.clients.web.vaadin.views.users;
 
-import com.hashthrims.clients.web.vaadin.views.training.*;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
-import com.hashthrims.clients.web.vaadin.views.training.views.CourseRequesterViewPage;
-import com.hashthrims.clients.web.vaadin.views.training.views.CourseStatusViewPage;
-import com.hashthrims.clients.web.vaadin.views.training.views.CourseViewPage;
-import com.hashthrims.clients.web.vaadin.views.training.views.CourseTypeViewPage;
 import com.hashthrims.clients.web.vaadin.views.users.views.RolesViewPage;
 import com.hashthrims.clients.web.vaadin.views.users.views.UsersViewPage;
 
