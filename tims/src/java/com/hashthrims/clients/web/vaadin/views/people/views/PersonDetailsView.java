@@ -27,18 +27,18 @@ public class PersonDetailsView extends VerticalLayout implements Button.ClickLis
     private final Button back = new Button("Go Back");
     private HashThrimsMain main;
 
-    public PersonDetailsView(Person person, HashThrimsMain app,String selectedTab) {
-        main=app;
-        final  GridLayout layout = DetailsGrid.detailsGrid(person,main,selectedTab);
+    public PersonDetailsView(Person person, HashThrimsMain app, String selectedTab) {
+        main = app;
+        final GridLayout layout = DetailsGrid.detailsGrid(person, main, selectedTab);
         menu.addComponent(newPerson);
         menu.addComponent(back);
         menu.addComponent(search);
         addComponent(menu);
         addComponent(layout);
         //Register Listeners
-        newPerson.addListener((Button.ClickListener)this);
-        search.addListener((Button.ClickListener)this);
-        back.addListener((Button.ClickListener)this);
+        newPerson.addListener((Button.ClickListener) this);
+        search.addListener((Button.ClickListener) this);
+        back.addListener((Button.ClickListener) this);
     }
 
     @Override
@@ -49,12 +49,12 @@ public class PersonDetailsView extends VerticalLayout implements Button.ClickLis
     @Override
     public void buttonClick(ClickEvent event) {
         final Button source = event.getButton();
-        if (source==newPerson) {
-           main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "NEW"));
-        } else if(source==search) {
-         main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
-        } else if(source==back) {
-         main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
+        if (source == newPerson) {
+            main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "NEW"));
+        } else if (source == search) {
+            main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
+        } else if (source == back) {
+            main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
         }
     }
 }

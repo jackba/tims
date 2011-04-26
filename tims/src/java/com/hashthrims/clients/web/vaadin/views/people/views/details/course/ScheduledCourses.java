@@ -72,10 +72,10 @@ public class ScheduledCourses extends VerticalLayout implements ClickListener, V
 
 
         List<EmployeeCourses> list = null;
-        if (person.getCourses()!=null) {
+        if (person.getCourses() != null) {
             list = person.getCourses();
         } else {
-            list= new ArrayList<EmployeeCourses>();
+            list = new ArrayList<EmployeeCourses>();
         }
 
 
@@ -113,36 +113,53 @@ public class ScheduledCourses extends VerticalLayout implements ClickListener, V
                     bean.setId(values.getId());
                     bean.setDateRequested(values.getDateRequested());
                     bean.setRetraining(values.getRetraining());
-                   
-                   
+                    bean.setCourse(getCourseValue(values.getCourse()));
+                    bean.setRequestor(getRequestorValue(values.getRequestor()));
+
+
                     return bean;
                 }
 
                 private String getCourseName(TrainingCourses course) {
-                    if(course!=null)
+                    if (course != null) {
                         return course.getCourseName();
+                    }
                     return null;
                 }
 
                 private String getEvaluation(CompetencyEvaluation evaluation) {
-                    if(evaluation!=null)
+                    if (evaluation != null) {
                         return evaluation.getCompt_type_name();
+                    }
                     return null;
                 }
 
                 private String getRequestor(TrainingCourseRequestors requestor) {
-                   if(requestor!=null)
-                       return requestor.getRequestorName();
-                   return null;
+                    if (requestor != null) {
+                        return requestor.getRequestorName();
+                    }
+                    return null;
+                }
+
+                private Long getCourseValue(TrainingCourses course) {
+                    if (course != null) {
+                        return course.getId();
+                    }
+                    return null;
+                }
+
+                private Long getRequestorValue(TrainingCourseRequestors requestor) {
+                    if(requestor!=null)
+                        return requestor.getId();
+                    return null;
                 }
             });
             Button delete = new Button("Delete", new Button.ClickListener() {
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getEmployeeCourseService().remove(values);
-                    final Person p = data.getPersonService().find(person.getId());
-                    final PersonDetailsView view = new PersonDetailsView(p, main, "COURSE");
+                    person.getCourses().remove(values);
+                    final PersonDetailsView view = new PersonDetailsView(person, main, "COURSE");
                     main.mainView.setSecondComponent(view);
 
                 }
@@ -157,7 +174,7 @@ public class ScheduledCourses extends VerticalLayout implements ClickListener, V
             table.addItem(new Object[]{
                         st.getCourseLabel(values.getCourse()),
                         values.getRetraining(),
-                         st.getRequestor(values.getRequestor()),
+                        st.getRequestor(values.getRequestor()),
                         values.getCourseStartDate(),
                         values.getCourseEndDate(),
                         values.getDateRequested(),

@@ -9,10 +9,6 @@ import com.hashthrims.clients.web.vaadin.components.TabAccordian;
 import com.hashthrims.clients.web.vaadin.views.LandingPage;
 import com.vaadin.Application;
 import com.vaadin.terminal.Sizeable;
-
-
-
-
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;

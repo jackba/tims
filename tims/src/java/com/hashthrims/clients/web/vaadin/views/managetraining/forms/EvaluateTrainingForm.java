@@ -39,9 +39,9 @@ import java.util.List;
 public class EvaluateTrainingForm {
 
     // Define Buttons
-   // private Button save = new Button("Save");
+    // private Button save = new Button("Save");
     private Button submitEvaluation = new Button("Submit Evaluation for Course Attendees");
-   // private Button update = new Button("Update");
+    // private Button update = new Button("Update");
     //Define Footer
     private HorizontalLayout footer;
     private static ClientDataService data = new ClientDataService();
@@ -108,7 +108,7 @@ public class EvaluateTrainingForm {
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             } else if ("facultyId".equals(propertyId)) {
                 List<Facility> facilities = data.getFacilityService().findAll();
-                 Collections.sort(facilities);
+                Collections.sort(facilities);
                 selectFacilities = new Select("Select Facility:");
 
                 for (Facility facility : facilities) {
@@ -131,7 +131,7 @@ public class EvaluateTrainingForm {
                 selectTrainees.setMultiSelect(true);
                 if (fac != null) {
                     List<Person> persons = data.getPersonService().findAll();
-                     Collections.sort(persons);
+                    Collections.sort(persons);
                     personsLists = personIfacility.getPeopleInFacility(persons, fac);
                     for (Person attendee : personsLists) {
                         selectTrainees.addItem(attendee.getId());
@@ -201,8 +201,6 @@ public class EvaluateTrainingForm {
             }
         }
     }
-
-    
 
     /**
      * @return the cancel

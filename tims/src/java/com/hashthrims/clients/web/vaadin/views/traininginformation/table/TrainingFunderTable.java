@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.clients.web.vaadin.views.traininginformation.table;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
+import com.hashthrims.clients.web.vaadin.views.location.util.CityInformation;
+import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.traininglist.TrainingFunder;
 import java.util.List;
 
@@ -14,12 +15,13 @@ import java.util.List;
  *
  * @author stud
  */
-public class TrainingFunderTable extends com.vaadin.ui.Table{
-  private static ClientDataService data = new ClientDataService();
+public class TrainingFunderTable extends com.vaadin.ui.Table {
+
+    private static ClientDataService data = new ClientDataService();
     private HashThrimsMain main;
 
     public TrainingFunderTable(HashThrimsMain app) {
-       main = app;
+        main = app;
         // Make Table fill all space
         setSizeFull();
         //setImmediate(true);
@@ -37,6 +39,7 @@ public class TrainingFunderTable extends com.vaadin.ui.Table{
         addContainerProperty("Province Name", String.class, null);
         addContainerProperty("County Name", String.class, null);
         addContainerProperty("District Name", String.class, null);
+
         addContainerProperty("Mailing Address", String.class, null);
 
         addContainerProperty("Cell Phone", String.class, null);
@@ -50,25 +53,19 @@ public class TrainingFunderTable extends com.vaadin.ui.Table{
         List<TrainingFunder> funders = data.getTrainingFunderService().findAll();
         for (TrainingFunder funder : funders) {
             addItem(new Object[]{funder.getTrainingFunderName(),
-                                 funder.getCity().getName(),
-                                 funder.getContact().getTelephoneNumber(),
-                                 funder.getContact().getEmail(),
+                         CityInformation.getCityName(funder.getCity()),
+                        getTelephoneNumber(funder.getContact()),
+                        getEmail(funder.getContact()),
+                        CityInformation.getCountryName(funder.getCity()),
+                        CityInformation.getProvinceName(funder.getCity()),
+                        CityInformation.getCountyName(funder.getCity()),
+                        CityInformation.getDistrictName(funder.getCity()),
 
-
-                                 funder.getCity().getDistrict().getCounty().getProvince().getCountry().getCountryName(),
-                                 funder.getCity().getDistrict().getCounty().getProvince().getRegionName(),
-                                 funder.getCity().getDistrict().getCounty().getCountyName(),
-                                 funder.getCity().getDistrict().getDistrictName(),
-                                 funder.getContact().getMailingAddress(),
-
-
-
-
-                                 funder.getContact().getCellnumber(),
-                                 funder.getContact().getFaxnumber(),
-                                 funder.getContact().getNotes()
-
-                                    }, funder.getId());
+                        getMailingAddress(funder.getContact()),
+                        getCellNumber(funder.getContact()),
+                        getFaxNumber(funder.getContact()),
+                        getNotes(funder.getContact())
+                    }, funder.getId());
         }
         // Allow selecting items from the table.
         setNullSelectionAllowed(false);
@@ -76,7 +73,49 @@ public class TrainingFunderTable extends com.vaadin.ui.Table{
         setSelectable(true);
         // Send changes in selection immediately to server.
         setImmediate(true);
+    }
+
+    private String getTelephoneNumber(Contacts contact) {
+        if (contact != null) {
+            return contact.getTelephoneNumber();
+        }
+        return null;
 
 
+    }
+
+    private String getEmail(Contacts contact) {
+        if (contact != null) {
+            return contact.getEmail();
+        }
+        return null;
+    }
+
+    private String getMailingAddress(Contacts contact) {
+        if (contact != null) {
+            return contact.getMailingAddress();
+        }
+        return null;
+    }
+
+    private String getCellNumber(Contacts contact) {
+        if (contact != null) {
+            return contact.getCellnumber();
+        }
+        return null;
+    }
+
+    private String getFaxNumber(Contacts contact) {
+        if (contact != null) {
+            return contact.getFaxnumber();
+        }
+        return null;
+    }
+
+    private String getNotes(Contacts contact) {
+        if (contact != null) {
+            return contact.getNotes();
+        }
+        return null;
     }
 }

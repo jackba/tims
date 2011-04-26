@@ -72,12 +72,9 @@ public class EvalauteTrainingViewPage extends VerticalLayout implements
     }
 
     public void updateEmployeeCourse(Form form) {
-        Long id = Long.parseLong(form.getField("id").getValue().toString());
         Long evaluation = Long.parseLong(form.getField("evaluation").getValue().toString());
         Date date = fieldValues.getDateFields(form.getField("evaluationDate").getValue());
-
-
-        Object attendees = form.getField("trainees").getValue();
+        Object attendees = form.getField("attendees").getValue();
         List<Long> personsIds = fieldValues.getSelectListLongFields(attendees);
 
         for (Long personId : personsIds) {

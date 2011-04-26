@@ -122,7 +122,7 @@ public class TrainingInstitutionForm {
                 }
                 selectCountry.setNewItemsAllowed(true);
                 selectCountry.setWidth("250");
-                selectCountry.setRequired(true);
+           
                 return selectCountry;
             } else if ("provinceName".equals(propertyId)) {
                 selectProvince = new Select("Province:");
@@ -137,7 +137,7 @@ public class TrainingInstitutionForm {
                 }
                 selectProvince.setNewItemsAllowed(true);
                 selectProvince.setWidth("250");
-                selectProvince.setRequired(true);
+                
                 return selectProvince;
             } else if ("countyName".equals(propertyId)) {
                 selectCounty = new Select("Municipality:");
@@ -152,7 +152,7 @@ public class TrainingInstitutionForm {
                 }
                 selectCounty.setNewItemsAllowed(true);
                 selectCounty.setWidth("250");
-                selectCounty.setRequired(true);
+               
                 return selectCounty;
 
             } else if ("districtName".equals(propertyId)) {
@@ -169,7 +169,7 @@ public class TrainingInstitutionForm {
                 }
                 selectDistrict.setNewItemsAllowed(true);
                 selectDistrict.setWidth("250");
-                selectDistrict.setRequired(true);
+               
                 return selectDistrict;
             } else if ("cityName".equals(propertyId)) {
                 selectCity = new Select("City:");
@@ -182,7 +182,6 @@ public class TrainingInstitutionForm {
                 }
                 selectCity.setNewItemsAllowed(true);
                 selectCity.setWidth("250");
-                selectCity.setRequired(true);
                 return selectCity;
             } else if ("mailingAddress".equals(propertyId)) {
                 field = new TextField("Mailing Address:");
@@ -191,7 +190,7 @@ public class TrainingInstitutionForm {
                 ((TextField) field).setRows(4);
                 ((TextField) field).setNullRepresentation("");
          
-                ((TextField) field).setRequired(true);
+                
                 ((TextField) field).setRequiredError("Please Enter TrainingInstitution Name");
             } else if ("telephoneNumber".equals(propertyId)) {
                 field = new TextField("Telephone Number:");
@@ -199,7 +198,7 @@ public class TrainingInstitutionForm {
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
            
-                ((TextField) field).setRequired(true);
+               
                 ((TextField) field).setRequiredError("Please Enter TrainingInstitution Code");
 
             } else if ("cellnumber".equals(propertyId)) {
@@ -208,7 +207,7 @@ public class TrainingInstitutionForm {
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
              
-                ((TextField) field).setRequired(true);
+               
                 ((TextField) field).setRequiredError("Please Enter TrainingInstitution Name");
             } else if ("faxnumber".equals(propertyId)) {
                 field = new TextField("Fax Number:");
@@ -216,7 +215,7 @@ public class TrainingInstitutionForm {
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
             
-                ((TextField) field).setRequired(true);
+              
                 ((TextField) field).setRequiredError("Please Enter TrainingInstitution Name");
             } else if ("email".equals(propertyId)) {
                 field = new TextField("E-mail Address:");
@@ -224,7 +223,7 @@ public class TrainingInstitutionForm {
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
             
-                ((TextField) field).setRequired(true);
+               
                 ((TextField) field).setRequiredError("Please Enter TrainingInstitution Name");
             } else if ("notes".equals(propertyId)) {
                 field = new TextField("Notes (Primary Contact Person):");
@@ -233,7 +232,7 @@ public class TrainingInstitutionForm {
                 ((TextField) field).setRows(4);
                 ((TextField) field).setNullRepresentation("");
           
-                ((TextField) field).setRequired(true);
+               
                 ((TextField) field).setRequiredError("Please Enter TrainingInstitution Name");
             }
 

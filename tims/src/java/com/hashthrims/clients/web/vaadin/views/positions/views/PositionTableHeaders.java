@@ -12,6 +12,7 @@ import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.positions.PositionTypes;
 import com.hashthrims.domain.positions.Status;
 
+
 /**
  *
  * @author boniface

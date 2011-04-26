@@ -13,6 +13,7 @@ import com.hashthrims.clients.web.vaadin.views.traininginformation.table.Trainin
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.traininglist.TrainingInstitution;
 import com.hashthrims.infrastructure.factories.TrainingFactory;
+import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -30,12 +31,13 @@ import com.vaadin.ui.VerticalLayout;
  * @author boniface
  */
 public class TrainingInstitutionViewPage extends VerticalLayout implements
-        ClickListener, ValueChangeListener{
+        ClickListener, ValueChangeListener {
 
     private HashThrimsMain main;
     private Form form;
     private TrainingInstitutionForm cf;
     private static ClientDataService data = new ClientDataService();
+    private final DataFieldsUtil fieldValues = new DataFieldsUtil();
     private TrainingInstitutionTable table;
 
     public TrainingInstitutionViewPage(HashThrimsMain app) {
@@ -132,7 +134,7 @@ public class TrainingInstitutionViewPage extends VerticalLayout implements
         final Button source = event.getButton();
         if (source == cf.getSave()) {
             saveNewTrainingInstitution(form);
-            main.mainView.setSecondComponent(new TrainingInformationMenuView(main,"INSTITUTION"));
+            main.mainView.setSecondComponent(new TrainingInformationMenuView(main, "INSTITUTION"));
         } else if (source == cf.getEdit()) {
             form.setReadOnly(false);
             cf.getSave().setVisible(false);
@@ -141,39 +143,31 @@ public class TrainingInstitutionViewPage extends VerticalLayout implements
             cf.getDelete().setVisible(false);
             cf.getUpdate().setVisible(true);
         } else if (source == cf.getCancel()) {
-            main.mainView.setSecondComponent(new TrainingInformationMenuView(main,"INSTITUTION"));
+            main.mainView.setSecondComponent(new TrainingInformationMenuView(main, "INSTITUTION"));
         } else if (source == cf.getUpdate()) {
             saveEditedTrainingInstitution(form);
 
-            main.mainView.setSecondComponent(new TrainingInformationMenuView(main,"INSTITUTION"));
+            main.mainView.setSecondComponent(new TrainingInformationMenuView(main, "INSTITUTION"));
 
         } else if (source == cf.getDelete()) {
             deleteTrainingInstitution(form);
-            main.mainView.setSecondComponent(new TrainingInformationMenuView(main,"INSTITUTION"));
+            main.mainView.setSecondComponent(new TrainingInformationMenuView(main, "INSTITUTION"));
 
         }
 
     }
 
     public void saveNewTrainingInstitution(Form form) {
-       TrainingFactory factory = data.getTrainingFactory();
-        //OrganisationListFactory factory = data.getOfficeFactory();
+        TrainingFactory factory = data.getTrainingFactory();
+        String institutionName = fieldValues.getStringFields(form.getField("institutionName").getValue());
+        String cityName = fieldValues.getStringFields(form.getField("cityName").getValue());
 
-        String countryName = form.getField("countryName").getValue().toString();
-        String provinceName = form.getField("provinceName").getValue().toString();
-        String countyName = form.getField("countyName").getValue().toString();
-        String districtName = form.getField("districtName").getValue().toString();
-
-
-        String institutionName = form.getField("institutionName").getValue().toString();
-        String cityName = form.getField("cityName").getValue().toString();
-
-        String mailingAddress = form.getField("mailingAddress").getValue().toString();
-        String telephoneNumber = form.getField("telephoneNumber").getValue().toString();
-        String cellnumber = form.getField("cellnumber").getValue().toString();
-        String faxnumber = form.getField("faxnumber").getValue().toString();
-        String email = form.getField("email").getValue().toString();
-        String notes = form.getField("notes").getValue().toString();
+        String mailingAddress = fieldValues.getStringFields(form.getField("mailingAddress").getValue());
+        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumber").getValue());
+        String cellnumber = fieldValues.getStringFields(form.getField("cellnumber").getValue());
+        String faxnumber = fieldValues.getStringFields(form.getField("faxnumber").getValue());
+        String email = fieldValues.getStringFields(form.getField("email").getValue());
+        String notes = fieldValues.getStringFields(form.getField("notes").getValue());
 
         Contacts contacts = new Contacts();
         contacts.setCellnumber(cellnumber);
@@ -189,24 +183,17 @@ public class TrainingInstitutionViewPage extends VerticalLayout implements
     }
 
     public void saveEditedTrainingInstitution(Form form) {
-      TrainingFactory factory = data.getTrainingFactory();
-        //OrganisationListFactory factory = data.getOfficeFactory();
+        TrainingFactory factory = data.getTrainingFactory();
 
-        String countryName = form.getField("countryName").getValue().toString();
-        String provinceName = form.getField("provinceName").getValue().toString();
-        String countyName = form.getField("countyName").getValue().toString();
-        String districtName = form.getField("districtName").getValue().toString();
+        String institutionName = fieldValues.getStringFields(form.getField("institutionName").getValue());
+        String cityName = fieldValues.getStringFields(form.getField("cityName").getValue());
 
-
-        String institutionName = form.getField("institutionName").getValue().toString();
-        String cityName = form.getField("cityName").getValue().toString();
-
-        String mailingAddress = form.getField("mailingAddress").getValue().toString();
-        String telephoneNumber = form.getField("telephoneNumber").getValue().toString();
-        String cellnumber = form.getField("cellnumber").getValue().toString();
-        String faxnumber = form.getField("faxnumber").getValue().toString();
-        String email = form.getField("email").getValue().toString();
-        String notes = form.getField("notes").getValue().toString();
+        String mailingAddress = fieldValues.getStringFields(form.getField("mailingAddress").getValue());
+        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumber").getValue());
+        String cellnumber = fieldValues.getStringFields(form.getField("cellnumber").getValue());
+        String faxnumber = fieldValues.getStringFields(form.getField("faxnumber").getValue());
+        String email = fieldValues.getStringFields(form.getField("email").getValue());
+        String notes = fieldValues.getStringFields(form.getField("notes").getValue());
 
         Contacts contacts = new Contacts();
         contacts.setCellnumber(cellnumber);
@@ -216,7 +203,7 @@ public class TrainingInstitutionViewPage extends VerticalLayout implements
         contacts.setNotes(notes);
         contacts.setMailingAddress(mailingAddress);
 
-         Long institutionId = Long.parseLong(form.getField("institutionId").getValue().toString());
+        Long institutionId = Long.parseLong(form.getField("institutionId").getValue().toString());
         TrainingInstitution c = factory.updateTrainingInstitution(institutionName, cityName, contacts, institutionId);
 
 
@@ -226,7 +213,7 @@ public class TrainingInstitutionViewPage extends VerticalLayout implements
     public void deleteTrainingInstitution(Form form) {
         TrainingFactory factory = data.getTrainingFactory();
         Long institutionId = Long.parseLong(form.getField("institutionId").getValue().toString());
-       TrainingInstitution c = factory.loadTrainingInstitution(institutionId);
-       data.getTrainingInstitutionService().remove(c);
+        TrainingInstitution c = factory.loadTrainingInstitution(institutionId);
+        data.getTrainingInstitutionService().remove(c);
     }
 }

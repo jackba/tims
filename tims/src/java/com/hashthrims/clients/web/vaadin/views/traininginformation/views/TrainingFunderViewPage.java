@@ -13,6 +13,7 @@ import com.hashthrims.clients.web.vaadin.views.traininginformation.table.Trainin
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.traininglist.TrainingFunder;
 import com.hashthrims.infrastructure.factories.TrainingFactory;
+import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -37,6 +38,7 @@ public class TrainingFunderViewPage extends VerticalLayout implements
     private TrainingFunderForm cf;
      private static ClientDataService data = new ClientDataService();
     private TrainingFunderTable table;
+     private final DataFieldsUtil fieldValues = new DataFieldsUtil();
 
     public TrainingFunderViewPage(HashThrimsMain app) {
         main = app;
@@ -159,21 +161,18 @@ public class TrainingFunderViewPage extends VerticalLayout implements
         TrainingFactory factory = data.getTrainingFactory();
         //OrganisationListFactory factory = data.getOfficeFactory();
 
-        String countryName = form.getField("countryName").getValue().toString();
-        String provinceName = form.getField("provinceName").getValue().toString();
-        String countyName = form.getField("countyName").getValue().toString();
-        String districtName = form.getField("districtName").getValue().toString();
+      
 
 
-        String funderName = form.getField("trainingFunder").getValue().toString();
-        String cityName = form.getField("cityName").getValue().toString();
+        String funderName = fieldValues.getStringFields(form.getField("trainingFunder").getValue());
+        String cityName = fieldValues.getStringFields(form.getField("cityName").getValue());
 
-        String mailingAddress = form.getField("mailingAddress").getValue().toString();
-        String telephoneNumber = form.getField("telephoneNumber").getValue().toString();
-        String cellnumber = form.getField("cellnumber").getValue().toString();
-        String faxnumber = form.getField("faxnumber").getValue().toString();
-        String email = form.getField("email").getValue().toString();
-        String notes = form.getField("notes").getValue().toString();
+        String mailingAddress = fieldValues.getStringFields(form.getField("mailingAddress").getValue());
+        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumber").getValue());
+        String cellnumber = fieldValues.getStringFields(form.getField("cellnumber").getValue());
+        String faxnumber = fieldValues.getStringFields(form.getField("faxnumber").getValue());
+        String email = fieldValues.getStringFields(form.getField("email").getValue());
+        String notes = fieldValues.getStringFields(form.getField("notes").getValue());
 
         Contacts contacts = new Contacts();
         contacts.setCellnumber(cellnumber);
@@ -190,23 +189,16 @@ public class TrainingFunderViewPage extends VerticalLayout implements
 
     public void saveEditedTrainingFunder(Form form) {
         TrainingFactory factory = data.getTrainingFactory();
-        //OrganisationListFactory factory = data.getOfficeFactory();
 
-        String countryName = form.getField("countryName").getValue().toString();
-        String provinceName = form.getField("provinceName").getValue().toString();
-        String countyName = form.getField("countyName").getValue().toString();
-        String districtName = form.getField("districtName").getValue().toString();
+        String funderName = fieldValues.getStringFields(form.getField("trainingFunder").getValue());
+        String cityName = fieldValues.getStringFields(form.getField("cityName").getValue());
 
-
-        String funderName = form.getField("trainingFunder").getValue().toString();
-        String cityName = form.getField("cityName").getValue().toString();
-
-        String mailingAddress = form.getField("mailingAddress").getValue().toString();
-        String telephoneNumber = form.getField("telephoneNumber").getValue().toString();
-        String cellnumber = form.getField("cellnumber").getValue().toString();
-        String faxnumber = form.getField("faxnumber").getValue().toString();
-        String email = form.getField("email").getValue().toString();
-        String notes = form.getField("notes").getValue().toString();
+        String mailingAddress = fieldValues.getStringFields(form.getField("mailingAddress").getValue());
+        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumber").getValue());
+        String cellnumber = fieldValues.getStringFields(form.getField("cellnumber").getValue());
+        String faxnumber = fieldValues.getStringFields(form.getField("faxnumber").getValue());
+        String email = fieldValues.getStringFields(form.getField("email").getValue());
+        String notes = fieldValues.getStringFields(form.getField("notes").getValue());
 
         Contacts contacts = new Contacts();
         contacts.setCellnumber(cellnumber);

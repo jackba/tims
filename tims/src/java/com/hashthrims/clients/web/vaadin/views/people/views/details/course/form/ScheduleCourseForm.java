@@ -122,16 +122,19 @@ public class ScheduleCourseForm {
             } else if ("dateRequested".equals(propertyId)) {
                 field = new DateField("Date Training Requested:");
                 ((DateField) field).setRequired(true);
+                ((DateField) field).setDateFormat("yyyy-MM-dd");
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             } else if ("courseEndDate".equals(propertyId)) {
                 field = new DateField("Date Course Ends:");
                 ((DateField) field).setRequired(true);
+                ((DateField) field).setDateFormat("yyyy-MM-dd");
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             } else if ("courseStartDate".equals(propertyId)) {
                 field = new DateField("Date Course Starts:");
                 ((DateField) field).setRequired(true);
+                ((DateField) field).setDateFormat("yyyy-MM-dd");
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             }

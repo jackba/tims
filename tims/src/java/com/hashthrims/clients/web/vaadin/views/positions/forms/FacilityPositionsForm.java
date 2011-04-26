@@ -5,6 +5,7 @@
 package com.hashthrims.clients.web.vaadin.views.positions.forms;
 
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
+import com.hashthrims.clients.web.vaadin.views.positions.forms.position.FacilityPositionsGridForm;
 import com.hashthrims.clients.web.vaadin.views.positions.forms.position.PositionGridForm;
 import com.hashthrims.domain.positions.Status;
 import com.hashthrims.domain.jobs.Jobs;
@@ -21,6 +22,7 @@ import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import java.util.Collections;
@@ -30,7 +32,7 @@ import java.util.List;
  *
  * @author boniface
  */
-public class PositionForm {
+public class FacilityPositionsForm {
 
     // Define Buttons
     private Button save = new Button("Save");
@@ -42,11 +44,11 @@ public class PositionForm {
     private HorizontalLayout footer;
     private static final ClientDataService data = new ClientDataService();
 
-    public PositionForm() {
+    public FacilityPositionsForm() {
     }
 
     public Form createPositionFrom() {
-        final Form form = new PositionGridForm();
+        final Form form = new FacilityPositionsGridForm();
         form.setImmediate(false);
 
 
@@ -76,7 +78,7 @@ public class PositionForm {
     class FormFields extends DefaultFieldFactory implements Property.ValueChangeListener {
 
         private Select selectSupervisor;
-        private Select selectFacility;
+        private ListSelect selectFacilities;
         private Select selectDepartment;
         private Select selectJob;
         private Select selectPositionType;
@@ -122,21 +124,22 @@ public class PositionForm {
                 selectSupervisor.setWidth("250");
                 selectSupervisor.setRequired(true);
                 return selectSupervisor;
-            } else if ("facililty".equals(propertyId)) {
-                selectFacility = new Select("Facility:");
-                selectFacility.addListener(this);
-                selectFacility.setImmediate(true);
-
+            } else if ("facilities".equals(propertyId)) {
+                selectFacilities = new ListSelect("Select Facilities:");
+                selectFacilities.setImmediate(true);
+                selectFacilities.setNewItemsAllowed(false);
+                selectFacilities.setWidth("500");
+                selectFacilities.setHeight("100");
+                selectFacilities.setNullSelectionAllowed(false);
+                selectFacilities.setMultiSelect(true);
                 facilities = data.getFacilityService().findAll();
                 Collections.sort(facilities);
                 for (Facility f : facilities) {
-                    selectFacility.addItem(f.getId());
-                    selectFacility.setItemCaption(f.getId(), f.getFacilityName());
+                    selectFacilities.addItem(f.getId());
+                    selectFacilities.setItemCaption(f.getId(), f.getFacilityName());
                 }
-                selectFacility.setNewItemsAllowed(false);
-                selectFacility.setWidth("250");
-                selectFacility.setRequired(true);
-                return selectFacility;
+                selectFacilities.setRequired(true);
+                return selectFacilities;
             } else if ("department".equals(propertyId)) {
                 departments = data.getDepartmentService().findAll();
                 selectDepartment = new Select("Department:");
@@ -175,26 +178,13 @@ public class PositionForm {
                 selectPositionStatus.setWidth("250");
                 selectPositionStatus.setRequired(true);
                 return selectPositionStatus;
-            } else if ("positionTitle".equals(propertyId)) {
-                field = new TextField("Position Title :");
-                ((TextField) field).setColumns(20);
-                ((TextField) field).setNullRepresentation("");
-                ((TextField) field).setRequired(true);
-                ((TextField) field).setRequiredError("Please Enter Position Name");
             } else if ("positionCode".equals(propertyId)) {
                 field = new TextField("Position Code:");
                 ((TextField) field).setColumns(19);
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);
                 ((TextField) field).setRequiredError("Please Enter Value");
-            } else if ("positionComments".equals(propertyId)) {
-                field = new TextField("Position Comments:");
-                ((TextField) field).setColumns(19);
-                ((TextField) field).setNullRepresentation("");
-                ((TextField) field).setRequired(true);
-                ((TextField) field).setRequiredError("Please Enter Value");
-
-            }
+            } 
 
             return field;
 
