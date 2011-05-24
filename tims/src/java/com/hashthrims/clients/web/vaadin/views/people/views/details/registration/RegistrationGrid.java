@@ -4,13 +4,11 @@
  */
 package com.hashthrims.clients.web.vaadin.views.people.views.details.registration;
 
-import com.hashthrims.clients.web.vaadin.views.people.views.details.employment.*;
 import com.hashthrims.clients.web.vaadin.views.people.views.details.contacts.*;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.people.views.details.contacts.form.ContactsBean;
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.Person;
-import com.vaadin.addon.chameleon.ChameleonTheme;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -19,6 +17,7 @@ import com.vaadin.ui.GridLayout.OutOfBoundsException;
 import com.vaadin.ui.GridLayout.OverlapsException;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.themes.Reindeer;
 import java.util.List;
 
 /**
@@ -43,12 +42,12 @@ public class RegistrationGrid implements Button.ClickListener {
 
         //-----------Individual Section heading
         Label contctactInfoLabel = new Label("Contacts Information");
-        contctactInfoLabel.addStyleName(ChameleonTheme.LABEL_H2);
-        contctactInfoLabel.addStyleName(ChameleonTheme.LABEL_COLOR);
+        contctactInfoLabel.addStyleName(Reindeer.LABEL_H2);
+       
         layout.addComponent(contctactInfoLabel, 0, 6);
         // Table Headers First
         HorizontalLayout contactsToolbar = new HorizontalLayout();
-        contactsToolbar.addStyleName(ChameleonTheme.COMPOUND_HORIZONTAL_LAYOUT_SEGMENT_ALTERNATE);
+       
 
 
         //Register Listeners
@@ -57,20 +56,20 @@ public class RegistrationGrid implements Button.ClickListener {
         emergContact.addListener((ClickListener) this);
         otherContact.addListener((ClickListener) this);
 
-        personalContact.addStyleName(ChameleonTheme.BUTTON_SMALL);
-        personalContact.addStyleName(ChameleonTheme.BUTTON_WIDE);
+        personalContact.addStyleName(Reindeer.BUTTON_SMALL);
+       
 
   
-        emergContact.addStyleName(ChameleonTheme.BUTTON_SMALL);
-        emergContact.addStyleName(ChameleonTheme.BUTTON_WIDE);
+        emergContact.addStyleName(Reindeer.BUTTON_SMALL);
+       
 
      
-        otherContact.addStyleName(ChameleonTheme.BUTTON_SMALL);
-        otherContact.addStyleName(ChameleonTheme.BUTTON_WIDE);
+        otherContact.addStyleName(Reindeer.BUTTON_SMALL);
+       
 
     
-        workContact.addStyleName(ChameleonTheme.BUTTON_SMALL);
-        workContact.addStyleName(ChameleonTheme.BUTTON_WIDE);
+        workContact.addStyleName(Reindeer.BUTTON_SMALL);
+       
 
         //Add Buttons to the bar Conditionally
         List<Contacts> cts = person.getContacts();

@@ -23,8 +23,11 @@ import com.hashthrims.clients.web.vaadin.views.facilites.OrganisationListMenuVie
 import com.hashthrims.clients.web.vaadin.views.facilites.table.FacilityTable;
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.offices.Facility;
+import com.hashthrims.domain.positions.GlobalPositions;
+import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.infrastructure.factories.offices.OrganisationListFactory;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
+import java.util.List;
 
 
 /**
@@ -176,6 +179,7 @@ public class FacilityViewPage extends VerticalLayout implements
         contacts.setMailingAddress(mailingAddress);
         Facility c = factory.createFacility(facilityTypeName, facilityName, cityName, contacts);
         data.getFacilityService().persist(c);
+        addPositionsTofacility(c);
 
     }
 
@@ -216,5 +220,21 @@ public class FacilityViewPage extends VerticalLayout implements
         Long facilityId = Long.parseLong(form.getField("facilityId").getValue().toString());
         Facility f = factory.loadFacility(facilityId);
         data.getFacilityService().remove(f);
+    }
+
+    private void addPositionsTofacility(Facility c) {
+        List<GlobalPositions> pos = data.getGlobalPositionsService().findAll();
+        for (GlobalPositions globalPositions : pos) {
+            Positions position = new Positions();
+            position.setFacililty(c);
+            position.setDepartment(globalPositions.getDepartment());
+            position.setJob(globalPositions.getJob());
+            position.setPositionCode(globalPositions.getPositionCode());
+            position.setPositionComments(globalPositions.getPositionComments());
+            position.setPositionStatus(globalPositions.getPositionStatus());
+            position.setPositionType(globalPositions.getPositionType());           
+           data.getPositionsService().persist(position);
+            
+        }
     }
 }

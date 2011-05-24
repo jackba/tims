@@ -7,7 +7,6 @@ package com.hashthrims.clients.web.vaadin.views.location.tables;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.regionlist.Currency;
-import com.vaadin.addon.chameleon.ChameleonTheme;
 import com.vaadin.ui.Table;
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class CurrencyTable extends Table {
 
     public CurrencyTable(HashThrimsMain app) {
         this.main = app;
-        addStyleName(ChameleonTheme.TABLE_STRIPED);
         setSizeFull();
 
 

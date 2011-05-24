@@ -8,11 +8,12 @@ import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 
 import com.hashthrims.clients.web.vaadin.views.positions.ManagePositionsMenuView;
-import com.hashthrims.clients.web.vaadin.views.positions.forms.PositionForm;
-import com.hashthrims.clients.web.vaadin.views.positions.model.PositionBean;
-import com.hashthrims.clients.web.vaadin.views.positions.model.dtos.DependantFields;
+import com.hashthrims.clients.web.vaadin.views.positions.forms.GlobalPositionsForm;
+import com.hashthrims.clients.web.vaadin.views.positions.model.GlobalPositionsBean;
 import com.hashthrims.clients.web.vaadin.views.positions.model.dtos.StringValues;
-import com.hashthrims.clients.web.vaadin.views.positions.table.PositionTable;
+import com.hashthrims.clients.web.vaadin.views.positions.table.GlobalPositionTable;
+import com.hashthrims.domain.offices.Facility;
+import com.hashthrims.domain.positions.GlobalPositions;
 import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.infrastructure.factories.positions.PositionsFactory;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
@@ -28,6 +29,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.VerticalLayout;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,13 +40,13 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
         ClickListener, ValueChangeListener {
 
     private final HashThrimsMain main;
-    private final PositionForm pform = new PositionForm();
+    private final GlobalPositionsForm pform = new GlobalPositionsForm();
     private final Form form = pform.createPositionFrom();
     private static final ClientDataService data = new ClientDataService();
-    private final PositionTable table;
     private final DataFieldsUtil fieldValues = new DataFieldsUtil();
     private final PositionsFactory factory = data.getPositionFactory();
     private final PositionTableHeaders tb = new PositionTableHeaders();
+    private final GlobalPositionTable table;
 
     public GlobalPositionsViewPage(HashThrimsMain app) {
         main = app;
@@ -56,16 +58,16 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
         pform.getDelete().addListener((ClickListener) this);
         pform.getUpdate().addListener((ClickListener) this);
 
-        final PositionBean bean = new PositionBean();
+        final GlobalPositionsBean bean = new GlobalPositionsBean();
         final BeanItem item = new BeanItem(bean);
         form.setItemDataSource(item);
-
-
         addComponent(form);
         setComponentAlignment(form, Alignment.TOP_CENTER);
-        table = new PositionTable(main);
+        table = new GlobalPositionTable(main);
         table.addListener((ValueChangeListener) this);
         addComponent(table);
+
+
 
     }
 
@@ -75,26 +77,20 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
 
         if (property == table) {
             final Item record = table.getItem(table.getValue());
-            final PositionBean positionBean = new PositionBean();
-            
+            final GlobalPositionsBean positionBean = new GlobalPositionsBean();
             positionBean.setPositionCode(record.getItemProperty("Position Code").toString());
-            
-            positionBean.setPositionComments(record.getItemProperty("Position Comments").toString());
-           
-
-            positionBean.setFacililty(tb.getFacilityId(record.getItemProperty("Facility").toString()));
             positionBean.setSupervisor(tb.getSupervisorId(record.getItemProperty("Supervisor").toString()));
             positionBean.setDepartment(tb.getDepartmentId(record.getItemProperty("Department").toString()));
             positionBean.setJob(tb.getPotisionTitleId(record.getItemProperty("Position Title").toString()));
             positionBean.setPositionType(tb.getPositionTypeId(record.getItemProperty("Position Type").toString()));
             positionBean.setPositionStatus(tb.getPositionStatusId(record.getItemProperty("Position Status").toString()));
-          
+
             positionBean.setPositionId(new Long(table.getValue().toString()));
 
             if (positionBean != form.getItemDataSource()) {
                 final BeanItem item = new BeanItem(positionBean);
                 form.setItemDataSource(item);
-               
+
                 form.setReadOnly(true);
                 //Buttons Behaviou
                 pform.getSave().setVisible(false);
@@ -105,6 +101,7 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
             }
 
         }
+
     }
 
     @Override
@@ -112,7 +109,7 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
         final Button source = event.getButton();
         if (source == pform.getSave()) {
             saveNewPosition(form);
-            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "POSITION"));
+            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "GLOBAL"));
         } else if (source == pform.getEdit()) {
             form.setReadOnly(false);
             pform.getSave().setVisible(false);
@@ -121,78 +118,87 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
             pform.getDelete().setVisible(false);
             pform.getUpdate().setVisible(true);
         } else if (source == pform.getCancel()) {
-            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "POSITION"));
+            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "GLOBAL"));
         } else if (source == pform.getUpdate()) {
             saveEditedPosition(form);
 
-            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "POSITION"));
+            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "GLOBAL"));
 
         } else if (source == pform.getDelete()) {
             deletePosition(form);
-            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "POSITION"));
+            main.mainView.setSecondComponent(new ManagePositionsMenuView(main, "GLOBAL"));
 
         }
 
     }
 
     public void saveNewPosition(Form form) {
-      
+
         final String positionCode = fieldValues.getStringFields(form.getField("positionCode").getValue());
-        final String positionComments = fieldValues.getStringFields(form.getField("positionComments").getValue());
-     
+
+
         final StringValues val = new StringValues();
         val.setPositionCode(positionCode);
-        val.setPositionComments(positionComments);
-  
-        final Long facililty = fieldValues.getLongFields(form.getField("facililty").getValue());
+
         final Long supervisor = fieldValues.getLongFields(form.getField("supervisor").getValue());
         final Long department = fieldValues.getLongFields(form.getField("department").getValue());
         final Long job = fieldValues.getLongFields(form.getField("job").getValue());
         final Long positionType = fieldValues.getLongFields(form.getField("positionType").getValue());
         final Long positionStatus = fieldValues.getLongFields(form.getField("positionStatus").getValue());
 
-        final Map<String,Long> dfields = new HashMap<String,Long>();
-        dfields.put("department",department);
-        dfields.put("facililty",facililty);
-        dfields.put("job",job);
-        dfields.put("positionStatus",positionStatus);
-        dfields.put("positionType",positionType);
-        dfields.put("supervisor",supervisor);
+        final Map<String, Long> dfields = new HashMap<String, Long>();
+        dfields.put("department", department);
+        dfields.put("job", job);
+        dfields.put("positionStatus", positionStatus);
+        dfields.put("positionType", positionType);
+        dfields.put("supervisor", supervisor);
 
-        final Positions p = factory.createPosition(val, dfields);
-        data.getPositionsService().persist(p);
+        final GlobalPositions p = factory.createGlobalPosition(val, dfields);
+        data.getGlobalPositionsService().persist(p);
+        addPositionsToAllFacilities(val, dfields);
     }
 
     public void saveEditedPosition(Form form) {
         final String positionCode = fieldValues.getStringFields(form.getField("positionCode").getValue());
-        final String positionComments = fieldValues.getStringFields(form.getField("positionComments").getValue());
+
         final StringValues val = new StringValues();
         val.setPositionCode(positionCode);
-        val.setPositionComments(positionComments);
 
-        final Long facililty = fieldValues.getLongFields(form.getField("facililty").getValue());
         final Long supervisor = fieldValues.getLongFields(form.getField("supervisor").getValue());
         final Long department = fieldValues.getLongFields(form.getField("department").getValue());
         final Long job = fieldValues.getLongFields(form.getField("job").getValue());
         final Long positionType = fieldValues.getLongFields(form.getField("positionType").getValue());
         final Long positionStatus = fieldValues.getLongFields(form.getField("positionStatus").getValue());
 
-        final Map<String,Long> dfields = new HashMap<String,Long>();
-        dfields.put("department",department);
-        dfields.put("facililty",facililty);
-        dfields.put("job",job);
-        dfields.put("positionStatus",positionStatus);
-        dfields.put("positionType",positionType);
-        dfields.put("supervisor",supervisor);
+        final Map<String, Long> dfields = new HashMap<String, Long>();
+        dfields.put("department", department);
+        dfields.put("job", job);
+        dfields.put("positionStatus", positionStatus);
+        dfields.put("positionType", positionType);
+        dfields.put("supervisor", supervisor);
 
         final Long positionId = Long.parseLong(form.getField("positionId").getValue().toString());
-        final Positions p = factory.updatePosition(val, dfields, positionId);
-        data.getPositionsService().merge(p);
+        final GlobalPositions p = factory.updateGlobalPosition(val, dfields, positionId);
+        data.getGlobalPositionsService().merge(p);
     }
 
-    public void deletePosition(Form form) {        
+    public void deletePosition(Form form) {
         final Long positionId = Long.parseLong(form.getField("positionId").getValue().toString());
-        final Positions p = factory.loadPositions(positionId);
-        data.getPositionsService().remove(p);
+        final GlobalPositions p = factory.loadGlobalPositions(positionId);
+        data.getGlobalPositionsService().remove(p);
+    }
+
+    private void addPositionsToAllFacilities(StringValues val, Map<String, Long> dfields) {
+
+        List<Facility> facilities = data.getFacilityService().findAll();
+        for (Facility facility : facilities) {
+            final String positionComments = "No Comments";
+            val.setPositionComments(positionComments);
+            Long facililty = facility.getId();
+            dfields.put("facililty", facililty);
+            final Positions p = factory.createPosition(val, dfields);
+            data.getPositionsService().persist(p);
+
+        }
     }
 }

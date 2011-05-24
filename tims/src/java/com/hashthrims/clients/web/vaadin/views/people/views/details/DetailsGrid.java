@@ -15,11 +15,11 @@ import com.hashthrims.clients.web.vaadin.views.people.views.details.mentoring.Me
 import com.hashthrims.clients.web.vaadin.views.people.views.details.position.EmployeePositionPage;
 import com.hashthrims.clients.web.vaadin.views.people.views.details.registration.ProfessionalRegistrationPage;
 import com.hashthrims.domain.Person;
-import com.vaadin.addon.chameleon.ChameleonTheme;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.Reindeer;
 
 /**
  *
@@ -35,7 +35,7 @@ public class DetailsGrid {
         outer.setMargin(true);
         //Header Information for the Deatails Page
         final Label personLabel = new Label("Viewing Details For:" + person.getPersonName() + "  " + person.getPersonSurname());
-        personLabel.addStyleName(ChameleonTheme.LABEL_H1);
+        personLabel.addStyleName(Reindeer.LABEL_H1);
 
         outer.addComponent(personLabel, 0, 0);
 
@@ -128,34 +128,6 @@ public class DetailsGrid {
 
 
         outer.addComponent(tab);
-//        // From cell 1 to 5
-//        new PositionGrid().addPosition(person, outer, app);
-//        //From 6 to 10
-//        new DemographicsGrid().getDemographics(person,outer,app);
-//        // From 11 to 15
-//        new ContactsGrid().addContacts(person,outer, app);
-//        // From 16 to 20
-//        new IdentitiesGrid().addIndenties(person, outer, app);
-//
-//       // From 21 to 25
-//        new ShortCourseGrid().addShortCourse(person, outer, app);
-//
-//        //new LongCourseGrid().addLongCourse(person, outer, app);
-//        // From 26 to 30
-//        new MentoringGrid().addMentoring(person, outer, app);
-//
-//        //From 26 to 30
-//        new EducationGrid().addContacts(person, outer, app);
-//
-//        //From 31 to 35
-//        new EmploymentGrid().addContacts(person, outer, app);
-//        // From 36 to 40
-//        new RegistrationGrid().addContacts(person, outer, app);
-//
-//        // From 41 to 45
-//        new LanguagesGrid().addContacts(person, outer, app);
-//
-//        //From 46 to 50
 
 
 

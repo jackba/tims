@@ -11,13 +11,12 @@ import com.hashthrims.clients.web.vaadin.views.people.forms.PersonEditForm;
 import com.hashthrims.clients.web.vaadin.views.people.models.PersonBean;
 import com.hashthrims.domain.Person;
 import com.hashthrims.infrastructure.util.TimsUtil;
-import com.vaadin.addon.chameleon.ChameleonTheme;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Table;
+import com.vaadin.ui.themes.Reindeer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,19 +47,19 @@ public class DemographicsTable implements ClickListener {
 
         //Set Table Headers Information
         Label editInfo = new Label("Manage Information");
-        editInfo.addStyleName(ChameleonTheme.LABEL_H3);
+        editInfo.addStyleName(Reindeer.LABEL_H2);
         table.addComponent(editInfo, 0, 0);
 
 
         Label personInformation = new Label("Person Information");
-        personInformation.addStyleName(ChameleonTheme.LABEL_H3);
+        personInformation.addStyleName(Reindeer.LABEL_H2);
         table.addComponent(personInformation, 1, 0, 2, 0);
 
         //Header Seperators
         table.addComponent(new Label("<hr />", Label.CONTENT_XHTML), 0, 1, 2, 1);
 
         edit = new Button("Update This Information");
-        edit.addStyleName(ChameleonTheme.BUTTON_LINK);
+        edit.addStyleName(Reindeer.BUTTON_LINK);
         delete = new Button("Delete This Information");
         delete.addStyleName("link");
         table.addComponent(edit, 0, 2);
@@ -71,39 +70,38 @@ public class DemographicsTable implements ClickListener {
 
         table.addComponent(new Label("First Name: "), 1, 2);
         Label firstname = new Label(person.getPersonName());
-        firstname.addStyleName(ChameleonTheme.LABEL_SMALL);
-        firstname.addStyleName(ChameleonTheme.LABEL_COLOR);
+        firstname.addStyleName(Reindeer.LABEL_SMALL);
+   
         table.addComponent(firstname, 2, 2);
 
         table.addComponent(new Label("Surname: "), 1, 3);
         Label surname = new Label(person.getPersonSurname());
-        surname.addStyleName(ChameleonTheme.LABEL_SMALL);
-        surname.addStyleName(ChameleonTheme.LABEL_COLOR);
+        surname.addStyleName(Reindeer.LABEL_SMALL);
+    
         table.addComponent(surname, 2, 3);
 
         table.addComponent(new Label("Other Name: "), 1, 4);
         Label othername = new Label(person.getPersonOtherName());
-        othername.addStyleName(ChameleonTheme.LABEL_SMALL);
-        othername.addStyleName(ChameleonTheme.LABEL_COLOR);
+        othername.addStyleName(Reindeer.LABEL_SMALL);
+
         table.addComponent(othername, 2, 4);
 
         table.addComponent(new Label("Gender: "), 1, 5);
         Label gender = new Label(st.getGender(person.getDemography()));
-        gender.addStyleName(ChameleonTheme.LABEL_SMALL);
-        gender.addStyleName(ChameleonTheme.LABEL_COLOR);
+        gender.addStyleName(Reindeer.LABEL_SMALL);
+  
         table.addComponent(gender, 2, 5);
 
 
         table.addComponent(new Label("Date of Birth: "), 1, 6);
         Label dob = new Label(st.getDobLabel(person.getDemography()));
-        dob.addStyleName(ChameleonTheme.LABEL_SMALL);
-        dob.addStyleName(ChameleonTheme.LABEL_COLOR);
+        dob.addStyleName(Reindeer.LABEL_SMALL);
+
         table.addComponent(dob, 2, 6);
 
         table.addComponent(new Label("Resididence: "), 1, 7);
         Label resi = new Label(st.getResidence(person.getResidence()));
-        resi.addStyleName(ChameleonTheme.LABEL_SMALL);
-        resi.addStyleName(ChameleonTheme.LABEL_COLOR);
+        resi.addStyleName(Reindeer.LABEL_SMALL);
         table.addComponent(resi, 2, 7);
 
 

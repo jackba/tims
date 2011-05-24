@@ -10,11 +10,11 @@ import com.hashthrims.clients.web.vaadin.views.people.views.PersonDetailsView;
 import com.hashthrims.clients.web.vaadin.views.people.views.details.contacts.form.ContactsBean;
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.Person;
-import com.vaadin.addon.chameleon.ChameleonTheme;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.themes.Reindeer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +57,12 @@ public class ContactsTable {
 
             //Row 1: Headers
             Label editInfo = new Label("Manage This Information");
-            editInfo.addStyleName(ChameleonTheme.LABEL_H3);
+            editInfo.addStyleName(Reindeer.LABEL_H2);
             table.addComponent(editInfo, 0, y); //(0,0)
 
 
             Label addressType = new Label(contact.getAddressType());
-            addressType.addStyleName(ChameleonTheme.LABEL_H3);
+            addressType.addStyleName(Reindeer.LABEL_H2);
             table.addComponent(addressType, 1, y, 2, y);
 
             //Row 2 Horizontal Line
@@ -95,12 +95,12 @@ public class ContactsTable {
                 }
 
             });
-            edit.addStyleName(ChameleonTheme.BUTTON_LINK);
+            edit.addStyleName(Reindeer.BUTTON_LINK);
             table.addComponent(edit, 0, y);
             table.addComponent(new Label("Cell Number: "), 1, y);
             Label cellNumber = new Label(contact.getCellnumber());
-            cellNumber.addStyleName(ChameleonTheme.LABEL_SMALL);
-            cellNumber.addStyleName(ChameleonTheme.LABEL_COLOR);
+            cellNumber.addStyleName(Reindeer.LABEL_SMALL);
+            cellNumber.addStyleName(Reindeer.LABEL_SMALL);
             table.addComponent(cellNumber, 2, y);
 
             //Row 3 and Delete Information
@@ -120,40 +120,40 @@ public class ContactsTable {
             table.addComponent(delete, 0, y);
             table.addComponent(new Label("Landline : "), 1, y);
             Label landLine = new Label(contact.getTelephoneNumber());
-            landLine.addStyleName(ChameleonTheme.LABEL_SMALL);
-            landLine.addStyleName(ChameleonTheme.LABEL_COLOR);
+            landLine.addStyleName(Reindeer.LABEL_SMALL);
+          
             table.addComponent(landLine, 2, y);
 
             //Row 4
             y++;
             table.addComponent(new Label("Fax Number: "), 1, y);
             Label faxNumber = new Label(contact.getFaxnumber());
-            faxNumber.addStyleName(ChameleonTheme.LABEL_SMALL);
-            faxNumber.addStyleName(ChameleonTheme.LABEL_COLOR);
+            faxNumber.addStyleName(Reindeer.LABEL_SMALL);
+           
             table.addComponent(faxNumber, 2, y);
 
             //Row 5
             y++;
             table.addComponent(new Label("Email: "), 1, y);
             Label email = new Label(contact.getEmail());
-            email.addStyleName(ChameleonTheme.LABEL_SMALL);
-            email.addStyleName(ChameleonTheme.LABEL_COLOR);
+            email.addStyleName(Reindeer.LABEL_SMALL);
+           
             table.addComponent(email, 2, y);
 
             //Row 6
             y++;
             table.addComponent(new Label("Mailing Address: "), 1, y);
             Label mailingAddress = new Label(contact.getMailingAddress());
-            mailingAddress.addStyleName(ChameleonTheme.LABEL_SMALL);
-            mailingAddress.addStyleName(ChameleonTheme.LABEL_COLOR);
+            mailingAddress.addStyleName(Reindeer.LABEL_SMALL);
+           
             table.addComponent(mailingAddress, 2, y);
 
             //Row 7
             y++;
             table.addComponent(new Label("Notes: "), 1, y);
             Label notes = new Label(contact.getNotes());
-            notes.addStyleName(ChameleonTheme.LABEL_SMALL);
-            notes.addStyleName(ChameleonTheme.LABEL_COLOR);
+            notes.addStyleName(Reindeer.LABEL_SMALL);
+           
             table.addComponent(notes, 2, y);
 
             //Add Grid to tables

@@ -7,7 +7,6 @@ package com.hashthrims.clients.web.vaadin.views.location.tables;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.regionlist.Province;
-import com.vaadin.addon.chameleon.ChameleonTheme;
 import com.vaadin.ui.Table;
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class ProvinceTable extends Table {
     public ProvinceTable(HashThrimsMain app) {
         data = new ClientDataService();
         this.main = app;
-        addStyleName(ChameleonTheme.TABLE_STRIPED);
         setSizeFull();
         // Define the names and data types of columns.
         addContainerProperty("Province Name", String.class, null);

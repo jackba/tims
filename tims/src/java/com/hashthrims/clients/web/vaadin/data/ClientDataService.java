@@ -77,6 +77,7 @@ import com.hashthrims.services.LangauageProficiencyService;
 import com.hashthrims.services.LanguageService;
 import com.hashthrims.services.EmployeeLanguagesService;
 import com.hashthrims.services.EmployeeMentoringService;
+import com.hashthrims.services.GlobalPositionsService;
 import com.hashthrims.services.MaritalStatusListService;
 import com.hashthrims.services.MentoringCompetenciesService;
 import com.hashthrims.services.MentoringFieldService;
@@ -163,6 +164,7 @@ public class ClientDataService {
     private PositionsFactory positionFactory;
     private PositionTypesService positionType;
     private PositionsService positionsService;
+    private GlobalPositionsService globalPositionsService;
     private SalarySourcesService salarySourcesService;
     private PositionSalarySourcesService positionSalarySourcesService;
     private AccidentTypeListFactory accidentTypeListFactory;
@@ -721,6 +723,16 @@ public class ClientDataService {
         positionsService = (PositionsService) ctx.getBean("positionsService");
         return positionsService;
     }
+    
+        /**
+     * @return the positionsService
+     */
+    public GlobalPositionsService getGlobalPositionsService() {
+        ctx = GetContext.getApplicationContext();
+        globalPositionsService = (GlobalPositionsService) ctx.getBean("globalPositionsService");
+        return globalPositionsService;
+    }
+    
 
     public SalarySourcesService getSalarySourcesService() {
         ctx = GetContext.getApplicationContext();

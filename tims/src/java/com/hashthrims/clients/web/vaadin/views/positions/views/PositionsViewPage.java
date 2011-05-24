@@ -65,7 +65,7 @@ public class PositionsViewPage extends VerticalLayout implements
         setComponentAlignment(form, Alignment.TOP_CENTER);
         table = new PositionTable(main);
         table.addListener((ValueChangeListener) this);
-        addComponent(table);
+       // addComponent(table);
 
     }
 

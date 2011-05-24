@@ -22,7 +22,7 @@
         <intercept-url pattern="/ws/**" filters="none" />
         <intercept-url pattern="/forgot/**" filters="none" />
         <intercept-url pattern="/*.jsp" filters="none" />
-         <intercept-url pattern="/*.css" filters="none" />
+        <intercept-url pattern="/*.css" filters="none" />
         <intercept-url pattern="/register/**" filters="none" />
         <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_ACC,ROLE_ADMIN,ROLE_MANAGER" />
         <form-login login-page='/login.jsp'/>

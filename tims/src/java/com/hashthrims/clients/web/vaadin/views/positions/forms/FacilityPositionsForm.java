@@ -6,7 +6,6 @@ package com.hashthrims.clients.web.vaadin.views.positions.forms;
 
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.positions.forms.position.FacilityPositionsGridForm;
-import com.hashthrims.clients.web.vaadin.views.positions.forms.position.PositionGridForm;
 import com.hashthrims.domain.positions.Status;
 import com.hashthrims.domain.jobs.Jobs;
 import com.hashthrims.domain.offices.Department;

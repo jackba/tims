@@ -20,6 +20,7 @@ import com.hashthrims.domain.jobs.Jobs;
 import com.hashthrims.domain.offices.Department;
 import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.offices.FacilityType;
+import com.hashthrims.domain.positions.GlobalPositions;
 import com.hashthrims.domain.positions.PositionTypes;
 import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.domain.positions.SalarySources;
@@ -29,6 +30,7 @@ import com.hashthrims.infrastructure.conf.GetContext;
 import com.hashthrims.services.DepartmentService;
 import com.hashthrims.services.EmployeeService;
 import com.hashthrims.services.FacilityService;
+import com.hashthrims.services.GlobalPositionsService;
 import com.hashthrims.services.JobsService;
 import com.hashthrims.services.PositionSalarySourcesService;
 import com.hashthrims.services.PositionTypesService;
@@ -47,6 +49,7 @@ import org.springframework.context.ApplicationContext;
 public class PositionsFactory {
 
     private PositionsService positionsService;
+    private GlobalPositionsService globalPositionsService;
     private FacilityService facilityService;
     private DepartmentService departmentService;
     private EmployeeService employeeService;
@@ -107,6 +110,12 @@ public class PositionsFactory {
     public Positions loadPositions(Long id) {
         positionsService = (PositionsService) ctx.getBean("positionsService");
         Positions r = positionsService.find(id);
+        return r;
+    }
+
+    public GlobalPositions loadGlobalPositions(Long id) {
+        globalPositionsService = (GlobalPositionsService) ctx.getBean("globalPositionsService");
+        GlobalPositions r = globalPositionsService.find(id);
         return r;
     }
 
@@ -273,8 +282,87 @@ public class PositionsFactory {
         emppos.setStatus(status);
         return emppos;
     }
+
     private EmployeePosition loadEmployeePosition(Long id) {
         EmployeePosition ep = data.getEmployeePositionService().find(id);
         return ep;
+    }
+
+    public GlobalPositions createGlobalPosition(StringValues val, Map<String, Long> dfields) {
+        GlobalPositions position = new GlobalPositions();
+
+
+
+        //SringValues
+
+        position.setPositionCode(val.getPositionCode());
+
+
+
+        //DependValues
+        departmentService = (DepartmentService) ctx.getBean("departmentService");
+        Department d = departmentService.find(dfields.get("department"));
+        position.setDepartment(d);
+
+
+        positionTypeService = (PositionTypesService) ctx.getBean("positionTypesService");
+        PositionTypes pt = positionTypeService.find(dfields.get("positionType"));
+        position.setPositionType(pt);
+
+        statusService = (StatusService) ctx.getBean("statusService");
+        Status status = statusService.find(dfields.get("positionStatus"));
+        position.setPositionStatus(status);
+
+
+        globalPositionsService = (GlobalPositionsService) ctx.getBean("globalPositionsService");
+        GlobalPositions pos = globalPositionsService.find(dfields.get("supervisor"));
+        position.setSupervisor(pos);
+
+
+        //DependValues
+        jobsService = (JobsService) ctx.getBean("jobsService");
+        Jobs job = jobsService.find(dfields.get("job"));
+        position.setJob(job);
+
+        return position;
+    }
+
+    public GlobalPositions updateGlobalPosition(StringValues val, Map<String, Long> dfields, Long positionId) {
+        GlobalPositions position = loadGlobalPositions(positionId);
+
+
+
+        //SringValues
+
+        position.setPositionCode(val.getPositionCode());
+
+
+
+        //DependValues
+        departmentService = (DepartmentService) ctx.getBean("departmentService");
+        Department d = departmentService.find(dfields.get("department"));
+        position.setDepartment(d);
+
+
+        positionTypeService = (PositionTypesService) ctx.getBean("positionTypesService");
+        PositionTypes pt = positionTypeService.find(dfields.get("positionType"));
+        position.setPositionType(pt);
+
+        statusService = (StatusService) ctx.getBean("statusService");
+        Status status = statusService.find(dfields.get("positionStatus"));
+        position.setPositionStatus(status);
+
+
+        globalPositionsService = (GlobalPositionsService) ctx.getBean("globalPositionsService");
+        GlobalPositions pos = globalPositionsService.find(dfields.get("supervisor"));
+        position.setSupervisor(pos);
+
+
+        //DependValues
+        jobsService = (JobsService) ctx.getBean("jobsService");
+        Jobs job = jobsService.find(dfields.get("job"));
+        position.setJob(job);
+
+        return position;
     }
 }

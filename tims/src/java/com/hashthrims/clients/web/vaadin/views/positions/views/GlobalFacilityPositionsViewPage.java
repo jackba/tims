@@ -7,8 +7,6 @@ package com.hashthrims.clients.web.vaadin.views.positions.views;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 
-import com.hashthrims.clients.web.vaadin.views.positions.forms.GlobalFacilityPositionsForm;
-import com.hashthrims.clients.web.vaadin.views.positions.model.GlobalFacilityPositionsBean;
 import com.hashthrims.clients.web.vaadin.views.positions.table.FacilityPositionTable;
 import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.positions.Positions;
@@ -17,7 +15,6 @@ import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.AbstractSelect.Filtering;
 import com.vaadin.ui.Alignment;
@@ -26,8 +23,10 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Form;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
+import com.vaadin.ui.themes.Runo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,11 +46,12 @@ public class GlobalFacilityPositionsViewPage extends VerticalLayout implements
     private final PositionTableHeaders tb = new PositionTableHeaders();
     private VerticalSplitPanel vert = new VerticalSplitPanel();
     private List<Positions> positions = new ArrayList<Positions>();
-    private FacilityPositionTable table = new FacilityPositionTable(positions);
+    private FacilityPositionTable table;
 
     public GlobalFacilityPositionsViewPage(HashThrimsMain app) {
 
         main = app;
+        table= new FacilityPositionTable(main,positions);
         setSizeFull();
         ComboBox faciliList = new ComboBox("Please select a Facility");
         faciliList.setCaption("Facility Names");
@@ -77,6 +77,9 @@ public class GlobalFacilityPositionsViewPage extends VerticalLayout implements
         vert.setSplitPosition(150, Sizeable.UNITS_PIXELS);
         vert.setFirstComponent(faciliList);
         vert.setSecondComponent(table);
+        Label selectFacility = new Label("Select Facility :");
+        selectFacility.setStyleName(Runo.LABEL_H2);
+        addComponent(selectFacility);
         addComponent(vert);
         setComponentAlignment(vert, Alignment.TOP_CENTER);
 
@@ -90,11 +93,11 @@ public class GlobalFacilityPositionsViewPage extends VerticalLayout implements
         if (property.getValue() != null) {
             facility = data.getFacilityService().find(new Long(property.toString()));
             positions = facility.getPositions();
-            setTable(new FacilityPositionTable(positions));
+            setTable(new FacilityPositionTable(main,positions));
             vert.setSecondComponent(table);
         } else {
             positions = new ArrayList<Positions>();
-            setTable(new FacilityPositionTable(positions));
+            setTable(new FacilityPositionTable(main,positions));
             vert.setSecondComponent(table);
         }
 

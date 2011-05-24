@@ -4,6 +4,7 @@
  */
 package com.hashthrims.clients.web.vaadin.views.positions.forms;
 
+import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.positions.forms.position.GlobalFacilityPositionsGridForm;
 import com.hashthrims.clients.web.vaadin.views.positions.table.FacilityPositionTable;
@@ -12,12 +13,10 @@ import com.hashthrims.domain.positions.Positions;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import java.util.ArrayList;
@@ -33,9 +32,12 @@ public class GlobalFacilityPositionsForm {
 
     private static final ClientDataService data = new ClientDataService();
     private List<Positions> positions =  new ArrayList<Positions>();
-    private FacilityPositionTable table = new FacilityPositionTable(positions);
+    private  FacilityPositionTable table;
+    private final HashThrimsMain main;
 
-    public GlobalFacilityPositionsForm() {
+    public GlobalFacilityPositionsForm(HashThrimsMain app) {
+        main=app;
+        table = new FacilityPositionTable(main,positions);
     }
 
     public Form createPositionFrom() {
@@ -118,10 +120,10 @@ public class GlobalFacilityPositionsForm {
             if (property.getValue()!=null) {
                 facility = data.getFacilityService().find(new Long(property.toString()));
                 positions = facility.getPositions();
-                setTable(new FacilityPositionTable(positions));                
+                setTable(new FacilityPositionTable(main,positions));                
             } else {
                 positions= new ArrayList<Positions>();
-                 setTable(new FacilityPositionTable(positions));   
+                 setTable(new FacilityPositionTable(main, positions));   
             }
             
             
