@@ -10,7 +10,7 @@ import com.hashthrims.clients.web.vaadin.views.users.ManageUsersMenuView;
 import com.hashthrims.clients.web.vaadin.views.users.form.UsersForm;
 import com.hashthrims.clients.web.vaadin.views.users.model.UsersBean;
 import com.hashthrims.clients.web.vaadin.views.users.tables.UserTable;
-import com.hashthrims.clients.web.vaadin.views.users.util.PasswordFactory;
+import com.hashthrims.application.utilities.PasswordFactory;
 import com.hashthrims.domain.Roles;
 import com.hashthrims.domain.Users;
 import com.hashthrims.infrastructure.factories.UsersFactory;
@@ -84,8 +84,9 @@ public class UsersViewPage extends VerticalLayout implements
             user.setEmail(record.getItemProperty("Username").toString());
             user.setFirstname(record.getItemProperty("FirstName").toString());
             user.setLastname(record.getItemProperty("Last Name").getValue().toString());
-            user.setMiddlename(record.getItemProperty("Middle Name(s)").getValue().toString());
+            user.setMiddlename(fieldValues.getStringFields(record.getItemProperty("Middle Name(s)").getValue()));
             Users userId = data.getUsersService().find(new Long(table.getValue().toString()));
+            user.setEnabled(userId.isEnabled());
             List<Roles> userRoles = userId.getRoles();
             for (Roles role : userRoles) {
                 formRoles.add(role.getRoleName());

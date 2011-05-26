@@ -17,12 +17,12 @@ import com.vaadin.ui.VerticalLayout;
 public class TabAccordian extends Accordion  {
 
     private final HashThrimsMain main;
-    public static final String MANAGE_PEOPLE = "Manage People";
-    public static final String REPORTS = "Generate Reports";
-    public static final String CONFIGURE_SYSTEM = "Configure System";
-    public static final String SYSTEM_USERS = "Manage System Users";
-    public static final String COURSES = " Manage Training";
-    public static final String CHANGE_PASSWORD = "Change Your Details";
+    public static final String MANAGE_PEOPLE = "Manage PEOPLE";
+    public static final String REPORTS = "Generate REPORTS";
+    public static final String CONFIGURE_SYSTEM = "Setup SYSTEM";
+    public static final String SYSTEM_USERS = "Manage USERS";
+    public static final String COURSES = " Manage TRAINING";
+    public static final String CHANGE_PASSWORD = "Change PASSWORD";
     private final GetUserCredentials user;
     
     public TabAccordian(HashThrimsMain app) {

@@ -163,18 +163,9 @@ public class ManageTrainingForm {
                 selectTrainees.setMultiSelect(true);
                 List<Person> persons = data.getPersonService().findAll();
                 Collections.sort(persons);
-                if (fac != null) {
-                    
-                    personsLists = personIfacility.getPeopleInFacility(persons, fac);
-                    for (Person attendee : personsLists) {
-                        selectTrainees.addItem(attendee.getId());
-                        selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonName() + " " + attendee.getPersonSurname());
-                    }
-                } else {
-                    for (Person person : persons) {
-                        selectTrainees.addItem(person.getId());
-                        selectTrainees.setItemCaption(person.getId(), person.getPersonSurname() + " " + person.getPersonName());
-                    }
+                for (Person attendee : persons) {
+                    selectTrainees.addItem(attendee.getId());
+                    selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonSurname() + " " + attendee.getPersonName());
                 }
                 selectTrainees.setImmediate(true);
                 return selectTrainees;
@@ -186,25 +177,7 @@ public class ManageTrainingForm {
 
         @Override
         public void valueChange(ValueChangeEvent event) {
-            final Property property = event.getProperty();
-            if (property == selectFacilities) {
-                List<Person> persons = data.getPersonService().findAll();
-          
-                Collections.sort(persons);
-                if (property.getValue() != null) {
-                    fac = data.getFacilityService().find(new Long(property.getValue().toString()));
-                    personsLists = personIfacility.getPeopleInFacility(persons, fac);
-                    selectTrainees.removeAllItems();
-                    for (Person attendee : personsLists) {
-                        selectTrainees.addItem(attendee.getId());
-                        selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonSurname() + " " + attendee.getPersonName());
-                    }
-                } else {
-                    
-
-                }
-            }
-
+           
         }
     }
 
@@ -243,8 +216,6 @@ public class ManageTrainingForm {
                 layout.addComponent(field, 1, 1);
             } else if (propertyId.equals("courseEndDate")) {
                 layout.addComponent(field, 1, 2);
-            } else if (propertyId.equals("facultyId")) {
-                layout.addComponent(field, 0, 4, 1, 4);
             } else if (propertyId.equals("trainees")) {
                 layout.addComponent(field, 0, 5, 1, 5);
             } else if (propertyId.equals("id")) {

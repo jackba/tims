@@ -53,7 +53,7 @@ public class EvaluatedCourses extends VerticalLayout implements ClickListener, V
 
 
 
-       EvaluateddCourseBean bean = new EvaluateddCourseBean();
+        EvaluateddCourseBean bean = new EvaluateddCourseBean();
         subwindow = new EvaluateCourseWindow(person, bean, main);
 
         final Label headerLabel = new Label("Evaluate Courses :  ");
@@ -62,7 +62,7 @@ public class EvaluatedCourses extends VerticalLayout implements ClickListener, V
         menu.addComponent(headerLabel);
 
 
-        menu.addComponent(addShortCourse);
+        //menu.addComponent(addShortCourse);
 
 
         menu.setSpacing(true);
@@ -73,19 +73,19 @@ public class EvaluatedCourses extends VerticalLayout implements ClickListener, V
 
 
         List<EmployeeCourses> list = null;
-        if (person.getCourses()!=null) {
+        if (person.getCourses() != null) {
             list = person.getCourses();
         } else {
-            list= new ArrayList<EmployeeCourses>();
+            list = new ArrayList<EmployeeCourses>();
         }
 
 
-
-        table.addContainerProperty("Competencies", String.class, null);
+        table.addContainerProperty("Course", String.class, null);
         table.addContainerProperty("Evaluation", String.class, null);
+        table.addContainerProperty("Competencies", String.class, null);
         table.addContainerProperty("Evaluation Date", Date.class, null);
         table.addContainerProperty("Set Evaluation", Button.class, null);
-        
+
 
 
         table.setNullSelectionAllowed(false);
@@ -93,58 +93,62 @@ public class EvaluatedCourses extends VerticalLayout implements ClickListener, V
         table.setImmediate(true);
 
 
-        for (final EmployeeCourses values : list) {
+        for (final EmployeeCourses courses : list) {
 
             Button updateEvaluation = new Button("Set Evaluation", new Button.ClickListener() {
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                     EvaluateddCourseBean bean = getBean();
+                    EvaluateddCourseBean bean = getBean();
                     subwindow = new EvaluateCourseWindow(person, bean, main);
                     main.getMainWindow().addWindow(subwindow);
 
                 }
 
-                private  EvaluateddCourseBean getBean() {
+                private EvaluateddCourseBean getBean() {
                     EvaluateddCourseBean bean = new EvaluateddCourseBean();
-                    bean.setEvaluation(getEvaluationId(values.getEvaluation()));
-                    bean.setEvaluationDate(values.getLastEvaluated());
-                    bean.setId(values.getId());
-                    
-                   
-                   
+                    bean.setEvaluation(getEvaluationId(courses.getEvaluation()));
+                    bean.setEvaluationDate(courses.getLastEvaluated());
+                    bean.setId(courses.getId());
+
+
+
                     return bean;
                 }
 
                 private String getCourseName(TrainingCourses course) {
-                    if(course!=null)
+                    if (course != null) {
                         return course.getCourseName();
+                    }
                     return null;
                 }
 
                 private String getEvaluation(CompetencyEvaluation evaluation) {
-                    if(evaluation!=null)
+                    if (evaluation != null) {
                         return evaluation.getCompt_type_name();
+                    }
                     return null;
                 }
 
                 private String getRequestor(TrainingCourseRequestors requestor) {
-                   if(requestor!=null)
-                       return requestor.getRequestorName();
-                   return null;
+                    if (requestor != null) {
+                        return requestor.getRequestorName();
+                    }
+                    return null;
                 }
 
                 private Long getEvaluationId(CompetencyEvaluation evaluation) {
-                   if(evaluation!=null)
-                       return evaluation.getId();
-                   return null;
+                    if (evaluation != null) {
+                        return evaluation.getId();
+                    }
+                    return null;
                 }
             });
             Button delete = new Button("Delete", new Button.ClickListener() {
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    data.getEmployeeCourseService().remove(values);
+                    data.getEmployeeCourseService().remove(courses);
                     final Person p = data.getPersonService().find(person.getId());
                     final PersonDetailsView view = new PersonDetailsView(p, main, "COURSE");
                     main.mainView.setSecondComponent(view);
@@ -159,10 +163,11 @@ public class EvaluatedCourses extends VerticalLayout implements ClickListener, V
 
 
             table.addItem(new Object[]{
-                        st.getCompetencies(values.getCourse()),
-                        st.getEvaluation(values.getEvaluation()),
-                        values.getLastEvaluated(),
-                        updateEvaluation}, values.getId());
+                        st.getCourseName(courses.getCourse()),
+                        st.getEvaluation(courses.getEvaluation()),
+                        st.getCompetencies(courses.getCourse()),
+                        courses.getLastEvaluated(),
+                        updateEvaluation}, courses.getId());
 
         }
 

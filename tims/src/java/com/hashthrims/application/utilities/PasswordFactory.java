@@ -2,10 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hashthrims.clients.web.vaadin.views.users.util;
-
-import com.hashthrims.application.utilities.PasswordEncrypt;
-import com.hashthrims.application.utilities.PasswordGenerator;
+package com.hashthrims.application.utilities;
 
 /**
  *

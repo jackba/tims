@@ -1,4 +1,3 @@
-
 <beans:beans xmlns="http://www.springframework.org/schema/security"
   xmlns:beans="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -28,17 +27,17 @@
         <form-login login-page='/login.jsp'/>
 
         <!--<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/> -->
-
+        
     </http>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <password-encoder hash="md5"/>
-            <jdbc-user-service  data-source-ref="dataSource"
-users-by-username-query="SELECT email, passwd, enabled FROM Users u where u.email=?"
-authorities-by-username-query="SELECT u.email, r.rolename FROM Users u, Roles r
+            <jdbc-user-service  data-source-ref="dataSource" 
+                                users-by-username-query="SELECT email, passwd, enabled FROM Users u where u.email=?"
+                                authorities-by-username-query="SELECT u.email, r.rolename FROM Users u, Roles r
 			       WHERE u.id = r.person_id AND u.email=?"
-	 />
+            />
         </authentication-provider>
     </authentication-manager>
 

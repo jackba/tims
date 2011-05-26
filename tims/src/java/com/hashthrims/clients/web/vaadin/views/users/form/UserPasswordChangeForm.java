@@ -11,9 +11,7 @@ import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.TextField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,7 @@ import java.util.List;
 public class UserPasswordChangeForm {
 
     // Define Buttons
-    private Button save = new Button("Change Password");
+    private Button changePassword = new Button("Change Password");
     private Button cancel = new Button("Cancel");
     //Define Footer
     private HorizontalLayout footer;
@@ -42,7 +40,7 @@ public class UserPasswordChangeForm {
 
         footer = new HorizontalLayout();
         footer.setSpacing(true);
-        footer.addComponent(save);
+        footer.addComponent(changePassword);
         footer.addComponent(cancel);
 
         footer.setVisible(true);
@@ -72,15 +70,15 @@ public class UserPasswordChangeForm {
     /**
      * @return the save
      */
-    public Button getSave() {
-        return save;
+    public Button getChangePassword() {
+        return changePassword;
     }
 
     /**
      * @param save the save to set
      */
-    public void setSave(Button save) {
-        this.save = save;
+    public void setChangePassword(Button save) {
+        this.changePassword = save;
     }
 
    

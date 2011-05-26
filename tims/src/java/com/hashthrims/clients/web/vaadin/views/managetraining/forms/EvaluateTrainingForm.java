@@ -8,6 +8,7 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.util.GetPeopleInSpecificFacility;
 import com.hashthrims.clients.web.vaadin.views.managetraining.forms.ManageTrainingForm.ManageTrainingGridForm;
 import com.hashthrims.clients.web.vaadin.views.managetraining.util.PendingEvaluations;
+import com.hashthrims.domain.EmployeeCourses;
 import com.hashthrims.domain.Person;
 import com.hashthrims.domain.employeelist.CompetencyEvaluation;
 import com.hashthrims.domain.offices.Facility;
@@ -29,6 +30,7 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Runo;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -106,39 +108,23 @@ public class EvaluateTrainingForm {
                 ((DateField) field).setRequired(true);
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
-            } else if ("facultyId".equals(propertyId)) {
-                List<Facility> facilities = data.getFacilityService().findAll();
-                Collections.sort(facilities);
-                selectFacilities = new Select("Select Facility:");
-
-                for (Facility facility : facilities) {
-                    selectFacilities.addItem(facility.getId());
-                    selectFacilities.setItemCaption(facility.getId(), facility.getFacilityName());
-                }
-                selectFacilities.setNewItemsAllowed(false);
-                selectFacilities.addListener(this);
-                selectFacilities.setImmediate(true);
-                selectFacilities.setWidth("500");
-                selectFacilities.setRequired(true);
-                return selectFacilities;
             } else if ("attendees".equals(propertyId)) {
-                selectTrainees = new ListSelect("Select Course Attendees:");
+                selectTrainees = new ListSelect("Select Course Attendees To Be Evaluated:");
                 selectTrainees.setImmediate(true);
                 selectTrainees.setNewItemsAllowed(false);
                 selectTrainees.setWidth("500");
                 selectTrainees.setHeight("100");
                 selectTrainees.setNullSelectionAllowed(false);
                 selectTrainees.setMultiSelect(true);
-                if (fac != null) {
-                    List<Person> persons = data.getPersonService().findAll();
-                    Collections.sort(persons);
-                    personsLists = personIfacility.getPeopleInFacility(persons, fac);
-                    for (Person attendee : personsLists) {
-                        selectTrainees.addItem(attendee.getId());
-                        selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonName() + " " + attendee.getPersonSurname());
-                    }
-                } else {
+                List<Person> persons = data.getPersonService().findAll();
+                List<Person> personsWithPendingEvaluations = getPersonsWithPendingEvaluations(persons);
+                Collections.sort(personsWithPendingEvaluations);
+                for (Person attendee : personsWithPendingEvaluations) {
+
+                    selectTrainees.addItem(attendee.getId());
+                    selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonSurname() + " " + attendee.getPersonName());
                 }
+
                 selectTrainees.setImmediate(true);
                 return selectTrainees;
             }
@@ -156,10 +142,23 @@ public class EvaluateTrainingForm {
                     personsLists = personIfacility.getPeopleInFacility(persons, fac);
                     for (Person attendee : personsLists) {
                         selectTrainees.addItem(attendee.getId());
-                        selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonName() + " " + attendee.getPersonSurname());
+                        selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonSurname() + " " + attendee.getPersonName());
                     }
                 }
             }
+        }
+
+        private List<Person> getPersonsWithPendingEvaluations(List<Person> persons) {
+            List<Person> pending = new ArrayList<Person>();
+            for (Person person : persons) {
+                List<EmployeeCourses> ecs = person.getCourses();
+                for (EmployeeCourses employeeCourses : ecs) {
+                    if (employeeCourses.getEvaluation() == null) {
+                        pending.add(person);
+                    }
+                }
+            }
+            return pending;
         }
     }
 
@@ -192,8 +191,6 @@ public class EvaluateTrainingForm {
                 layout.addComponent(field, 0, 1);
             } else if (propertyId.equals("evaluationDate")) {
                 layout.addComponent(field, 1, 1);
-            } else if (propertyId.equals("facultyId")) {
-                layout.addComponent(field, 0, 2, 1, 2);
             } else if (propertyId.equals("attendees")) {
                 layout.addComponent(field, 0, 3, 1, 3);
             } else if (propertyId.equals("id")) {

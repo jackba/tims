@@ -8,10 +8,8 @@ import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.users.form.UserPasswordChangeForm;
 import com.hashthrims.clients.web.vaadin.views.users.model.PasswordChangeBean;
-import com.hashthrims.clients.web.vaadin.views.users.util.PasswordFactory;
+import com.hashthrims.application.utilities.PasswordFactory;
 import com.hashthrims.domain.Users;
-import com.hashthrims.infrastructure.factories.UsersFactory;
-import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.hashthrims.infrastructure.util.GetUserCredentials;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Alignment;
@@ -33,8 +31,6 @@ public class PasswordChangeViewPage extends VerticalLayout implements
     private final Form form;
     private final UserPasswordChangeForm pform;
     private static final ClientDataService data = new ClientDataService();
-    private final UsersFactory factory = data.getUsersFactory();
-    private DataFieldsUtil fieldValues = new DataFieldsUtil();
     private final String username = new GetUserCredentials().username();
 
     public PasswordChangeViewPage(HashThrimsMain app) {
@@ -44,7 +40,7 @@ public class PasswordChangeViewPage extends VerticalLayout implements
         form = pform.createUserForm();
 
         // Add Listeners
-        pform.getSave().addListener((ClickListener) this);
+        pform.getChangePassword().addListener((ClickListener) this);
         pform.getCancel().addListener((ClickListener) this);
 
         PasswordChangeBean bean = new PasswordChangeBean();
@@ -61,7 +57,7 @@ public class PasswordChangeViewPage extends VerticalLayout implements
     @Override
     public void buttonClick(ClickEvent event) {
         final Button source = event.getButton();
-        if (source == pform.getSave()) {
+        if (source == pform.getChangePassword()) {
             if (arePasswordsCorrect(form)) {
                 getWindow().showNotification("Your Password", "Has Been Changed",
                         Notification.TYPE_WARNING_MESSAGE);
@@ -92,6 +88,8 @@ public class PasswordChangeViewPage extends VerticalLayout implements
 
     public void updateUserPassword(Form form) {
         final Users user = data.getUsersService().getByPropertyName("email", username);
+        final String newPassowrd = form.getField("newPassword").getValue().toString();
+        user.setPasswd(PasswordFactory.EncryptPassword(newPassowrd));
         data.getUsersService().merge(user);
     }
     private boolean arePasswordsCorrect(Form form) {

@@ -8,7 +8,7 @@ import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.users.form.ResetUserPasswordForm;
 import com.hashthrims.clients.web.vaadin.views.users.model.UsersBean;
-import com.hashthrims.clients.web.vaadin.views.users.util.PasswordFactory;
+import com.hashthrims.application.utilities.PasswordFactory;
 import com.hashthrims.domain.Users;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.util.BeanItem;

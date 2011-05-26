@@ -35,6 +35,7 @@ import java.util.List;
  * @author boniface
  */
 public class TimsUtil {
+
     private final ClientDataService data = new ClientDataService();
 
     public String getVal(CompetencyType competence) {
@@ -240,7 +241,7 @@ public class TimsUtil {
     }
 
     public String getPositionTitle(List<EmployeePosition> position) {
-        if (position!=null) {
+        if (position != null) {
             for (EmployeePosition employeePosition : position) {
                 return getJob(employeePosition.getPosition());//.getJob().getJob_tittle();
             }
@@ -251,7 +252,7 @@ public class TimsUtil {
     }
 
     public String getFacilityName(List<EmployeePosition> position) {
-        if (position!=null) {
+        if (position != null) {
             for (EmployeePosition employeePosition : position) {
                 return getFacilityPosition(employeePosition.getPosition());//.getFacililty().getFacilityName();
             }
@@ -270,92 +271,113 @@ public class TimsUtil {
     }
 
     private String getFacilityPosition(Positions position) {
-       if(position!=null)
-           return getFacility(position.getFacililty());
-       return null;
+        if (position != null) {
+            return getFacility(position.getFacililty());
+        }
+        return null;
     }
 
     private String getJobTitle(Jobs job) {
-        if(job!=null)
+        if (job != null) {
             return job.getJob_tittle();
+        }
         return null;
     }
 
     private String getFacility(Facility facililty) {
-        if(facililty!=null)
+        if (facililty != null) {
             return facililty.getFacilityName();
+        }
         return null;
     }
 
     public boolean checkPositionAvalaibality(Positions pos) {
-      if(pos!=null){
-          if(checkPositionStatus(pos.getPositionStatus()))
-              return true;
+        if (pos != null) {
+            if (checkPositionStatus(pos.getPositionStatus())) {
+                return true;
+            }
         }
-       
+
         return false;
     }
 
     private boolean checkPositionStatus(Status positionStatus) {
-       if(positionStatus!=null){
-           if(positionStatus.getStatus().equals("VACANT"))
-               return true;
-       }
-       return false;
+        if (positionStatus != null) {
+            if (positionStatus.getStatus().equals("VACANT")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Object getSubjectArea(MentoringSession mentoringSession) {
-        if(mentoringSession!=null)
+        if (mentoringSession != null) {
             return null;
+        }
         //LEAVE SUBJECT AREA OUT FOR NOW 
         return null;
     }
 
     private String getMentoringType(MentoringSessionType mentoringSessionType) {
-        if(mentoringSessionType!=null)
+        if (mentoringSessionType != null) {
             return mentoringSessionType.getSessionTypeName();
+        }
         return null;
     }
 
     public Long getMentoringSessionId(MentoringSession mentoringSession) {
-        if(mentoringSession!=null)
+        if (mentoringSession != null) {
             return mentoringSession.getId();
+        }
         return null;
     }
 
     public Long getFacilityTypeId(Facility venue) {
-       if(venue!=null)
-           return getIdFacilityType(venue.getFacilityType());
-       return null;
+        if (venue != null) {
+            return getIdFacilityType(venue.getFacilityType());
+        }
+        return null;
     }
 
-     public Long getFacilityId(Facility venue) {
-       if(venue!=null)
-           return venue.getId();
-       return null;
+    public Long getFacilityId(Facility venue) {
+        if (venue != null) {
+            return venue.getId();
+        }
+        return null;
     }
 
     private Long getIdFacilityType(FacilityType facilityType) {
-        if(facilityType!=null)
+        if (facilityType != null) {
             return facilityType.getId();
+        }
         return null;
     }
 
     public Long getlanguageId(Language language) {
-        if(language!=null)
+        if (language != null) {
             return language.getId();
+        }
         return null;
     }
 
     public Object getLanguageName(Language language) {
-        if(language!=null)
+        if (language != null) {
             return language.getLanguage_name();
+        }
         return null;
     }
 
     public String getTableValues(Property itemProperty) {
-        if(itemProperty!=null)
+        if (itemProperty != null) {
             return itemProperty.toString();
+        }
+        return null;
+    }
+
+    public Object getCourseName(TrainingCourses course) {
+        if (course != null) {
+            return course.getCourseName();
+        }
         return null;
     }
 }

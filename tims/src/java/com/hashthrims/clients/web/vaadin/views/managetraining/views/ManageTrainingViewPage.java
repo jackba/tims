@@ -6,16 +6,12 @@ package com.hashthrims.clients.web.vaadin.views.managetraining.views;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
-import com.hashthrims.clients.web.vaadin.views.location.LocationMenuView;
 import com.hashthrims.clients.web.vaadin.views.managetraining.ManageTrainingMenuView;
 import com.hashthrims.clients.web.vaadin.views.managetraining.forms.ManageTrainingForm;
 import com.hashthrims.clients.web.vaadin.views.managetraining.model.ManageTrainingBean;
 import com.hashthrims.domain.EmployeeCourses;
 import com.hashthrims.domain.Person;
-import com.hashthrims.domain.regionlist.City;
-import com.hashthrims.domain.regionlist.District;
 import com.hashthrims.infrastructure.factories.EmployeeFactory;
-import com.hashthrims.infrastructure.factories.LocationFactory;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
