@@ -72,7 +72,7 @@ public class MentoringThemeViewPage extends VerticalLayout implements
         if (property == table) {
             final Item record = table.getItem(table.getValue());
             final MentoringThemeBean mentoringTheme = new MentoringThemeBean();
-            mentoringTheme.setMentoringField(record.getItemProperty("Mentoring Field").toString());
+            mentoringTheme.setMentoringField(record.getItemProperty("Mentoring Subject Area").toString());
             mentoringTheme.setMentoringTheme(record.getItemProperty("Mentoring Theme").toString());
             mentoringTheme.setId(new Long(table.getValue().toString()));
 

@@ -29,10 +29,17 @@ public class GetUserCredentials {
     }
 
     public boolean isUserWithRole(String role) {
+        
+        
         GrantedAuthority authority = new GrantedAuthorityImpl(role);
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        if (authorities.contains(authority)) {
-            return true;
+   
+        if (SecurityContextHolder.getContext().getAuthentication()!=null) {
+            List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+            if (authorities.contains(authority)) {
+                return true;
+            }
+        } else {
+            return false;
         }
         return false;
     }

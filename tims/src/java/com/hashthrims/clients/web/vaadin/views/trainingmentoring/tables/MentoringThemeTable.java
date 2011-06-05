@@ -25,7 +25,7 @@ public class MentoringThemeTable extends Table{
         // Make Table fill all space
         setSizeFull();
         // Define the names and data types of columns.
-        addContainerProperty("Mentoring Field", String.class, null);
+        addContainerProperty("Mentoring Subject Area", String.class, null);
          addContainerProperty("Mentoring Theme", String.class, null);
 
         // Add Data Columns

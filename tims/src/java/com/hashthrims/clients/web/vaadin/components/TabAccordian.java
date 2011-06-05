@@ -9,24 +9,27 @@ import com.hashthrims.infrastructure.util.GetUserCredentials;
 
 import com.vaadin.ui.Accordion;
 import com.vaadin.ui.VerticalLayout;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
  * @author boniface
  */
-public class TabAccordian extends Accordion  {
+public class TabAccordian extends Accordion {
 
     private final HashThrimsMain main;
-    public static final String MANAGE_PEOPLE = "Manage PEOPLE";
+    public static final String MANAGE_PEOPLE = "Manage PEOPLE ";
     public static final String REPORTS = "Generate REPORTS";
     public static final String CONFIGURE_SYSTEM = "Setup SYSTEM";
     public static final String SYSTEM_USERS = "Manage USERS";
     public static final String COURSES = " Manage TRAINING";
     public static final String CHANGE_PASSWORD = "Change PASSWORD";
+    public static final String MENTORING_NIMART = "Mentoring NIMART";
     private final GetUserCredentials user;
-    
+
     public TabAccordian(HashThrimsMain app) {
-        main =app;
+        SecurityContextHolder.getContext().setAuthentication(app.getAuth());
+        main = app;
         user = new GetUserCredentials();
         setSizeFull();
 
@@ -43,6 +46,12 @@ public class TabAccordian extends Accordion  {
         courses.addComponent(manageCoursesTree);
         addTab(courses, COURSES, null);
 
+        // Niamrt Details 
+        VerticalLayout nimartLayout = new VerticalLayout();
+        MentoringNimartTreeMenu nimartTree = new MentoringNimartTreeMenu(app);
+        nimartLayout.addComponent(nimartTree);
+        addTab(nimartLayout, MENTORING_NIMART, null);
+
         // Manage Reports
         VerticalLayout reports = new VerticalLayout();
         GenerateReportsTreeMenu reportTree = new GenerateReportsTreeMenu(app);
@@ -54,6 +63,8 @@ public class TabAccordian extends Accordion  {
         ChangeUserDetailsTreeMenu userDatailsTree = new ChangeUserDetailsTreeMenu(app);
         changeYourDetails.addComponent(userDatailsTree);
         addTab(changeYourDetails, CHANGE_PASSWORD, null);
+
+
 
         // Configure System Menu
         VerticalLayout configureSystem = new VerticalLayout();
@@ -73,5 +84,4 @@ public class TabAccordian extends Accordion  {
             addTab(systemUsers, SYSTEM_USERS, null);
         }
     }
-
 }

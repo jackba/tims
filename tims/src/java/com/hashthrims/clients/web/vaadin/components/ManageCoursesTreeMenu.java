@@ -7,6 +7,7 @@ package com.hashthrims.clients.web.vaadin.components;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.managementoring.ManageMentoringMenuView;
 import com.hashthrims.clients.web.vaadin.views.managetraining.ManageTrainingMenuView;
+import com.hashthrims.clients.web.vaadin.views.trainingmentoring.TrainingMentoringMenuView;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Tree;
@@ -55,14 +56,12 @@ public class ManageCoursesTreeMenu extends Tree implements ItemClickListener {
     }
 
     private void showManageMentoringView() {
-        ManageMentoringMenuView w = new ManageMentoringMenuView(main, "POSITION");
-//    ,"POSITION"
-        main.mainView.setSecondComponent(w);
+         main.mainView.setSecondComponent(new TrainingMentoringMenuView(main, "POSITION"));
+
     }
 
     private void showManageTrainingView() {
        ManageTrainingMenuView w = new ManageTrainingMenuView(main, "POSITION");
-//    ,"POSITION"
         main.mainView.setSecondComponent(w);
     }
 }

@@ -201,7 +201,7 @@ public class MentoringSessionForm {
                 return selectTheme;
             } else if ("sessionType".equals(propertyId)) {
                 List<MentoringSessionType> sts = data.getMentoringSessionTypeService().findAll();
-                selectSessionType = new Select("Session Type:");
+                selectSessionType = new Select("Mentoring Session Type:");
                 for (MentoringSessionType st : sts) {
                     selectSessionType.addItem(st.getId());
                     selectSessionType.setItemCaption(st.getId(), st.getSessionTypeName());
@@ -213,7 +213,7 @@ public class MentoringSessionForm {
                 return selectSessionType;
             } else if ("competencyType".equals(propertyId)) {
                 List<CompetencyType> fields = data.getCompetencyTypeService().findAll();
-                selectCompetencyType = new Select("Subject Area:");
+                selectCompetencyType = new Select("Mentoring Subject Area:");
                 selectCompetencyType.addListener(this);
                 selectCompetencyType.setImmediate(true);
                 for (CompetencyType fd : fields) {

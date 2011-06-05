@@ -58,11 +58,11 @@ public class TrainingInformationMenuView extends VerticalLayout {
         tab.setHeight("100%");
         tab.setWidth("100%");
         tab.addTab(trainingInstitutionTab, "Training Institution", null);
-       // tab.addTab(evaluationTab, "Evaluation", null);
+        // tab.addTab(evaluationTab, "Evaluation", null);
         tab.addTab(funderTab, "Training Funder", null);
         //tab.addTab(continuingEducationTab, "Continue Education", null);
         tab.addTab(categoryTab, "Training Field", null);
-         tab.addTab(mentoringFieldTab, "Mentoring Field", null);
+        tab.addTab(mentoringFieldTab, "Mentoring Subject Area", null);
 
         if (selectedTab.equals("TRAINING")) {
             tab.setSelectedTab(trainingInstitutionTab);
@@ -77,7 +77,6 @@ public class TrainingInformationMenuView extends VerticalLayout {
         } else if (selectedTab.equals("MENTORING")) {
             tab.setSelectedTab(mentoringFieldTab);
         }
-
         addComponent(tab);
     }
 }

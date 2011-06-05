@@ -70,7 +70,7 @@ public class MentoringFieldViewPage extends VerticalLayout implements
         if (property == table) {
             Item record = table.getItem(table.getValue());
             MentoringFieldBean mentoringField = new MentoringFieldBean();
-            mentoringField.setFieldName(record.getItemProperty("Mentoring Field").toString());
+            mentoringField.setFieldName(record.getItemProperty("Mentoring Subject Area").toString());
             mentoringField.setMentoringId(new Long(table.getValue().toString()));
 
             if (mentoringField != form.getItemDataSource()) {

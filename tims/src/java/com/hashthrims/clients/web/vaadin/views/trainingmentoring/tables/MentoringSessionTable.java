@@ -27,7 +27,7 @@ public class MentoringSessionTable extends com.vaadin.ui.Table {
         // Define the names and data types of columns.
         addContainerProperty("Session Name", String.class, null);
         addContainerProperty("Session Type", String.class, null);
-        addContainerProperty("Mentoring Field", String.class, null);
+        addContainerProperty("Mentoring Subject Area", String.class, null);
         addContainerProperty("Mentoring Theme", String.class, null);
         addContainerProperty("Status", String.class, null);
         addContainerProperty("Training Institution", String.class, null);

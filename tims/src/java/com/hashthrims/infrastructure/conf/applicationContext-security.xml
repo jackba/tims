@@ -1,3 +1,4 @@
+
 <beans:beans xmlns="http://www.springframework.org/schema/security"
   xmlns:beans="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +16,11 @@
     </global-method-security>
 
     <http auto-config="true">
+        	
+        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	
 
+<!--
         <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/VAADIN/**" filters="none" />
         <intercept-url pattern="/ws/**" filters="none" />
@@ -25,7 +30,7 @@
         <intercept-url pattern="/register/**" filters="none" />
         <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_ACC,ROLE_ADMIN,ROLE_MANAGER" />
         <form-login login-page='/login.jsp'/>
-
+-->
         <!--<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/> -->
         
     </http>

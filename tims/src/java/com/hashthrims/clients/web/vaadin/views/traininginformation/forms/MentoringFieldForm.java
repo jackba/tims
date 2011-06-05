@@ -37,7 +37,7 @@ public class MentoringFieldForm {
 
     public Form createMentoringFieldForm() {
         Form form = new Form();
-        form.setCaption("Mentoring Field");
+        form.setCaption("Mentoring Subject Area");
         form.setImmediate(false);
         form.setFormFieldFactory(new CityFieldFactory());
 
@@ -159,7 +159,7 @@ public class MentoringFieldForm {
 
             Field field = super.createField(item, propertyId, uiContext);
             if ("fieldName".equals(propertyId)) {
-                field = new TextField("Mentoring Field:");
+                field = new TextField("Mentoring Subject Area:");
                 ((TextField) field).setColumns(30);
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);

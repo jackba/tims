@@ -24,7 +24,7 @@ public class MentoringFieldTable extends com.vaadin.ui.Table{
         // Make Table fill all space
         setSizeFull();
         // Define the names and data types of columns.
-        addContainerProperty("Mentoring Field", String.class, null);
+        addContainerProperty("Mentoring Subject Area", String.class, null);
         
         // Add Data Columns
         List<MentoringField> fields = data.getMentoringFieldService().findAll();

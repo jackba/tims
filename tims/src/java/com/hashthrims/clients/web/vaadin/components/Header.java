@@ -9,6 +9,7 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.Users;
 import com.hashthrims.infrastructure.util.GetUserCredentials;
 import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.service.ApplicationContext;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
@@ -24,6 +25,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.Reindeer;
 import java.io.Serializable;
 
+
 /**
  *
  * @author boniface
@@ -33,6 +35,7 @@ public class Header implements Serializable {
     private static ClientDataService data = new ClientDataService();
     private HashThrimsMain main;
     private final String username = new GetUserCredentials().username();
+    private ApplicationContext ctx;
 
     public Header(HashThrimsMain app) {
         this.main = app;
@@ -54,13 +57,20 @@ public class Header implements Serializable {
 
         HorizontalLayout toggles = new HorizontalLayout();
         toggles.setSpacing(true);
-
+       //
         Users u = data.getUsersService().getByPropertyName("email", username);
 
         titleLayout = new CssLayout();
-        Label user = new Label("Welcome " + u.getFirstname()+ " " + u.getLastname()+" ");
-        user.setSizeUndefined();
-        titleLayout.addComponent(user);
+        Label user = null;
+        if (u != null) {
+            user = new Label("Welcome " + u.getFirstname() + " " + u.getLastname() + " ");
+            user.setSizeUndefined();
+            titleLayout.addComponent(user);
+        }
+        
+      //  System.out.println(" THE USER NAME IS "+new GetUserCredentials().username());
+
+
 
         HorizontalLayout buttons = new HorizontalLayout();
         buttons.setSpacing(true);
