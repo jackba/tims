@@ -2,19 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.application.webservices.rest.resources.hashthrims.util;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.*;
+
 /**
  *
  * @author abismail
  */
 @XmlRootElement
-public class PositionsForm implements Serializable{
-   
-  private String positionCode;
+public class PositionsForm implements Serializable {
+
+    private String positionCode;
     private String positionTitle;
     private String positionDesc;
 
@@ -59,8 +59,4 @@ public class PositionsForm implements Serializable{
     public void setPositionDesc(String positionDesc) {
         this.positionDesc = positionDesc;
     }
-
-  
-
-   
 }

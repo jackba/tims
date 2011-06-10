@@ -4,10 +4,8 @@
  */
 package com.hashthrims.domain;
 
-import com.hashthrims.domain.employeelist.CompetencyEvaluation;
 import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.traininglist.MentoringSession;
-import com.hashthrims.domain.traininglist.TrainingCourseRequestors;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;

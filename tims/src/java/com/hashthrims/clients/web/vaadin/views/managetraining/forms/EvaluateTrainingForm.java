@@ -151,10 +151,13 @@ public class EvaluateTrainingForm {
         private List<Person> getPersonsWithPendingEvaluations(List<Person> persons) {
             List<Person> pending = new ArrayList<Person>();
             for (Person person : persons) {
-                List<EmployeeCourses> ecs = person.getCourses();
-                for (EmployeeCourses employeeCourses : ecs) {
-                    if (employeeCourses.getEvaluation() == null) {
-                        pending.add(person);
+                
+                if (person.getCourses()!=null) {
+                    List<EmployeeCourses> ecs = person.getCourses();
+                    for (EmployeeCourses employeeCourses : ecs) {
+                        if (employeeCourses.getEvaluation() == null) {
+                            pending.add(person);
+                        }
                     }
                 }
             }

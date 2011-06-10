@@ -3,5 +3,10 @@
   <persistence-unit name="hashthrimsPU" transaction-type="RESOURCE_LOCAL">
     <class>com.hashthrims.domain.nimart.CompetencyCategory</class>
     <class>com.hashthrims.domain.nimart.CompetencyTasks</class>
+    <class>com.hashthrims.domain.offices.Nodes</class>
+    <class>com.hashthrims.domain.offices.Clusters</class>
+    <class>com.hashthrims.domain.employeelist.MentorsRoles</class>
+    <class>com.hashthrims.domain.Mentees</class>
+    <class>com.hashthrims.domain.MentorExpertiseArea</class>
   </persistence-unit>
 </persistence>
