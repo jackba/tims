@@ -6,6 +6,7 @@
 package com.hashthrims.domain.offices;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -22,7 +23,7 @@ public class FacilityType implements Serializable {
     private String facilityName;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "facilitytype_id")
-    private List<Facility> facility;
+    private List<Facility> facility = new ArrayList<Facility>();
 
     public Long getId() {
         return id;

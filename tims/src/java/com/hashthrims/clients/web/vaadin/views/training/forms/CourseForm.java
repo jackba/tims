@@ -220,8 +220,7 @@ public class CourseForm {
             layout.setMargin(true);
             layout.setSpacing(true);
 
-            //layout.setSizeFull();
-            //layout.setStyleName(Runo.LAYOUT_DARKER);
+
             layout.setStyleName(Runo.CSSLAYOUT_SHADOW);
             HorizontalLayout firstHeader = new HorizontalLayout();
             firstHeader.setSizeFull();

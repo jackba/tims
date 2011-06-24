@@ -5,6 +5,7 @@
 package com.hashthrims.domain.traininglist;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class MentoringTheme implements Serializable {
     private String mentoringTheme;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringtheme_id")
-    private List<MentoringSession> mentoringSession;
+    private List<MentoringSession> mentoringSession = new ArrayList<MentoringSession>();
     @OneToOne
     private MentoringField mentoringField;
 

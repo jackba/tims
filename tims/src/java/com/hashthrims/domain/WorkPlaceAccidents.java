@@ -26,7 +26,7 @@ public class WorkPlaceAccidents implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-private     AccidentTypeList accidentType;
+    private AccidentTypeList accidentType;
     @Temporal(value = javax.persistence.TemporalType.DATE)
     private Date Occurence;
     @Temporal(value = javax.persistence.TemporalType.DATE)

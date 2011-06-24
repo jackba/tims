@@ -6,6 +6,7 @@
 package com.hashthrims.domain.regionlist;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -26,7 +27,7 @@ public class Country implements Serializable {
     private boolean location;
     @OneToMany(orphanRemoval = true, cascade = { javax.persistence.CascadeType.ALL })
     @JoinColumn(name = "country_id")
-    private List<Province> province;
+    private List<Province> province=new ArrayList<Province>();
     public Long getId() {
         return id;
     }

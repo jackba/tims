@@ -20,6 +20,7 @@ public class Clusters implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String clusterName;
 
     public Long getId() {
         return id;
@@ -52,6 +53,20 @@ public class Clusters implements Serializable {
     @Override
     public String toString() {
         return "com.hashthrims.domain.offices.Clusters[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the clusterName
+     */
+    public String getClusterName() {
+        return clusterName;
+    }
+
+    /**
+     * @param clusterName the clusterName to set
+     */
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
     }
     
 }

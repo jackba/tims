@@ -44,6 +44,7 @@ import com.hashthrims.services.BenefitTypeService;
 import com.hashthrims.services.CadresService;
 import com.hashthrims.services.CityService;
 import com.hashthrims.services.ClassificationsService;
+import com.hashthrims.services.ClustersService;
 import com.hashthrims.services.CompetencyEvaluationService;
 import com.hashthrims.services.CompetencyListService;
 import com.hashthrims.services.CompetencyService;
@@ -85,7 +86,9 @@ import com.hashthrims.services.MentoringFundersService;
 import com.hashthrims.services.MentoringSessionService;
 import com.hashthrims.services.MentoringSessionTypeService;
 import com.hashthrims.services.MentoringThemeService;
+import com.hashthrims.services.MentorsRolesService;
 import com.hashthrims.services.MentorsService;
+import com.hashthrims.services.NodesService;
 import com.hashthrims.services.PersonService;
 import com.hashthrims.services.PositionSalarySourcesService;
 import com.hashthrims.services.PositionTypesService;
@@ -225,6 +228,9 @@ public class ClientDataService {
     private MentoringThemeService mentoringThemeService;
     private MentoringSessionTypeService mentoringSessionTypeService;
     private EmployeeMentoringService employeeMentoringService;
+    private NodesService nodesService;
+    private ClustersService clustersService;
+    private MentorsRolesService mentorsRolesService;
 
     public MentoringSessionTypeService getMentoringSessionTypeService() {
         ctx = GetContext.getApplicationContext();
@@ -723,8 +729,8 @@ public class ClientDataService {
         positionsService = (PositionsService) ctx.getBean("positionsService");
         return positionsService;
     }
-    
-        /**
+
+    /**
      * @return the positionsService
      */
     public GlobalPositionsService getGlobalPositionsService() {
@@ -732,7 +738,6 @@ public class ClientDataService {
         globalPositionsService = (GlobalPositionsService) ctx.getBean("globalPositionsService");
         return globalPositionsService;
     }
-    
 
     public SalarySourcesService getSalarySourcesService() {
         ctx = GetContext.getApplicationContext();
@@ -1018,5 +1023,23 @@ public class ClientDataService {
         ctx = GetContext.getApplicationContext();
         positionSalarySourcesService = (PositionSalarySourcesService) ctx.getBean("positionSalarySourcesService");
         return positionSalarySourcesService;
+    }
+
+    public NodesService getNodesService() {
+        ctx = GetContext.getApplicationContext();
+        nodesService = (NodesService) ctx.getBean("nodesService");
+        return nodesService;
+    }
+
+    public ClustersService getClustersService() {
+        ctx = GetContext.getApplicationContext();
+        clustersService = (ClustersService) ctx.getBean("clustersService");
+        return clustersService;
+    }
+
+    public MentorsRolesService getMentorsRolesService() {
+        ctx = GetContext.getApplicationContext();
+        mentorsRolesService = (MentorsRolesService) ctx.getBean("mentorsRolesService");
+        return mentorsRolesService;
     }
 }

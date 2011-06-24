@@ -20,6 +20,7 @@ public class Nodes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String nodesName;
 
     public Long getId() {
         return id;
@@ -52,6 +53,20 @@ public class Nodes implements Serializable {
     @Override
     public String toString() {
         return "com.hashthrims.domain.offices.Nodes[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the nodesName
+     */
+    public String getNodesName() {
+        return nodesName;
+    }
+
+    /**
+     * @param nodesName the nodesName to set
+     */
+    public void setNodesName(String nodesName) {
+        this.nodesName = nodesName;
     }
     
 }

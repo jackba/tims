@@ -9,6 +9,7 @@ import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.EmployeeMentoring;
 import com.hashthrims.domain.employeelist.CompetencyEvaluation;
 import com.hashthrims.domain.employeelist.CompetencyList;
+import com.hashthrims.domain.employeelist.MentorsRoles;
 import com.hashthrims.domain.positions.Status;
 import com.hashthrims.domain.regionlist.City;
 import com.hashthrims.domain.regionlist.Country;
@@ -383,5 +384,21 @@ public class TrainingFactory {
     public MentoringSession loadMentoringSessions(Long MentoringSessionId) {
         MentoringSession m = data.getMentoringSessionService().find(MentoringSessionId);
         return m;
+    }
+
+    public MentorsRoles createMentorsRoles(String fieldName) {
+        MentorsRoles m = new MentorsRoles();
+        m.setMentorsRolesName(fieldName);
+        return m;
+    }
+
+    public MentorsRoles updatedMentorsRoles(String fieldName, Long mentoringId) {
+        MentorsRoles m = loadMentorsRoles(mentoringId);
+        m.setMentorsRolesName(fieldName);
+        return m;
+    }
+
+    public MentorsRoles loadMentorsRoles(Long mentoringId) {
+        return data.getMentorsRolesService().find(mentoringId);
     }
 }

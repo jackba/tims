@@ -6,6 +6,7 @@ package com.hashthrims.domain.traininglist;
 
 import com.hashthrims.domain.positions.Status;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,10 +40,10 @@ public class TrainingCourses implements Serializable,Comparable<TrainingCourses>
     private CourseTypeName courseType;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "trainingcourses_id")
-    private List<CourseFunders> courseFunders;
+    private List<CourseFunders> courseFunders = new ArrayList<CourseFunders>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "trainingcourses_id")
-    private List<CourseCompetencies> courseCompetencies;
+    private List<CourseCompetencies> courseCompetencies = new ArrayList<CourseCompetencies>();
 
     public Long getId() {
         return id;

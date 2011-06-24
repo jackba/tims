@@ -11,7 +11,9 @@ import com.hashthrims.clients.web.vaadin.views.location.views.CountyViewPage;
 import com.hashthrims.clients.web.vaadin.views.location.views.DistrictViewPage;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.location.views.AddressTypeViewPage;
+import com.hashthrims.clients.web.vaadin.views.location.views.ClustersViewPage;
 import com.hashthrims.clients.web.vaadin.views.location.views.CurrencyViewPage;
+import com.hashthrims.clients.web.vaadin.views.location.views.NodesViewPage;
 
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
@@ -52,6 +54,14 @@ public class LocationMenuView extends VerticalLayout {
         currencyTab.setMargin(true);
         currencyTab.addComponent(new CurrencyViewPage(main));
 
+        VerticalLayout nodesTab = new VerticalLayout();
+        nodesTab.setMargin(true);
+        nodesTab.addComponent(new NodesViewPage(main));
+
+        VerticalLayout clustersTab = new VerticalLayout();
+        clustersTab.setMargin(true);
+        clustersTab.addComponent(new ClustersViewPage(main));
+
         VerticalLayout addressTypeTab = new VerticalLayout();
         addressTypeTab.setMargin(true);
         addressTypeTab.addComponent(new AddressTypeViewPage(main));
@@ -67,8 +77,9 @@ public class LocationMenuView extends VerticalLayout {
         tab.addTab(countyTab, "District", null);
         tab.addTab(districtTab, "Sub District", null);
         tab.addTab(cityTab, "City", null);
-       // tab.addTab(currencyTab, "Currency", null);
         tab.addTab(addressTypeTab, "Address Type", null);
+        tab.addTab(nodesTab, "Node", null);
+        tab.addTab(clustersTab, "Cluster", null);
         if (selectedTab.equals("COUNTRY")) {
             tab.setSelectedTab(countryTab);
         } else if (selectedTab.equals("PROVINCE")) {
@@ -83,6 +94,10 @@ public class LocationMenuView extends VerticalLayout {
             tab.setSelectedTab(currencyTab);
         } else if (selectedTab.equals("ADDRESS")) {
             tab.setSelectedTab(addressTypeTab);
+        } else if (selectedTab.equals("NODE")) {
+            tab.setSelectedTab(nodesTab);
+        } else if (selectedTab.equals("CLUSTERS")) {
+            tab.setSelectedTab(clustersTab);
         }
         addComponent(tab);
     }

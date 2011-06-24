@@ -5,8 +5,10 @@
 package com.hashthrims.clients.web.vaadin.views.traininginformation;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
+import com.hashthrims.clients.web.vaadin.views.traininginformation.views.AddMentorsViewPage;
 import com.hashthrims.clients.web.vaadin.views.traininginformation.views.ContinueEducationViewPage;
 import com.hashthrims.clients.web.vaadin.views.traininginformation.views.MentoringFieldViewPage;
+import com.hashthrims.clients.web.vaadin.views.traininginformation.views.MentorsRolesViewPage;
 import com.hashthrims.clients.web.vaadin.views.traininginformation.views.TrainingCourseCategoryViewPage;
 
 import com.hashthrims.clients.web.vaadin.views.traininginformation.views.TrainingCourseEvaluationViewPage;
@@ -53,6 +55,14 @@ public class TrainingInformationMenuView extends VerticalLayout {
         mentoringFieldTab.setMargin(true);
         mentoringFieldTab.addComponent(new MentoringFieldViewPage(main));
 
+        VerticalLayout mentorsRolesTab = new VerticalLayout();
+        mentorsRolesTab.setMargin(true);
+        mentorsRolesTab.addComponent(new MentorsRolesViewPage(main));
+
+        VerticalLayout addMentorsTab = new VerticalLayout();
+        addMentorsTab.setMargin(true);
+        addMentorsTab.addComponent(new AddMentorsViewPage(main));
+
 
         tab = new TabSheet();
         tab.setHeight("100%");
@@ -63,6 +73,8 @@ public class TrainingInformationMenuView extends VerticalLayout {
         //tab.addTab(continuingEducationTab, "Continue Education", null);
         tab.addTab(categoryTab, "Training Field", null);
         tab.addTab(mentoringFieldTab, "Mentoring Subject Area", null);
+        tab.addTab(mentorsRolesTab, "Mentors Roles", null);
+        tab.addTab(addMentorsTab, "Add Mentors", null);
 
         if (selectedTab.equals("TRAINING")) {
             tab.setSelectedTab(trainingInstitutionTab);
@@ -76,6 +88,10 @@ public class TrainingInformationMenuView extends VerticalLayout {
             tab.setSelectedTab(categoryTab);
         } else if (selectedTab.equals("MENTORING")) {
             tab.setSelectedTab(mentoringFieldTab);
+        } else if (selectedTab.equals("ROLES")) {
+            tab.setSelectedTab(mentorsRolesTab);
+        } else if (selectedTab.equals("MENTORS")) {
+            tab.setSelectedTab(addMentorsTab);
         }
         addComponent(tab);
     }

@@ -6,6 +6,8 @@ package com.hashthrims.clients.web.vaadin.views.facilites;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.facilites.views.DepartmentViewPage;
+import com.hashthrims.clients.web.vaadin.views.facilites.views.FacilityMentorsViewPage;
+import com.hashthrims.clients.web.vaadin.views.facilites.views.FacilityNodeClusterViewPAge;
 import com.hashthrims.clients.web.vaadin.views.facilites.views.FacilityTypeViewPage;
 import com.hashthrims.clients.web.vaadin.views.facilites.views.FacilityViewPage;
 import com.hashthrims.clients.web.vaadin.views.facilites.views.RegistrationBodyViewPage;
@@ -41,6 +43,16 @@ public class OrganisationListMenuView extends VerticalLayout {
         registrationBodyTab.setMargin(true);
         registrationBodyTab.addComponent(new RegistrationBodyViewPage(app));
 
+        final VerticalLayout nodeClusterTab = new VerticalLayout();
+        nodeClusterTab.setMargin(true);
+        nodeClusterTab.addComponent(new FacilityNodeClusterViewPAge(app));
+
+
+        final VerticalLayout mentorsTab = new VerticalLayout();
+        mentorsTab.setMargin(true);
+        mentorsTab.addComponent(new FacilityMentorsViewPage(app));
+
+
 
 
 
@@ -53,6 +65,8 @@ public class OrganisationListMenuView extends VerticalLayout {
         tab.addTab(facilityTab, "Facility", null);
 
         tab.addTab(registrationBodyTab, "Registration Body", null);
+        tab.addTab(nodeClusterTab, "Add Node and Cluster", null);
+        tab.addTab(mentorsTab, "Add Facility Mentor", null);
 
         if (selectedTab.equals("DEPARTMENT")) {
             tab.setSelectedTab(departmenttab);
@@ -62,6 +76,10 @@ public class OrganisationListMenuView extends VerticalLayout {
             tab.setSelectedTab(facilityTypeTab);
         } else if (selectedTab.equals("REGISTRATIONBODY")) {
             tab.setSelectedTab(registrationBodyTab);
+        } else if (selectedTab.equals("NODE")) {
+            tab.setSelectedTab(nodeClusterTab);
+        } else if (selectedTab.equals("MENTORS")) {
+            tab.setSelectedTab(mentorsTab);
         }
         addComponent(tab);
     }

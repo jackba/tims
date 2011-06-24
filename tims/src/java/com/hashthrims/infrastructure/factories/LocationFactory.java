@@ -4,6 +4,8 @@
  */
 package com.hashthrims.infrastructure.factories;
 
+import com.hashthrims.domain.offices.Clusters;
+import com.hashthrims.domain.offices.Nodes;
 import com.hashthrims.domain.regionlist.AddressType;
 import com.hashthrims.domain.regionlist.City;
 import com.hashthrims.domain.regionlist.Country;
@@ -14,10 +16,12 @@ import com.hashthrims.domain.regionlist.Province;
 import com.hashthrims.infrastructure.conf.GetContext;
 import com.hashthrims.services.AddressTypeService;
 import com.hashthrims.services.CityService;
+import com.hashthrims.services.ClustersService;
 import com.hashthrims.services.CountryService;
 import com.hashthrims.services.CountyService;
 import com.hashthrims.services.CurrencyService;
 import com.hashthrims.services.DistrictService;
+import com.hashthrims.services.NodesService;
 import com.hashthrims.services.RegionService;
 import org.springframework.context.ApplicationContext;
 
@@ -34,6 +38,8 @@ public class LocationFactory {
     private CityService cityService;
     private CurrencyService currencyService;
     private AddressTypeService addressTypeService;
+    private NodesService nodesService;
+    private ClustersService clustersService;
     private ApplicationContext ctx = GetContext.getApplicationContext();
 
     public Country createCountry(String countryName, String alphaCode, int numericCode) {
@@ -219,7 +225,7 @@ public class LocationFactory {
     }
 
     public AddressType updatedAddressType(String addressTypeName, Long addressTypeId) {
-         AddressType a = loadAddressType(addressTypeId);
+        AddressType a = loadAddressType(addressTypeId);
         a.setAddressTypeName(addressTypeName);
         return a;
     }
@@ -234,5 +240,43 @@ public class LocationFactory {
         addressTypeService = (AddressTypeService) ctx.getBean("addressTypeService");
         AddressType c = addressTypeService.find(addressTypeId);
         return c;
+    }
+
+    public Clusters createClusters(String clustersName) {
+        clustersService = (ClustersService) ctx.getBean("clustersService");
+        Clusters c = new Clusters();
+        c.setClusterName(clustersName);
+        return c;
+    }
+
+    public Clusters updatedClusters(String clustersName, Long clustersId) {
+        Clusters a = loadClusters(clustersId);
+        a.setClusterName(clustersName);
+        return a;
+    }
+
+    public Clusters loadClusters(Long clustersId) {
+        clustersService = (ClustersService) ctx.getBean("clustersService");
+        Clusters c = clustersService.find(clustersId);
+        return c;
+    }
+
+    public Nodes createNodes(String nodesName) {
+        nodesService = (NodesService) ctx.getBean("nodesService");
+        Nodes c = new Nodes();
+        c.setNodesName(nodesName);
+        return c;
+    }
+
+    public Nodes updatedNodes(String nodesName, Long nodesId) {
+        Nodes a = loadNodes(nodesId);
+        a.setNodesName(nodesName);
+        return a;
+    }
+
+    public Nodes loadNodes(Long nodesId) {
+        nodesService = (NodesService) ctx.getBean("nodesService");
+        Nodes n = nodesService.find(nodesId);
+        return n;
     }
 }

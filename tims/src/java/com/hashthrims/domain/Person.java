@@ -6,6 +6,7 @@ package com.hashthrims.domain;
 
 import com.hashthrims.domain.regionlist.City;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import javax.persistence.OneToOne;
  * @author boniface
  */
 @Entity
-public class Person implements Serializable,Comparable<Person>{
+public class Person implements Serializable, Comparable<Person> {
 
     private static long serialVersionUID = 1L;
 
@@ -47,34 +48,43 @@ public class Person implements Serializable,Comparable<Person>{
     private City residence;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "contacts_id")
-    private List<Contacts> contacts;
+    private List<Contacts> contacts  = new ArrayList<Contacts>();
     @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "demography_id")
     private Demography demography;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<EmployeePosition> position;
+    private List<EmployeePosition> position = new ArrayList<EmployeePosition>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<EmploymentHistory> employmentHistory;
+    private List<EmploymentHistory> employmentHistory = new ArrayList<EmploymentHistory>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<EducationHistory> educationHistory;
+    private List<EducationHistory> educationHistory = new ArrayList<EducationHistory>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<Identities> identities;
+    private List<Identities> identities = new ArrayList<Identities>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<ProfessionalRegistration> professionalRegistration;
+    private List<ProfessionalRegistration> professionalRegistration = new ArrayList<ProfessionalRegistration>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<EmployeeCourses> courses;
+    private List<EmployeeCourses> courses = new ArrayList<EmployeeCourses>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<EmployeeLanguages> languages;
+    private List<EmployeeLanguages> languages = new ArrayList<EmployeeLanguages>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<EmployeeMentoring> mentoring;
+    private List<EmployeeMentoring> mentoring = new ArrayList<EmployeeMentoring>();
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "person_id")
+    private List<Mentees> mentees = new ArrayList<Mentees>();
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "person_id")
+    private List<MentorExpertiseArea> expertiseArea= new ArrayList<MentorExpertiseArea>();
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "person_id")
+    private List<PersonRoles> personRoles = new ArrayList<PersonRoles>();
 
     public Long getId() {
         return id;
@@ -263,8 +273,6 @@ public class Person implements Serializable,Comparable<Person>{
         this.professionalRegistration = professionalRegistration;
     }
 
-   
-
     /**
      * @return the languages
      */
@@ -278,8 +286,6 @@ public class Person implements Serializable,Comparable<Person>{
     public void setLanguages(List<EmployeeLanguages> languages) {
         this.languages = languages;
     }
-
-   
 
     /**
      * @return the courses
@@ -313,5 +319,46 @@ public class Person implements Serializable,Comparable<Person>{
     public int compareTo(Person o) {
         return personSurname.compareTo(o.personSurname);
     }
+
+    /**
+     * @return the mentees
+     */
+    public List<Mentees> getMentees() {
+        return mentees;
+    }
+
+    /**
+     * @param mentees the mentees to set
+     */
+    public void setMentees(List<Mentees> mentees) {
+        this.mentees = mentees;
+    }
+
+    /**
+     * @return the expertiseArea
+     */
+    public List<MentorExpertiseArea> getExpertiseArea() {
+        return expertiseArea;
+    }
+
+    /**
+     * @param expertiseArea the expertiseArea to set
+     */
+    public void setExpertiseArea(List<MentorExpertiseArea> expertiseArea) {
+        this.expertiseArea = expertiseArea;
+    }
+
+    /**
+     * @return the personRoles
+     */
+    public List<PersonRoles> getPersonRoles() {
+        return personRoles;
+    }
+
+    /**
+     * @param personRoles the personRoles to set
+     */
+    public void setPersonRoles(List<PersonRoles> personRoles) {
+        this.personRoles = personRoles;
+    }
 }
-   

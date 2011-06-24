@@ -5,6 +5,7 @@
 package com.hashthrims.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Users implements Serializable {
     private boolean enabled;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
-    private List<Roles> roles;
+    private List<Roles> roles = new ArrayList<Roles>();
 
     public Long getId() {
         return id;

@@ -20,6 +20,7 @@ public class MentorsRoles implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String mentorsRolesName;
 
     public Long getId() {
         return id;
@@ -52,6 +53,20 @@ public class MentorsRoles implements Serializable {
     @Override
     public String toString() {
         return "com.hashthrims.domain.employeelist.MentorsRoles[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the mentorsRolesName
+     */
+    public String getMentorsRolesName() {
+        return mentorsRolesName;
+    }
+
+    /**
+     * @param mentorsRolesName the mentorsRolesName to set
+     */
+    public void setMentorsRolesName(String mentorsRolesName) {
+        this.mentorsRolesName = mentorsRolesName;
     }
     
 }

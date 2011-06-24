@@ -8,5 +8,8 @@
     <class>com.hashthrims.domain.employeelist.MentorsRoles</class>
     <class>com.hashthrims.domain.Mentees</class>
     <class>com.hashthrims.domain.MentorExpertiseArea</class>
+    <class>com.hashthrims.domain.offices.FacilityMentors</class>
+    <class>com.hashthrims.domain.PersonRoles</class>
+    <class>com.hashthrims.domain.offices.FacilityGrouping</class>
   </persistence-unit>
 </persistence>

@@ -20,6 +20,7 @@ public class MentorExpertiseArea implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String expertiseAreaName;
     
 
     public Long getId() {
@@ -53,6 +54,20 @@ public class MentorExpertiseArea implements Serializable {
     @Override
     public String toString() {
         return "com.hashthrims.domain.MentorExpertiseArea[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the expertiseAreaName
+     */
+    public String getExpertiseAreaName() {
+        return expertiseAreaName;
+    }
+
+    /**
+     * @param expertiseAreaName the expertiseAreaName to set
+     */
+    public void setExpertiseAreaName(String expertiseAreaName) {
+        this.expertiseAreaName = expertiseAreaName;
     }
     
 }

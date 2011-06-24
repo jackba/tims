@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hashthrims.domain;
+package com.hashthrims.domain.offices;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -15,14 +15,14 @@ import javax.persistence.Id;
  * @author boniface
  */
 @Entity
-public class Mentees implements Serializable {
+public class FacilityMentors implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
-    private Long menteeId;
+    private Long mentorId;
 
     public Long getId() {
         return id;
@@ -42,10 +42,10 @@ public class Mentees implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mentees)) {
+        if (!(object instanceof FacilityMentors)) {
             return false;
         }
-        Mentees other = (Mentees) object;
+        FacilityMentors other = (FacilityMentors) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -54,7 +54,7 @@ public class Mentees implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hashthrims.domain.Mentees[ id=" + id + " ]";
+        return "com.hashthrims.domain.offices.FacilityMentors[ id=" + id + " ]";
     }
 
     /**
@@ -86,17 +86,17 @@ public class Mentees implements Serializable {
     }
 
     /**
-     * @return the menteeId
+     * @return the mentorId
      */
-    public Long getMenteeId() {
-        return menteeId;
+    public Long getMentorId() {
+        return mentorId;
     }
 
     /**
-     * @param menteeId the menteeId to set
+     * @param mentorId the mentorId to set
      */
-    public void setMenteeId(Long menteeId) {
-        this.menteeId = menteeId;
+    public void setMentorId(Long mentorId) {
+        this.mentorId = mentorId;
     }
     
 }

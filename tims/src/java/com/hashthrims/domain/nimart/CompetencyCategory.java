@@ -5,6 +5,7 @@
 package com.hashthrims.domain.nimart;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class CompetencyCategory implements Serializable {
     private String categoryName;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "category_id")
-    private List<CompetencyTasks> competencyTasks;
+    private List<CompetencyTasks> competencyTasks = new ArrayList<CompetencyTasks>();
 
     public Long getId() {
         return id;

@@ -7,6 +7,7 @@ package com.hashthrims.domain.traininglist;
 
 import com.hashthrims.domain.positions.Status;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class MentoringSession implements Serializable {
     private String sessionName;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
-    private List<MentoringMentors> mentoringMentors;
+    private List<MentoringMentors> mentoringMentors = new ArrayList<MentoringMentors>();
     @OneToOne
     private MentoringSessionType  mentoringSessionType;
     @OneToOne
@@ -41,10 +42,10 @@ public class MentoringSession implements Serializable {
     private String mentoringNotes;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
-    private List<MentoringFunders> mentoringFunders;
+    private List<MentoringFunders> mentoringFunders = new ArrayList<MentoringFunders>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
-    private List<MentoringCompetencies> mentoringCompetencies;
+    private List<MentoringCompetencies> mentoringCompetencies = new  ArrayList<MentoringCompetencies>();
 
 
     public Long getId() {

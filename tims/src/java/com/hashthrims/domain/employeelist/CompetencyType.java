@@ -5,6 +5,7 @@
 package com.hashthrims.domain.employeelist;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class CompetencyType implements Serializable {
     private String compNameType;
     @JoinColumn(name = "comptype_id")
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-    private List<CompetencyList> competencyList;
+    private List<CompetencyList> competencyList = new ArrayList<CompetencyList>();
 
     public Long getId() {
         return id;

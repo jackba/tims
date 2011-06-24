@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.domain.offices;
 
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.domain.regionlist.City;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,12 +23,13 @@ import javax.persistence.OneToOne;
  * @author boniface
  */
 @Entity
-public class Facility implements Serializable,Comparable<Facility> {
+public class Facility implements Serializable, Comparable<Facility> {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String facilityName;   
+    private String facilityName;
     @OneToOne
     private FacilityType facilityType;
     @OneToOne
@@ -37,7 +38,13 @@ public class Facility implements Serializable,Comparable<Facility> {
     private Contacts contact;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "facililty_id")
-    private List<Positions> positions;
+    private List<Positions> positions = new ArrayList<Positions>();
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "facililty_id")
+    private List<FacilityMentors> facilityMentors = new ArrayList<FacilityMentors>();
+    @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "facililty_id")
+    private FacilityGrouping facilityGrouping;
 
     public Long getId() {
         return id;
@@ -72,7 +79,6 @@ public class Facility implements Serializable,Comparable<Facility> {
         return "com.hashthrims.domain.offices.Facility[id=" + id + "]";
     }
 
-    
     /**
      * @return the facilityType
      */
@@ -86,8 +92,6 @@ public class Facility implements Serializable,Comparable<Facility> {
     public void setFacilityType(FacilityType facilityType) {
         this.facilityType = facilityType;
     }
-
-
 
     /**
      * @return the contact
@@ -116,7 +120,6 @@ public class Facility implements Serializable,Comparable<Facility> {
     public void setFacilityName(String facilityName) {
         this.facilityName = facilityName;
     }
-
 
     /**
      * @return the city
@@ -151,4 +154,31 @@ public class Facility implements Serializable,Comparable<Facility> {
         return facilityName.compareTo(o.facilityName);
     }
 
+    /**
+     * @return the facilityMentors
+     */
+    public List<FacilityMentors> getFacilityMentors() {
+        return facilityMentors;
+    }
+
+    /**
+     * @param facilityMentors the facilityMentors to set
+     */
+    public void setFacilityMentors(List<FacilityMentors> facilityMentors) {
+        this.facilityMentors = facilityMentors;
+    }
+
+    /**
+     * @return the facilityGrouping
+     */
+    public FacilityGrouping getFacilityGrouping() {
+        return facilityGrouping;
+    }
+
+    /**
+     * @param facilityGrouping the facilityGrouping to set
+     */
+    public void setFacilityGrouping(FacilityGrouping facilityGrouping) {
+        this.facilityGrouping = facilityGrouping;
+    }
 }

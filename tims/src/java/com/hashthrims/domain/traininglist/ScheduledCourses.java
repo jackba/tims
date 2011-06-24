@@ -7,6 +7,7 @@ package com.hashthrims.domain.traininglist;
 
 import com.hashthrims.domain.regionlist.Country;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class ScheduledCourses implements Serializable {
     private String classSite;
 
     @OneToMany
-    private List<TrainingInstructors> classInstructor;
+    private List<TrainingInstructors> classInstructor = new ArrayList<TrainingInstructors>();
     
     private String district;
 

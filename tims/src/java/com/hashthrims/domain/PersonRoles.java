@@ -15,14 +15,12 @@ import javax.persistence.Id;
  * @author boniface
  */
 @Entity
-public class Mentees implements Serializable {
+public class PersonRoles implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private Long menteeId;
+    private String roleName;
 
     public Long getId() {
         return id;
@@ -42,10 +40,10 @@ public class Mentees implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mentees)) {
+        if (!(object instanceof PersonRoles)) {
             return false;
         }
-        Mentees other = (Mentees) object;
+        PersonRoles other = (PersonRoles) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -54,49 +52,21 @@ public class Mentees implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hashthrims.domain.Mentees[ id=" + id + " ]";
+        return "com.hashthrims.domain.PersonRoles[ id=" + id + " ]";
     }
 
     /**
-     * @return the firstName
+     * @return the roleName
      */
-    public String getFirstName() {
-        return firstName;
+    public String getRoleName() {
+        return roleName;
     }
 
     /**
-     * @param firstName the firstName to set
+     * @param roleName the roleName to set
      */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * @return the menteeId
-     */
-    public Long getMenteeId() {
-        return menteeId;
-    }
-
-    /**
-     * @param menteeId the menteeId to set
-     */
-    public void setMenteeId(Long menteeId) {
-        this.menteeId = menteeId;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
     
 }
