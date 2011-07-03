@@ -53,7 +53,10 @@ import com.hashthrims.services.ContactsService;
 import com.hashthrims.services.ContiuingEducationCourseService;
 import com.hashthrims.services.CountryService;
 import com.hashthrims.services.CountyService;
+import com.hashthrims.services.CourseCriteriaService;
+import com.hashthrims.services.CourseTargetGroupService;
 import com.hashthrims.services.CourseTypeService;
+import com.hashthrims.services.CriteriaService;
 import com.hashthrims.services.CurrencyService;
 import com.hashthrims.services.DegreeService;
 import com.hashthrims.services.DepartmentService;
@@ -80,6 +83,7 @@ import com.hashthrims.services.EmployeeLanguagesService;
 import com.hashthrims.services.EmployeeMentoringService;
 import com.hashthrims.services.GlobalPositionsService;
 import com.hashthrims.services.MaritalStatusListService;
+import com.hashthrims.services.MentorExpertiseAreaService;
 import com.hashthrims.services.MentoringCompetenciesService;
 import com.hashthrims.services.MentoringFieldService;
 import com.hashthrims.services.MentoringFundersService;
@@ -89,6 +93,7 @@ import com.hashthrims.services.MentoringThemeService;
 import com.hashthrims.services.MentorsRolesService;
 import com.hashthrims.services.MentorsService;
 import com.hashthrims.services.NodesService;
+import com.hashthrims.services.OrganisationTrainersService;
 import com.hashthrims.services.PersonService;
 import com.hashthrims.services.PositionSalarySourcesService;
 import com.hashthrims.services.PositionTypesService;
@@ -102,6 +107,7 @@ import com.hashthrims.services.SalarySourcesService;
 import com.hashthrims.services.ScheduledCoursesService;
 import com.hashthrims.services.StatusService;
 import com.hashthrims.services.SubjectService;
+import com.hashthrims.services.TargetGroupService;
 import com.hashthrims.services.TrainingCourseCategoryService;
 import com.hashthrims.services.TrainingCourseEvaluationService;
 import com.hashthrims.services.TrainingCourseRequestorsService;
@@ -231,6 +237,12 @@ public class ClientDataService {
     private NodesService nodesService;
     private ClustersService clustersService;
     private MentorsRolesService mentorsRolesService;
+    private MentorExpertiseAreaService mentorExpertiseAreaService;
+    private CourseCriteriaService courseCriteriaService;
+    private CourseTargetGroupService courseTargetGroupService;
+    private CriteriaService criteriaService;
+    private OrganisationTrainersService organisationTrainersService;
+    private TargetGroupService targetGroupService;
 
     public MentoringSessionTypeService getMentoringSessionTypeService() {
         ctx = GetContext.getApplicationContext();
@@ -1041,5 +1053,41 @@ public class ClientDataService {
         ctx = GetContext.getApplicationContext();
         mentorsRolesService = (MentorsRolesService) ctx.getBean("mentorsRolesService");
         return mentorsRolesService;
+    }
+
+    public MentorExpertiseAreaService getMentorExpertiseArea() {
+        ctx = GetContext.getApplicationContext();
+        mentorExpertiseAreaService = (MentorExpertiseAreaService) ctx.getBean("mentorExpertiseAreaService");
+        return mentorExpertiseAreaService;
+    }
+
+    public CourseCriteriaService getCourseCriteriaService() {
+        ctx = GetContext.getApplicationContext();
+        courseCriteriaService = (CourseCriteriaService) ctx.getBean("courseCriteriaService");
+        return courseCriteriaService;
+    }
+
+    public CourseTargetGroupService getCourseTargetGroupService() {
+        ctx = GetContext.getApplicationContext();
+        courseTargetGroupService = (CourseTargetGroupService) ctx.getBean("courseTargetGroupService");
+        return courseTargetGroupService;
+    }
+
+    public CriteriaService getCriteriaService() {
+        ctx = GetContext.getApplicationContext();
+        criteriaService = (CriteriaService) ctx.getBean("criteriaService");
+        return criteriaService;
+    }
+
+    public OrganisationTrainersService getOrganisationTrainersService() {
+        ctx = GetContext.getApplicationContext();
+        organisationTrainersService = (OrganisationTrainersService) ctx.getBean("organisationTrainersService");
+        return organisationTrainersService;
+    }
+
+    public TargetGroupService getTargetGroupService() {
+        ctx = GetContext.getApplicationContext();
+        targetGroupService = (TargetGroupService) ctx.getBean("targetGroupService");
+        return targetGroupService;
     }
 }

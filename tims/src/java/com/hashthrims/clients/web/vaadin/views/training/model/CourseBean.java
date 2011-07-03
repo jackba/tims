@@ -21,6 +21,8 @@ public class CourseBean {
     private String courseStatus;
     private List<String> trainingFunder;
     private List<String> competency;
+    private List<String> targetGroup;
+    private String criteria;
     private String courseNotes;
 
     /**
@@ -161,5 +163,33 @@ public class CourseBean {
      */
     public void setCourseNotes(String courseNotes) {
         this.courseNotes = courseNotes;
+    }
+
+    /**
+     * @return the targetGroup
+     */
+    public List<String> getTargetGroup() {
+        return targetGroup;
+    }
+
+    /**
+     * @param targetGroup the targetGroup to set
+     */
+    public void setTargetGroup(List<String> targetGroup) {
+        this.targetGroup = targetGroup;
+    }
+
+    /**
+     * @return the criteria
+     */
+    public String getCriteria() {
+        return criteria;
+    }
+
+    /**
+     * @param criteria the criteria to set
+     */
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
     }
 }

@@ -11,5 +11,10 @@
     <class>com.hashthrims.domain.offices.FacilityMentors</class>
     <class>com.hashthrims.domain.PersonRoles</class>
     <class>com.hashthrims.domain.offices.FacilityGrouping</class>
+    <class>com.hashthrims.domain.traininglist.TargetGroup</class>
+    <class>com.hashthrims.domain.traininglist.Criteria</class>
+    <class>com.hashthrims.domain.traininglist.CourseCriteria</class>
+    <class>com.hashthrims.domain.traininglist.OrganisationTrainers</class>
+    <class>com.hashthrims.domain.traininglist.CourseTargetGroup</class>
   </persistence-unit>
 </persistence>

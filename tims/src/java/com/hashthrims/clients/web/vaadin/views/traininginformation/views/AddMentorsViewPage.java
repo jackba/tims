@@ -102,10 +102,6 @@ public class AddMentorsViewPage extends VerticalLayout implements
         footer.setComponentAlignment(cancelProcess, Alignment.MIDDLE_CENTER);
         addComponent(topForm);
         addComponent(footer);
-
-
-
-
     }
 
     @Override
@@ -197,7 +193,6 @@ public class AddMentorsViewPage extends VerticalLayout implements
             
         }
     }
-
     private void addRoles(Person mentor, Set<String> mentorsRoles) {
         PersonRoles role= new PersonRoles();
         if (mentorsRoles!=null) {
@@ -208,7 +203,6 @@ public class AddMentorsViewPage extends VerticalLayout implements
             }
         }
     }
-
     private void addExpertise(Person mentor, Collection<Long> expertise) {
         MentorExpertiseArea area = new MentorExpertiseArea();
         if (expertise!=null) {

@@ -31,7 +31,7 @@ public class ConfigureSystemTreeMenu extends Tree implements ItemClickListener {
     public static final Object ADD_EMPLOYEE_LIST = "Employee Information";
     public static final Object ADD_GEOGRAPHICAL_INFORMATION = "Geographical Information";
     public static final Object ADD_TRAINING_INFORMATION = "Training Information";
-    public static final Object ADD_TRAINING_COURSE = "Training Courses";
+    public static final Object ADD_TRAINING_COURSE = "Add Courses";
       public static final Object ADD_MENTORING_PROGRAM = "Mentoring Program";
 
     public ConfigureSystemTreeMenu(HashThrimsMain app) {

@@ -20,9 +20,9 @@ import java.util.List;
  *
  * @author boniface
  */
-public class CourseTypeForm {
+public class CriteriaForm {
 
-  // Define Buttons
+    // Define Buttons
     private Button save = new Button("Save");
     private Button edit = new Button("Edit");
     private Button cancel = new Button("Cancel");
@@ -30,16 +30,15 @@ public class CourseTypeForm {
     private Button delete = new Button("Delete");
     //Define Footer
     private HorizontalLayout footer;
-     private static ClientDataService data = new ClientDataService();
-
-    public CourseTypeForm() {
+    private static ClientDataService data = new ClientDataService();
+    public CriteriaForm() {
     }
 
-    public Form createCourseTypeForm() {
+    public Form createCriteriaForm() {
         Form form = new Form();
-        form.setCaption("Type of Training");
+        form.setCaption("Selection Criteria");
         form.setImmediate(false);
-        form.setFormFieldFactory(new CourseTypeFieldFactory());
+        form.setFormFieldFactory(new CriteriaFieldFactory());
 
         // Add Listeners
 
@@ -65,11 +64,12 @@ public class CourseTypeForm {
 
 
 
-
     public List orderList() {
         List order = new ArrayList();
-        order.add("courseTypeName");
+        order.add("criteria");
 
+
+       
         return order;
     }
 
@@ -150,27 +150,25 @@ public class CourseTypeForm {
         this.footer = footer;
     }
 
-
-    static class CourseTypeFieldFactory extends DefaultFieldFactory {
+    static class CriteriaFieldFactory extends DefaultFieldFactory {
 
         @Override
         public Field createField(Item item, Object propertyId,
                 Component uiContext) {
 
             Field field = super.createField(item, propertyId, uiContext);
-            if ("courseTypeId".equals(propertyId)) {
-                field = new TextField("Course Type ID:");
-                ((TextField) field).setVisible(false);
-
-            }
-            if ("courseTypeName".equals(propertyId)) {
-                field = new TextField(" Type of Training:");
+            if ("criteria".equals(propertyId)) {
+                field = new TextField("Selection Criteria:");
                 ((TextField) field).setColumns(30);
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);
-                ((TextField) field).setRequiredError("Please Enter Course TYpe Name");
+                ((TextField) field).setRequiredError("Please Enter Value");
+            } else if ("criteriaId".equals(propertyId)) {
+                field = new TextField("CriteriaId ID:");
+                ((TextField) field).setVisible(false);
             }
-      return field;
+
+            return field;
 
         }
     }

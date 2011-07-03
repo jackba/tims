@@ -142,53 +142,59 @@ public class CourseViewPage extends VerticalLayout implements
         String courseType = form.getField("courseType").getValue().toString();
         String courseStatus = form.getField("courseStatus").getValue().toString();
         String trainingInstitution = form.getField("trainingInstitution").getValue().toString();
-        String courseNotes = form.getField("courseNotes").getValue().toString();
+        // String courseNotes = form.getField("courseNotes").getValue().toString();
+        String courseCriteria = form.getField("criteria").getValue().toString();
+
 
         Map<String, String> simpleFields = new HashMap<String, String>();
         simpleFields.put("courseName", courseName);
         simpleFields.put("courseCatergory", courseCatergory);
         simpleFields.put("courseStatus", courseStatus);
         simpleFields.put("trainingInstitution", trainingInstitution);
-        simpleFields.put("courseNotes", courseNotes);
+        simpleFields.put("courseCriteria", courseCriteria);
         simpleFields.put("courseType", courseType);
 
 
         Object competency = form.getField("competency").getValue();
         Object trainingFunder = form.getField("trainingFunder").getValue();
+        Object targetGroup = form.getField("targetGroup").getValue();
         List<String> competencies = fieldValues.getSelectListFields(competency);
         List<String> trainingFunders = fieldValues.getSelectListFields(trainingFunder);
+        List<String> targetGroups = fieldValues.getSelectListFields(targetGroup);
 
-        TrainingCourses c = factory.createTrainingCourses(simpleFields, competencies, trainingFunders);
+        TrainingCourses c = factory.createTrainingCourses(simpleFields, competencies, trainingFunders,targetGroups);
         data.getTrainingCoursesService().persist(c);
     }
 
     public void saveEditedCourse(Form form) {
         TrainingCoursesFactory factory = data.getTrainingCoursesFactory();
-        
+
         String courseName = form.getField("courseName").getValue().toString();
         String courseCatergory = form.getField("courseCatergory").getValue().toString();
         String courseType = form.getField("courseType").getValue().toString();
         String courseStatus = form.getField("courseStatus").getValue().toString();
         String trainingInstitution = form.getField("trainingInstitution").getValue().toString();
-        String courseNotes = form.getField("courseNotes").getValue().toString();
+        String courseCriteria = form.getField("criteria").getValue().toString();
 
         Map<String, String> simpleFields = new HashMap<String, String>();
         simpleFields.put("courseName", courseName);
         simpleFields.put("courseCatergory", courseCatergory);
         simpleFields.put("courseStatus", courseStatus);
         simpleFields.put("trainingInstitution", trainingInstitution);
-        simpleFields.put("courseNotes", courseNotes);
+        simpleFields.put("courseCriteria", courseCriteria);
         simpleFields.put("courseType", courseType);
 
 
         Object competency = form.getField("competency").getValue();
         Object trainingFunder = form.getField("trainingFunder").getValue();
+        Object targetGroup = form.getField("targetGroup").getValue();
         List<String> competencies = fieldValues.getSelectListFields(competency);
         List<String> trainingFunders = fieldValues.getSelectListFields(trainingFunder);
+        List<String> targetGroups = fieldValues.getSelectListFields(targetGroup);
 
         Long courseId = Long.parseLong(form.getField("courseId").getValue().toString());
 
-        TrainingCourses c = factory.updateTrainingCourses(simpleFields, competencies, trainingFunders, courseId);
+        TrainingCourses c = factory.updateTrainingCourses(simpleFields, competencies, trainingFunders,targetGroups, courseId);
         data.getTrainingCoursesService().merge(c);
     }
 

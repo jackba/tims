@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author boniface
  */
-public class ManageTrainingBean {
+public class EnrollTrainingBean {
     private Long id;
 
     //Dates

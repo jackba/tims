@@ -62,6 +62,8 @@ public class TrainingInformationMenuView extends VerticalLayout {
         VerticalLayout addMentorsTab = new VerticalLayout();
         addMentorsTab.setMargin(true);
         addMentorsTab.addComponent(new AddMentorsViewPage(main));
+        
+        
 
 
         tab = new TabSheet();

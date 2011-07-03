@@ -11,13 +11,17 @@ import com.hashthrims.domain.employeelist.CompetencyList;
 import com.hashthrims.domain.regionlist.Country;
 import com.hashthrims.domain.regionlist.Province;
 import com.hashthrims.domain.traininglist.CourseCompetencies;
+import com.hashthrims.domain.traininglist.CourseCriteria;
 import com.hashthrims.domain.traininglist.CourseFunders;
+import com.hashthrims.domain.traininglist.CourseTargetGroup;
 import com.hashthrims.domain.traininglist.CourseTypeName;
+import com.hashthrims.domain.traininglist.Criteria;
 import com.hashthrims.domain.traininglist.MentoringField;
 import com.hashthrims.domain.traininglist.MentoringSessionType;
 import com.hashthrims.domain.traininglist.MentoringTheme;
 import com.hashthrims.domain.traininglist.Mentors;
 import com.hashthrims.domain.traininglist.ScheduledCourses;
+import com.hashthrims.domain.traininglist.TargetGroup;
 import com.hashthrims.domain.traininglist.TrainingCourseCategory;
 import com.hashthrims.domain.traininglist.TrainingCourseRequestors;
 import com.hashthrims.domain.traininglist.TrainingCourseStatus;
@@ -263,13 +267,16 @@ public class TrainingCoursesFactory {
         return s;
     }
 
-    public TrainingCourses createTrainingCourses(Map<String, String> simpleFields, List<String> competencies, List<String> trainingFunders) {
+    public TrainingCourses createTrainingCourses(Map<String, String> simpleFields, List<String> competencies, List<String> trainingFunders,List<String> targetGroups) {
         TrainingCourses course = new TrainingCourses();
         List<CourseFunders> funders = new ArrayList<CourseFunders>();
+        ArrayList<CourseTargetGroup> targets = new ArrayList<CourseTargetGroup>();
         List<CourseCompetencies> comps = new ArrayList<CourseCompetencies>();
 
         course.setCourseName(simpleFields.get("courseName"));
-        course.setCourseNotes(simpleFields.get("courseNotes"));
+        CourseCriteria criteria = new CourseCriteria();
+        criteria.setCriteria(simpleFields.get("courseCriteria"));
+        course.setCourseCriteria(criteria);
 
         CourseTypeName cty = data.getCourseTypeNameService().getByPropertyName("courseType", simpleFields.get("courseType"));
         course.setCourseType(cty);
@@ -301,9 +308,18 @@ public class TrainingCoursesFactory {
             comps.add(cc);
 
         }
+        
+        for (String targetGroup : targetGroups) {
+            TargetGroup f = data.getTargetGroupService().getByPropertyName("targetGroupName", targetGroup);
+            CourseTargetGroup cf = new CourseTargetGroup();
+            cf.setTargerGroupId(f.getId());
+            cf.setTargetGroup(f.getTargetGroupName());
+            targets.add(cf);
+        }
 
         course.setCourseFunders(funders);
         course.setCourseCompetencies(comps);
+        course.setCourseTargetGroup(targets);
 
 
 
@@ -311,14 +327,16 @@ public class TrainingCoursesFactory {
         return course;
     }
 
-    public TrainingCourses updateTrainingCourses(Map<String, String> simpleFields, List<String> competencies, List<String> trainingFunders, Long courseId) {
+    public TrainingCourses updateTrainingCourses(Map<String, String> simpleFields, List<String> competencies, List<String> trainingFunders,List<String> targetGroup, Long courseId) {
         TrainingCourses cs = loadTrainingCourses(courseId);
         //Reset The current Data
         data.getTrainingCoursesService().resetFundsAndCompetencies(cs);
         TrainingCourses course = loadTrainingCourses(courseId);
 
         course.setCourseName(simpleFields.get("courseName"));
-        course.setCourseNotes(simpleFields.get("courseNotes"));
+        CourseCriteria criteria = new CourseCriteria();
+        criteria.setCriteria(simpleFields.get("courseCriteria"));
+        course.setCourseCriteria(criteria);
 
         CourseTypeName cty = data.getCourseTypeNameService().getByPropertyName("courseType", simpleFields.get("courseType"));
         course.setCourseType(cty);
@@ -412,5 +430,40 @@ public class TrainingCoursesFactory {
     public MentoringSessionType loadMentoringSessionType(Long mentoringId) {
         MentoringSessionType mt = data.getMentoringSessionTypeService().find(mentoringId);
         return mt;
+    }
+
+    public Criteria createCriteria(String criteria) {
+        Criteria c = new Criteria();
+        c.setSelectionCriteria(criteria);
+        return c;
+    }
+
+    public Criteria updatedCriteria(String criteria, Long criteriaId) {
+        Criteria c = loadCriteria(criteriaId);
+        c.setSelectionCriteria(criteria);
+        return c;
+    }
+
+    public Criteria loadCriteria(Long criteriaId) {
+        Criteria c = data.getCriteriaService().find(criteriaId);
+        return c;
+    }
+
+    public TargetGroup createTargetGroup(String targetGroup) {
+        TargetGroup tg = new TargetGroup();
+        tg.setTargetGroupName(targetGroup);
+        return tg;
+    }
+
+ 
+    public TargetGroup updatedTargetGroup(String targetGroup, Long targetGroupId) {
+        TargetGroup tg = loadTargetGroup(targetGroupId);
+        tg.setTargetGroupName(targetGroup);
+        return tg;
+    }
+
+    public TargetGroup loadTargetGroup(Long targetGroupId) {
+        TargetGroup tg = data.getTargetGroupService().find(targetGroupId);
+        return tg;
     }
 }

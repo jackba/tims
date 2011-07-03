@@ -8,13 +8,14 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.employeelist.CompetencyList;
 import com.hashthrims.domain.positions.Status;
 import com.hashthrims.domain.traininglist.CourseTypeName;
+import com.hashthrims.domain.traininglist.Criteria;
+import com.hashthrims.domain.traininglist.TargetGroup;
 import com.hashthrims.domain.traininglist.TrainingCourseCategory;
 import com.hashthrims.domain.traininglist.TrainingFunder;
 import com.hashthrims.domain.traininglist.TrainingInstitution;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.validator.NullValidator;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
@@ -28,7 +29,6 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Runo;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,10 +85,14 @@ public class CourseForm {
         private Select selectCourseCategory;
         private Select selectTraniningInstitution;
         private Select selectCourseStatus;
+        private Select selectCriteria;
         private ListSelect selectTrainingFunders;
+        private ListSelect selectTargetGroup;
         private ListSelect selectCompetencies;
         private List<TrainingFunder> funders;
         private List<CompetencyList> competenciesLists;
+        private List<TargetGroup> targetGroupList;
+        
 
         @Override
         public Field createField(Item item, Object propertyId,
@@ -101,7 +105,7 @@ public class CourseForm {
                 ((TextField) field).setVisible(false);
             } else if ("courseType".equals(propertyId)) {
                 List<CourseTypeName> coursetypes = data.getCourseTypeNameService().findAll();
-                selectCourseType = new Select("Course Type");
+                selectCourseType = new Select("Type of Training");
                 for (CourseTypeName coursetype : coursetypes) {
                     selectCourseType.addItem(coursetype.getCourseType());
                 }
@@ -195,9 +199,33 @@ public class CourseForm {
 
                 ((TextField) field).setRequired(true);
                 ((TextField) field).setRequiredError("Please Enter Course Name");
+            }  else if ("targetGroup".equals(propertyId)) {
+                targetGroupList = data.getTargetGroupService().findAll();
+                selectTargetGroup = new ListSelect("Target Group:");
+                for (TargetGroup ss : targetGroupList ) {
+                    selectTargetGroup.addItem(ss.getTargetGroupName());
+                }
+                selectTargetGroup.setNewItemsAllowed(false);
+                selectTargetGroup.setWidth("250");
+                selectTargetGroup.setHeight("100");
+                selectTargetGroup.setRequired(true);
+                selectTargetGroup.setNullSelectionAllowed(false);
+                selectTargetGroup.setMultiSelect(true);
+                selectTargetGroup.setImmediate(true);
+                return selectTargetGroup;
+            }  else if ("criteria".equals(propertyId)) {
+                List<Criteria> criterias = data.getCriteriaService().findAll();
+                selectCriteria = new Select("Select Criteria:");
+                for (Criteria criteria : criterias) {
+                    selectCriteria.addItem(criteria.getSelectionCriteria());
+                }
+                selectCriteria.setImmediate(true);
+                selectCriteria.setNewItemsAllowed(true);
+                selectCriteria.setWidth("250");
+                selectCriteria.setRequired(true);
                
-            } 
-
+                return selectCriteria;
+            }
 
             return field;
 
@@ -225,7 +253,7 @@ public class CourseForm {
             HorizontalLayout firstHeader = new HorizontalLayout();
             firstHeader.setSizeFull();
             firstHeader.setStyleName(Runo.LAYOUT_DARKER);
-            Label firstHeaderlabel = new Label("Training Course");
+            Label firstHeaderlabel = new Label("Add Course");
             firstHeaderlabel.setStyleName(Runo.LABEL_H2);
             firstHeader.addComponent(firstHeaderlabel);
             layout.addComponent(firstHeader, 0, 0, 1, 0);
@@ -268,10 +296,13 @@ public class CourseForm {
                 layout.addComponent(field, 0, 4, 0, 5);
             } else if (propertyId.equals("competency")) {
                 layout.addComponent(field, 0, 7, 1, 7);
-            } else if (propertyId.equals("courseNotes")) {
+            } else if (propertyId.equals("targetGroup")) {
                 layout.addComponent(field, 1, 4, 1, 5);
             } else if (propertyId.equals("courseId")) {
                 layout.addComponent(field, 0, 8);
+
+            } else if (propertyId.equals("criteria")) {
+                layout.addComponent(field, 1, 3);
 
             }
 

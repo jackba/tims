@@ -39,9 +39,11 @@ public class Facility implements Serializable, Comparable<Facility> {
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "facililty_id")
     private List<Positions> positions = new ArrayList<Positions>();
+    
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "facililty_id")
     private List<FacilityMentors> facilityMentors = new ArrayList<FacilityMentors>();
+    
     @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "facililty_id")
     private FacilityGrouping facilityGrouping;

@@ -35,7 +35,7 @@ import java.util.List;
  *
  * @author boniface
  */
-public class ManageTrainingForm {
+public class ScheduleTrainingForm {
     // Define Buttons
 
     private Button submitListofAttendant = new Button("Submit the List of Selected Attendants");
@@ -43,7 +43,7 @@ public class ManageTrainingForm {
     private HorizontalLayout footer;
     private static ClientDataService data = new ClientDataService();
 
-    public ManageTrainingForm() {
+    public ScheduleTrainingForm() {
     }
 
     public Form createShortCourseFrom() {
@@ -153,22 +153,7 @@ public class ManageTrainingForm {
                 selectFacilities.setWidth("500");
                 selectFacilities.setRequired(true);
                 return selectFacilities;
-            } else if ("trainees".equals(propertyId)) {
-                selectTrainees = new ListSelect("Select Course Attendees:");
-                selectTrainees.setImmediate(true);
-                selectTrainees.setNewItemsAllowed(false);
-                selectTrainees.setWidth("500");
-                selectTrainees.setHeight("100");
-                selectTrainees.setNullSelectionAllowed(true);
-                selectTrainees.setMultiSelect(true);
-                List<Person> persons = data.getPersonService().findAll();
-                Collections.sort(persons);
-                for (Person attendee : persons) {
-                    selectTrainees.addItem(attendee.getId());
-                    selectTrainees.setItemCaption(attendee.getId(), attendee.getPersonSurname() + " " + attendee.getPersonName());
-                }
-                selectTrainees.setImmediate(true);
-                return selectTrainees;
+                        
             }
 
             return field;

@@ -44,7 +44,14 @@ public class TrainingCourses implements Serializable,Comparable<TrainingCourses>
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "trainingcourses_id")
     private List<CourseCompetencies> courseCompetencies = new ArrayList<CourseCompetencies>();
-
+    
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "trainingcourses_id")
+    private List<CourseTargetGroup> courseTargetGroup= new ArrayList<CourseTargetGroup>();
+    
+    @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "trainingcourses_id")
+    private CourseCriteria courseCriteria;
     public Long getId() {
         return id;
     }
@@ -208,4 +215,34 @@ public class TrainingCourses implements Serializable,Comparable<TrainingCourses>
     public int compareTo(TrainingCourses o) {
        return courseName.compareTo(o.courseName);
     }
+
+    /**
+     * @return the courseTargetGroup
+     */
+    public List<CourseTargetGroup> getCourseTargetGroup() {
+        return courseTargetGroup;
+    }
+
+    /**
+     * @param courseTargetGroup the courseTargetGroup to set
+     */
+    public void setCourseTargetGroup(List<CourseTargetGroup> courseTargetGroup) {
+        this.courseTargetGroup = courseTargetGroup;
+    }
+
+    /**
+     * @return the courseCriteria
+     */
+    public CourseCriteria getCourseCriteria() {
+        return courseCriteria;
+    }
+
+    /**
+     * @param courseCriteria the courseCriteria to set
+     */
+    public void setCourseCriteria(CourseCriteria courseCriteria) {
+        this.courseCriteria = courseCriteria;
+    }
+
+    
 }
