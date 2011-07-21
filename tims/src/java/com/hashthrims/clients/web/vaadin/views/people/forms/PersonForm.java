@@ -422,16 +422,6 @@ public class PersonForm {
             } else if (propertyId.equals("provinceName")) {
                 layout.addComponent(field, 1, 2);
 
-//            } else if (propertyId.equals("facility")) {
-//                layout.addComponent(field, 0, 7);
-//            } else if (propertyId.equals("position")) {
-//                layout.addComponent(field, 1, 7);
-//            } else if (propertyId.equals("startDate")) {
-//                layout.addComponent(field, 0, 8);
-//            } else if (propertyId.equals("endDate")) {
-//                layout.addComponent(field, 1, 8);
-//            } else if (propertyId.equals("status")) {
-//                layout.addComponent(field, 0, 9);
             }
 
 

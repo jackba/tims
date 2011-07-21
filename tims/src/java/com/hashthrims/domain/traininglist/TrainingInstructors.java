@@ -23,6 +23,10 @@ public class TrainingInstructors implements Serializable {
     private Long id;
 
     private String instructorName;
+    private String firstName;
+    private String lastName;
+    private Long instructorId;
+    
 
     public Long getId() {
         return id;
@@ -69,6 +73,48 @@ public class TrainingInstructors implements Serializable {
      */
     public void setInstructorName(String instructorName) {
         this.instructorName = instructorName;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the instructorId
+     */
+    public Long getInstructorId() {
+        return instructorId;
+    }
+
+    /**
+     * @param instructorId the instructorId to set
+     */
+    public void setInstructorId(Long instructorId) {
+        this.instructorId = instructorId;
     }
 
 }

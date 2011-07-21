@@ -5,7 +5,7 @@
 
 package com.hashthrims.repository.jpa;
 
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.repository.JpaDAO;
 
 
@@ -13,6 +13,6 @@ import com.hashthrims.repository.JpaDAO;
  *
  * @author boniface
  */
-public interface MentoringSessionTypeDAO  extends JpaDAO<MentoringSessionType, Long>{
+public interface MentoringSessionTypeDAO  extends JpaDAO<SessionType, Long>{
 
 }

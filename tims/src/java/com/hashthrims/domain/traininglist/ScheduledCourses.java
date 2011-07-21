@@ -5,7 +5,6 @@
 
 package com.hashthrims.domain.traininglist;
 
-import com.hashthrims.domain.regionlist.Country;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,8 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 
@@ -29,25 +28,23 @@ public class ScheduledCourses implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    private int courseCapacity;
     private int numOfStuds;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
-    private String classNotes;
-    @OneToOne
-    private Country classLocation;
-    private String classSite;
-
-    @OneToMany
-    private List<TrainingInstructors> classInstructor = new ArrayList<TrainingInstructors>();
+    private String courseName;;
+    private String venue;
+    private Long venueId;
+    private Long courseId;
+    private String organisationName;
+    private Long courseRequestor;
+    private Long organisationId;
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "scheduledcourse_id")
+    private List<TrainingInstructors> classInstructors = new ArrayList<TrainingInstructors>();
     
-    private String district;
-
-
-
-
     public Long getId() {
         return id;
     }
@@ -76,40 +73,11 @@ public class ScheduledCourses implements Serializable {
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "com.hashthrims.domain.traininglist.ScheduledCourses[id=" + id + "]";
-//    }
+    @Override
+    public String toString() {
+        return "com.hashthrims.domain.traininglist.ScheduledCourses[id=" + id + "]";
+    }
        
-    /**
-     * @return the classNotes
-     */
-    public String getClassNotes() {
-        return classNotes;
-    }
-
-    /**
-     * @param classNotes the classNotes to set
-     */
-    public void setClassNotes(String classNotes) {
-        this.classNotes = classNotes;
-    }
-
-   
-    /**
-     * @return the district
-     */
-    public String getDistrict() {
-        return district;
-    }
-
-    /**
-     * @param district the district to set
-     */
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
     /**
      * @return the startDate
      */
@@ -138,59 +106,7 @@ public class ScheduledCourses implements Serializable {
         this.endDate = endDate;
     }
 
-   
-    public Country getClassloc() {
-        return getClassLocation();
-    }
-
-    
-    public void setClassloc(Country classloc) {
-        this.setClassLocation(classloc);
-    }
-
-    /**
-     * @return the classSite
-     */
-    public String getClassSite() {
-        return classSite;
-    }
-
-    /**
-     * @param classSite the classSite to set
-     */
-    public void setClassSite(String classSite) {
-        this.classSite = classSite;
-    }
-
-    /**
-     * @return the classInstructor
-     */
-    public List<TrainingInstructors> getClassInstructor() {
-        return classInstructor;
-    }
-
-    /**
-     * @param classInstructor the classInstructor to set
-     */
-    public void setClassInstructor(List<TrainingInstructors> classInstructor) {
-        this.classInstructor = classInstructor;
-    }
-
-    /**
-     * @return the classLocation
-     */
-    public Country getClassLocation() {
-        return classLocation;
-    }
-
-    /**
-     * @param classLocation the classLocation to set
-     */
-    public void setClassLocation(Country classLocation) {
-        this.classLocation = classLocation;
-    }
-
-    /**
+      /**
      * @return the numOfStuds
      */
     public int getNumOfStuds() {
@@ -203,6 +119,137 @@ public class ScheduledCourses implements Serializable {
     public void setNumOfStuds(int numOfStuds) {
         this.numOfStuds = numOfStuds;
     }
+
+    /**
+     * @return the courseCapacity
+     */
+    public int getCourseCapacity() {
+        return courseCapacity;
+    }
+
+    /**
+     * @param courseCapacity the courseCapacity to set
+     */
+    public void setCourseCapacity(int courseCapacity) {
+        this.courseCapacity = courseCapacity;
+    }
+
+    /**
+     * @return the courseName
+     */
+    public String getCourseName() {
+        return courseName;
+    }
+
+    /**
+     * @param courseName the courseName to set
+     */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    /**
+     * @return the venue
+     */
+    public String getVenue() {
+        return venue;
+    }
+
+    /**
+     * @param venue the venue to set
+     */
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    /**
+     * @return the venueId
+     */
+    public Long getVenueId() {
+        return venueId;
+    }
+
+    /**
+     * @param venueId the venueId to set
+     */
+    public void setVenueId(Long venueId) {
+        this.venueId = venueId;
+    }
+
+    /**
+     * @return the courseId
+     */
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    /**
+     * @param courseId the courseId to set
+     */
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    /**
+     * @return the organisationName
+     */
+    public String getOrganisationName() {
+        return organisationName;
+    }
+
+    /**
+     * @param organisationName the organisationName to set
+     */
+    public void setOrganisationName(String organisationName) {
+        this.organisationName = organisationName;
+    }
+
+    /**
+     * @return the organisationId
+     */
+    public Long getOrganisationId() {
+        return organisationId;
+    }
+
+    /**
+     * @param organisationId the organisationId to set
+     */
+    public void setOrganisationId(Long organisationId) {
+        this.organisationId = organisationId;
+    }
+
+    /**
+     * @return the classInstructors
+     */
+    public List<TrainingInstructors> getClassInstructors() {
+        return classInstructors;
+    }
+
+    /**
+     * @param classInstructors the classInstructors to set
+     */
+    public void setClassInstructors(List<TrainingInstructors> classInstructors) {
+        this.classInstructors = classInstructors;
+    }
+
+    /**
+     * @return the courseRequestor
+     */
+    public Long getCourseRequestor() {
+        return courseRequestor;
+    }
+
+    /**
+     * @param courseRequestor the courseRequestor to set
+     */
+    public void setCourseRequestor(Long courseRequestor) {
+        this.courseRequestor = courseRequestor;
+    }
+
+    /**
+     * @return the courseRequestor
+     */
+   
 
   
 }

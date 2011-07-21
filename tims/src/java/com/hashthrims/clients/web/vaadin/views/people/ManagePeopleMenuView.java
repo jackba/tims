@@ -5,8 +5,10 @@
 package com.hashthrims.clients.web.vaadin.views.people;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
+import com.hashthrims.clients.web.vaadin.views.people.tables.NewPersonTable;
 import com.hashthrims.clients.web.vaadin.views.people.tables.PersonTable;
 import com.hashthrims.clients.web.vaadin.views.people.views.ListPeopleViewPage;
+import com.hashthrims.clients.web.vaadin.views.people.views.NewPersonViewPage;
 import com.hashthrims.clients.web.vaadin.views.people.views.PersonViewPage;
 import com.hashthrims.clients.web.vaadin.views.people.views.SearchForPersonViewPage;
 import com.hashthrims.clients.web.vaadin.views.people.views.SearchInFacilityViewPage;
@@ -31,11 +33,11 @@ public class ManagePeopleMenuView extends VerticalLayout {
 
         final VerticalLayout newPersonTab = new VerticalLayout();
         newPersonTab.setMargin(true);
-        newPersonTab.addComponent(new PersonViewPage(main));
+        newPersonTab.addComponent(new NewPersonViewPage(main));
         
         final VerticalLayout searchTab = new VerticalLayout();
         searchTab.setMargin(true);
-        PersonTable table = null;
+        NewPersonTable table = null;
         List<Person> personLists=new ArrayList<Person>();
         searchTab.addComponent(new SearchForPersonViewPage(main,table,personLists));
 

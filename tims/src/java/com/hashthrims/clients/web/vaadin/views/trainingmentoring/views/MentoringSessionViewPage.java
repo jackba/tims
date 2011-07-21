@@ -11,7 +11,12 @@ import com.hashthrims.clients.web.vaadin.views.trainingmentoring.TrainingMentori
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.forms.MentoringSessionForm;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.model.MentoringSessionBean;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.tables.MentoringSessionTable;
+import com.hashthrims.domain.traininglist.MentoringFunders;
+import com.hashthrims.domain.traininglist.MentoringMentors;
 import com.hashthrims.domain.traininglist.MentoringSession;
+import com.hashthrims.domain.traininglist.MentoringSessionObjective;
+import com.hashthrims.domain.traininglist.MentoringSessionTheme;
+import com.hashthrims.domain.traininglist.MentoringSessionType;
 import com.hashthrims.infrastructure.factories.TrainingFactory;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.hashthrims.infrastructure.util.TimsUtil;
@@ -26,6 +31,8 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.VerticalLayout;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,13 +85,57 @@ public class MentoringSessionViewPage extends VerticalLayout implements
         if (property == table) {
             final Item record = table.getItem(table.getValue());
             MentoringSessionBean mentoringSession = new MentoringSessionBean();
-            mentoringSession.setId(new Long(table.getValue().toString()));
-            mentoringSession.setSessionName(st.getTableValues(record.getItemProperty("Session Name")));
-            mentoringSession.setSessionType(st.getTableValues(record.getItemProperty("Session Type")));
-            mentoringSession.setMentoringTheme(st.getTableValues(record.getItemProperty("Mentoring Theme")));
-            mentoringSession.setSessionStatus(st.getTableValues(record.getItemProperty("Status")));
-            mentoringSession.setMentoringNotes(st.getTableValues(record.getItemProperty("Notes")));
-            mentoringSession.setInstitutionName(st.getTableValues(record.getItemProperty("Training Institution")));
+            final MentoringSession c = factory.loadMentoringSessions(new Long(table.getValue().toString()));
+
+            mentoringSession.setId(c.getId());
+            mentoringSession.setSessionName(c.getSessionName());
+            mentoringSession.setDate(c.getSessionDate());
+            mentoringSession.setInstitutionName(c.getInstitutionName().getId());
+
+            List<MentoringFunders> f = c.getMentoringFunders();
+            List<Long> fundersIds = new ArrayList<Long>();
+            for (MentoringFunders mf : f) {
+                fundersIds.add(mf.getFundersId());
+            }
+            mentoringSession.setMentoringFunders(fundersIds);
+
+            List<MentoringSessionObjective> objectives = c.getMentoringObjective();
+            List<Long> objectivesIds = new ArrayList<Long>();
+            for (MentoringSessionObjective objective : objectives) {
+                objectivesIds.add(objective.getMentoringObjectiveId());
+                mentoringSession.setMentoringObjectives(objectivesIds);
+
+            }
+
+
+            List<MentoringSessionType> mts = c.getMentoringSessionType();
+            List<Long> mtIds = new ArrayList<Long>();
+            for (MentoringSessionType mt : mts) {
+                mtIds.add(mt.getMentoringSessionType());
+            }
+            mentoringSession.setMentoringSessionType(mtIds);
+
+
+
+            List<MentoringSessionTheme> mths = c.getMentoringSessionTheme();
+            List<Long> mthIds = new ArrayList<Long>();
+            for (MentoringSessionTheme mth : mths) {
+                mtIds.add(mth.getSessionMentoringTheme());
+            }
+            mentoringSession.setMentoringThemes(mthIds);
+
+
+            mentoringSession.setMentoringVenue(c.getMentoringVenue().getId());
+
+            List<MentoringMentors> mentors = c.getMentoringMentors();
+            List<Long> mentorsIds = new ArrayList<Long>();
+            for (MentoringMentors mentor : mentors) {
+                mentorsIds.add(mentor.getMentorsId());
+            }
+            mentoringSession.setSessionMentors(mentorsIds);
+            mentoringSession.setSessionStatus(c.getSessionStatus().getId());
+            mentoringSession.setMentoringSubjectArea(c.getMentoringSubjectArea_CompetencyType());
+
 
 
 
@@ -92,7 +143,7 @@ public class MentoringSessionViewPage extends VerticalLayout implements
             if (mentoringSession != form.getItemDataSource()) {
                 final BeanItem item = new BeanItem(mentoringSession);
                 form.setItemDataSource(item);
-                // BUG enabling this Disables form.setVisibleItemProperties(cf.orderList());
+                
 
                 form.setReadOnly(true);
                 //Buttons Behaviou
@@ -136,70 +187,95 @@ public class MentoringSessionViewPage extends VerticalLayout implements
     public void saveNewMentoringSession(Form form) {
 
         final String sessionName = form.getField("sessionName").getValue().toString();
-        final String sessionType = form.getField("sessionType").getValue().toString();
-        final String mentoringTheme = form.getField("mentoringTheme").getValue().toString();
-        final String institutionName = form.getField("institutionName").getValue().toString();
-        final String sessionStatus = form.getField("sessionStatus").getValue().toString();
-        final String mentoringNotes = form.getField("mentoringNotes").getValue().toString();
+        final Date dateRequested = fieldValues.getDateFields(form.getField("date").getValue());
 
-        final Map<String, String> simpleFields = new HashMap<String, String>();
-        simpleFields.put("sessionName", sessionName);
-       
-        simpleFields.put("mentoringTheme", mentoringTheme);
-        simpleFields.put("institutionName", institutionName);
-        simpleFields.put("sessionStatus", sessionStatus);
-        simpleFields.put("mentoringNotes", mentoringNotes);
-        simpleFields.put("sessionType", sessionType);
+        final Long mentoringSubjectArea = Long.parseLong(form.getField("mentoringSubjectArea").getValue().toString());
+        final Long institutionName = Long.parseLong(form.getField("institutionName").getValue().toString());
+        final Long sessionStatus = Long.parseLong(form.getField("sessionStatus").getValue().toString());
+        final Long mentoringVenue = Long.parseLong(form.getField("mentoringVenue").getValue().toString());
 
-       final Object sessionMentors = form.getField("sessionMentors").getValue();
-       final List<String> mentors = fieldValues.getSelectListFields(sessionMentors);
+        final Map<String, Long> ids = new HashMap<String, Long>();
+        ids.put("mentoringSubjectArea", mentoringSubjectArea);
+        ids.put("institutionName", institutionName);
+        ids.put("sessionStatus", sessionStatus);
+        ids.put("mentoringVenue", mentoringVenue);
 
-        final Object competency = form.getField("mentoringCompetencies").getValue();
-        final Object trainingFunder = form.getField("mentoringFunders").getValue();
-        final List<String> competencies = fieldValues.getSelectListFields(competency);
-        final List<String> trainingFunders = fieldValues.getSelectListFields(trainingFunder);
 
-        final MentoringSession c = factory.createMentoringSession(simpleFields, competencies, trainingFunders,mentors);
+        final Object mentoringFunders = form.getField("mentoringFunders").getValue();
+        final Object sessionMentors = form.getField("sessionMentors").getValue();
+        final Object mentoringObjectives = form.getField("mentoringObjectives").getValue();
+        final Object mentoringThemes = form.getField("mentoringThemes").getValue();
+        final Object mentoringSessionType = form.getField("mentoringSessionType").getValue();
+
+
+
+        final List<Long> mentoringFundersIds = fieldValues.getSelectListLongFields(mentoringFunders);
+        final List<Long> sessionMentorsIds = fieldValues.getSelectListLongFields(sessionMentors);
+        final List<Long> mentoringObjectivesIds = fieldValues.getSelectListLongFields(mentoringObjectives);
+        final List<Long> mentoringThemesIds = fieldValues.getSelectListLongFields(mentoringThemes);
+        final List<Long> mentoringSessionTypeIds = fieldValues.getSelectListLongFields(mentoringSessionType);
+
+        final Map<String, List<Long>> lists = new HashMap<String, List<Long>>();
+        lists.put("mentoringFundersIds", mentoringFundersIds);
+        lists.put("sessionMentorsIds", sessionMentorsIds);
+        lists.put("mentoringObjectivesIds", mentoringObjectivesIds);
+        lists.put("mentoringThemesIds", mentoringThemesIds);
+        lists.put("mentoringSessionTypeIds", mentoringSessionTypeIds);
+
+        final MentoringSession c = factory.createMentoringSession(sessionName, dateRequested, ids, lists);
         data.getMentoringSessionService().persist(c);
     }
 
     public void saveEditedMentoringSession(Form form) {
+        final Long mentoringId = Long.parseLong(form.getField("id").getValue().toString());
 
 
         final String sessionName = form.getField("sessionName").getValue().toString();
-        final String sessionType = form.getField("sessionType").getValue().toString();
-       
-        final String mentoringTheme = form.getField("mentoringTheme").getValue().toString();
-        final String institutionName = form.getField("institutionName").getValue().toString();
-        final String sessionStatus = form.getField("sessionStatus").getValue().toString();
-        final String mentoringNotes = form.getField("mentoringNotes").getValue().toString();
+        final Date dateRequested = fieldValues.getDateFields(form.getField("date").getValue());
 
-        final Map<String, String> simpleFields = new HashMap<String, String>();
-        simpleFields.put("sessionName", sessionName);
-        simpleFields.put("mentoringTheme", mentoringTheme);
-        simpleFields.put("institutionName", institutionName);
-        simpleFields.put("sessionStatus", sessionStatus);
-        simpleFields.put("mentoringNotes", mentoringNotes);
-        simpleFields.put("sessionType", sessionType);
+        final Long mentoringSubjectArea = Long.parseLong(form.getField("mentoringSubjectArea").getValue().toString());
+        final Long institutionName = Long.parseLong(form.getField("institutionName").getValue().toString());
+        final Long sessionStatus = Long.parseLong(form.getField("sessionStatus").getValue().toString());
+        final Long mentoringVenue = Long.parseLong(form.getField("mentoringVenue").getValue().toString());
+
+        final Map<String, Long> ids = new HashMap<String, Long>();
+        ids.put("mentoringSubjectArea", mentoringSubjectArea);
+        ids.put("institutionName", institutionName);
+        ids.put("sessionStatus", sessionStatus);
+        ids.put("mentoringVenue", mentoringVenue);
+        ids.put("mentoringId", mentoringId);
 
 
+        final Object mentoringFunders = form.getField("mentoringFunders").getValue();
         final Object sessionMentors = form.getField("sessionMentors").getValue();
-        final List<String> mentors = fieldValues.getSelectListFields(sessionMentors);
-        final Object competency = form.getField("mentoringCompetencies").getValue();
-        final Object trainingFunder = form.getField("mentoringFunders").getValue();
-        final List<String> competencies = fieldValues.getSelectListFields(competency);
-        final List<String> trainingFunders = fieldValues.getSelectListFields(trainingFunder);
+        final Object mentoringObjectives = form.getField("mentoringObjectives").getValue();
+        final Object mentoringThemes = form.getField("mentoringThemes").getValue();
+        final Object mentoringSessionType = form.getField("mentoringSessionType").getValue();
 
 
-        final Long mentoringId = Long.parseLong(form.getField("id").getValue().toString());
 
-        final MentoringSession c = factory.updateMentoringSessions(simpleFields, competencies, trainingFunders,mentors, mentoringId);
+        final List<Long> mentoringFundersIds = fieldValues.getSelectListLongFields(mentoringFunders);
+        final List<Long> sessionMentorsIds = fieldValues.getSelectListLongFields(sessionMentors);
+        final List<Long> mentoringObjectivesIds = fieldValues.getSelectListLongFields(mentoringObjectives);
+        final List<Long> mentoringThemesIds = fieldValues.getSelectListLongFields(mentoringThemes);
+        final List<Long> mentoringSessionTypeIds = fieldValues.getSelectListLongFields(mentoringSessionType);
+
+        final Map<String, List<Long>> lists = new HashMap<String, List<Long>>();
+        lists.put("mentoringFundersIds", mentoringFundersIds);
+        lists.put("sessionMentorsIds", sessionMentorsIds);
+        lists.put("mentoringObjectivesIds", mentoringObjectivesIds);
+        lists.put("mentoringThemesIds", mentoringThemesIds);
+        lists.put("mentoringSessionTypeIds", mentoringSessionTypeIds);
+
+
+
+        final MentoringSession c = factory.updateMentoringSessions(sessionName, dateRequested, ids, lists, mentoringId);
         data.getMentoringSessionService().merge(c);
     }
 
     public void deleteMentoringSession(Form form) {
-        final Long MentoringSessionId = Long.parseLong(form.getField("id").getValue().toString());
-        final MentoringSession c = factory.loadMentoringSessions(MentoringSessionId);
+        final Long mentoringSessionId = Long.parseLong(form.getField("id").getValue().toString());
+        final MentoringSession c = factory.loadMentoringSessions(mentoringSessionId);
         data.getMentoringSessionService().remove(c);
     }
 }

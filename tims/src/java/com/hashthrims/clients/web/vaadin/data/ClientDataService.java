@@ -84,9 +84,11 @@ import com.hashthrims.services.EmployeeMentoringService;
 import com.hashthrims.services.GlobalPositionsService;
 import com.hashthrims.services.MaritalStatusListService;
 import com.hashthrims.services.MentorExpertiseAreaService;
+import com.hashthrims.services.MentoringAreasListService;
 import com.hashthrims.services.MentoringCompetenciesService;
 import com.hashthrims.services.MentoringFieldService;
 import com.hashthrims.services.MentoringFundersService;
+import com.hashthrims.services.MentoringObjectiveService;
 import com.hashthrims.services.MentoringSessionService;
 import com.hashthrims.services.MentoringSessionTypeService;
 import com.hashthrims.services.MentoringThemeService;
@@ -99,6 +101,7 @@ import com.hashthrims.services.PositionSalarySourcesService;
 import com.hashthrims.services.PositionTypesService;
 import com.hashthrims.services.PositionsService;
 import com.hashthrims.services.ProfessionalRegistrationService;
+import com.hashthrims.services.RaceListService;
 import com.hashthrims.services.RegionService;
 import com.hashthrims.services.RegistrationBodyService;
 import com.hashthrims.services.RolesService;
@@ -243,11 +246,33 @@ public class ClientDataService {
     private CriteriaService criteriaService;
     private OrganisationTrainersService organisationTrainersService;
     private TargetGroupService targetGroupService;
+    private RaceListService raceListService;
+    private MentoringAreasListService mentoringAreasListService;
+    private MentoringObjectiveService mentoringObjectiveService;
+   
+
+    public RaceListService getRaceListService() {
+        ctx = GetContext.getApplicationContext();
+        raceListService = (RaceListService) ctx.getBean("raceListService");
+        return raceListService;
+    }
+    
+     public MentoringObjectiveService getMentoringObjectiveService() {
+        ctx = GetContext.getApplicationContext();
+        mentoringObjectiveService = (MentoringObjectiveService) ctx.getBean("mentoringObjectiveService");
+        return mentoringObjectiveService;
+    }
 
     public MentoringSessionTypeService getMentoringSessionTypeService() {
         ctx = GetContext.getApplicationContext();
         mentoringSessionTypeService = (MentoringSessionTypeService) ctx.getBean("mentoringSessionTypeService");
         return mentoringSessionTypeService;
+    }
+
+    public MentoringAreasListService getMentoringAreasListService() {
+        ctx = GetContext.getApplicationContext();
+        mentoringAreasListService = (MentoringAreasListService) ctx.getBean("mentoringAreasListService");
+        return mentoringAreasListService;
     }
 
     public EmployeeMentoringService getEmployeeMentoringService() {

@@ -5,6 +5,8 @@
 package com.hashthrims.clients.web.vaadin.views.trainingmentoring;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
+import com.hashthrims.clients.web.vaadin.views.trainingmentoring.views.MentoringAreasListViewPage;
+import com.hashthrims.clients.web.vaadin.views.trainingmentoring.views.MentoringObjectiveViewPage;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.views.MentoringSessionTypeViewPage;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.views.MentoringSessionViewPage;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.views.MentoringThemeViewPage;
@@ -43,16 +45,28 @@ public class TrainingMentoringMenuView extends VerticalLayout {
         typeTab.setMargin(true);
         typeTab.addComponent(new MentoringSessionTypeViewPage(main));
 
+        final VerticalLayout mentoringAreasTab = new VerticalLayout();
+        mentoringAreasTab.setMargin(true);
+        mentoringAreasTab.addComponent(new MentoringAreasListViewPage(main));
+        
+        
+        
+         final VerticalLayout mentoringObjectivesTab = new VerticalLayout();
+        mentoringObjectivesTab.setMargin(true);
+        mentoringObjectivesTab.addComponent(new MentoringObjectiveViewPage(main));
 
         tab = new TabSheet();
         tab.setHeight("100%");
         tab.setWidth("100%");
 
-        tab.addTab(mentorsTab, "Mentors", null);
-        tab.addTab(themesTab, "Add Theme", null);
+        // tab.addTab(mentorsTab, "Mentors", null);
+        tab.addTab(themesTab, "Mentoring Theme", null);
         tab.addTab(typeTab, "Mentoring Session Type", null);
-        tab.addTab(sessionTab, "Add Session", null);
+        tab.addTab(mentoringObjectivesTab, "Mentoring Objective", null);
+        tab.addTab(mentoringAreasTab, "Areas of Strengthening", null);
+        tab.addTab(sessionTab, "Add Mentoring Session", null);
         
+
 
 
         if (selectedTab.equals("MENTORS")) {
@@ -63,6 +77,10 @@ public class TrainingMentoringMenuView extends VerticalLayout {
             tab.setSelectedTab(sessionTab);
         } else if (selectedTab.equals("TYPE")) {
             tab.setSelectedTab(typeTab);
+        }else if (selectedTab.equals("ST")) {
+            tab.setSelectedTab(mentoringAreasTab);
+        }else if (selectedTab.equals("OBJ")) {
+            tab.setSelectedTab(mentoringObjectivesTab);
         }
         addComponent(tab);
     }

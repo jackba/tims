@@ -6,7 +6,7 @@ package com.hashthrims.clients.web.vaadin.views.trainingmentoring.tables;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.vaadin.ui.*;
 import java.util.List;
 
@@ -28,8 +28,8 @@ public class MentoringSessionTypeTable extends Table {
 
 
         // Add Data Columns
-        List<MentoringSessionType> sessions = data.getMentoringSessionTypeService().findAll();
-        for (MentoringSessionType session : sessions) {
+        List<SessionType> sessions = data.getMentoringSessionTypeService().findAll();
+        for (SessionType session : sessions) {
             addItem(new Object[]{session.getSessionTypeName()
                     }, session.getId());
         }

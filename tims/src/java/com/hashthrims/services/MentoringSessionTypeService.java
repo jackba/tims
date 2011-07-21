@@ -5,12 +5,12 @@
 
 package com.hashthrims.services;
 
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 
 /**
  *
  * @author boniface
  */
-public interface MentoringSessionTypeService  extends Services<MentoringSessionType, Long>{
+public interface MentoringSessionTypeService  extends Services<SessionType, Long>{
 
 }

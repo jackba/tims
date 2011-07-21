@@ -35,7 +35,7 @@ public class TrainingCourses implements Serializable,Comparable<TrainingCourses>
     private TrainingInstitution institutionName;
     @OneToOne
     private Status courseStatus;
-    private String courseNotes;
+    private String courseObjective;
     @OneToOne
     private CourseTypeName courseType;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
@@ -116,15 +116,15 @@ public class TrainingCourses implements Serializable,Comparable<TrainingCourses>
     /**
      * @return the courseNotes
      */
-    public String getCourseNotes() {
-        return courseNotes;
+    public String getCourseObjectives() {
+        return courseObjective;
     }
 
     /**
      * @param courseNotes the courseNotes to set
      */
-    public void setCourseNotes(String courseNotes) {
-        this.courseNotes = courseNotes;
+    public void setCourseObjectives(String objective) {
+        this.courseObjective = objective;
     }
 
     /**

@@ -9,6 +9,7 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.people.ManagePeopleMenuView;
 import com.hashthrims.clients.web.vaadin.views.people.forms.SearchPersonForm;
 import com.hashthrims.clients.web.vaadin.views.people.models.SearchPersonBean;
+import com.hashthrims.clients.web.vaadin.views.people.tables.NewPersonTable;
 import com.hashthrims.clients.web.vaadin.views.people.tables.PersonTable;
 import com.hashthrims.clients.web.vaadin.views.people.views.details.search.SearchForPeople;
 import com.hashthrims.domain.Person;
@@ -39,7 +40,7 @@ public class SearchForPersonViewPage extends VerticalLayout implements
     private static ClientDataService data = new ClientDataService();
     private final DataFieldsUtil fieldValues = new DataFieldsUtil();
 
-    public SearchForPersonViewPage(HashThrimsMain app, PersonTable table, List<Person> personLists) {
+    public SearchForPersonViewPage(HashThrimsMain app, NewPersonTable table, List<Person> personLists) {
         main = app;
         setSizeFull();
         pform = new SearchPersonForm();
@@ -54,11 +55,11 @@ public class SearchForPersonViewPage extends VerticalLayout implements
         setComponentAlignment(form, Alignment.TOP_CENTER);
 
         if (table != null) {
-            table = new PersonTable(main, personLists);
+            table = new NewPersonTable(main, personLists);
             addComponent(table);
         } else {
             List<Person> p = data.getPersonService().findAll();
-            table = new PersonTable(main, p);
+            table = new NewPersonTable(main, p);
             addComponent(table);
         }
     }

@@ -16,6 +16,7 @@ import com.hashthrims.domain.employeelist.GenderList;
 import com.hashthrims.domain.employeelist.IdentificationType;
 import com.hashthrims.domain.employeelist.Language;
 import com.hashthrims.domain.employeelist.MaritalStatusList;
+import com.hashthrims.domain.employeelist.RaceList;
 import com.hashthrims.domain.jobs.SalaryGrade;
 import com.hashthrims.domain.offices.Facility;
 
@@ -26,7 +27,7 @@ import com.hashthrims.domain.regionlist.Country;
 import com.hashthrims.domain.traininglist.MentoringCompetencies;
 import com.hashthrims.domain.traininglist.MentoringMentors;
 import com.hashthrims.domain.traininglist.MentoringSession;
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.domain.traininglist.Mentors;
 import com.hashthrims.domain.traininglist.TrainingCourseRequestors;
 import com.hashthrims.domain.traininglist.TrainingCourses;
@@ -577,8 +578,8 @@ public class EmployeeFactory {
         }
         ms.setMentoringCompetencies(comps);
         ms.setMentoringMentors(mentoringMentors);
-        MentoringSessionType mentoringSessionType = data.getMentoringSessionTypeService().find(val.get("typeOfSession"));
-        ms.setMentoringSessionType(mentoringSessionType);
+        SessionType mentoringSessionType = data.getMentoringSessionTypeService().find(val.get("typeOfSession"));
+       // ms.setMentoringSessionType(mentoringSessionType);
         ms.setSessionName(person.getId()+"-"+person.getPersonSurname()+" "+person.getPersonName());
 
         data.getMentoringSessionService().persist(ms);
@@ -606,5 +607,21 @@ public class EmployeeFactory {
         ec.setEvaluation(eval);
         ec.setLastEvaluated(date);
         return ec;
+    }
+
+    public RaceList createRaceList(String raceListName) {
+        RaceList raceList = new RaceList();
+        raceList.setRaceName(raceListName);
+        return raceList;
+    }
+
+    public RaceList updatedRaceList(String raceListName, Long raceId) {
+        RaceList raceList = loadRaceList(raceId);
+        raceList.setRaceName(raceListName);
+       return raceList;
+    }
+
+    public RaceList loadRaceList(Long raceListId) {
+        return data.getRaceListService().find(raceListId);
     }
 }

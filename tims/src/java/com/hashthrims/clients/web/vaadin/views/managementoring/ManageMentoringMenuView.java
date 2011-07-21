@@ -4,10 +4,11 @@
  */
 package com.hashthrims.clients.web.vaadin.views.managementoring;
 
-import com.hashthrims.clients.web.vaadin.views.location.views.ProvinceViewPage;
-import com.hashthrims.clients.web.vaadin.views.location.views.CountryViewPage;
-import com.hashthrims.clients.web.vaadin.views.location.views.CountyViewPage;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
+import com.hashthrims.clients.web.vaadin.views.managementoring.views.ClientMentoringSessionViewPage;
+import com.hashthrims.clients.web.vaadin.views.managementoring.views.EnrollMenteesViewPage;
+import com.hashthrims.clients.web.vaadin.views.managementoring.views.ReportMentoringViewPage;
+
 
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
@@ -24,37 +25,33 @@ public class ManageMentoringMenuView extends VerticalLayout {
     public ManageMentoringMenuView(HashThrimsMain app, String selectedTab) {
         main = app;
 
-        VerticalLayout countryTab = new VerticalLayout();
-        countryTab.setMargin(true);
-        countryTab.addComponent(new CountryViewPage(main));
+        VerticalLayout enrollMenteesTab = new VerticalLayout();
+        enrollMenteesTab.setMargin(true);
+        enrollMenteesTab.addComponent(new EnrollMenteesViewPage(main));
 
-        VerticalLayout provinceTab = new VerticalLayout();
-        provinceTab.setMargin(true);
-        provinceTab.addComponent(new ProvinceViewPage(main));
-
-        VerticalLayout countyTab = new VerticalLayout();
-        countyTab.setMargin(true);
-        countyTab.addComponent(new CountyViewPage(main));
-
-
-
-
+        VerticalLayout reportMentoringTab = new VerticalLayout();
+        reportMentoringTab.setMargin(true);
+        reportMentoringTab.addComponent(new ReportMentoringViewPage(main));
+        
+         final VerticalLayout createMentoringSessionTab = new VerticalLayout();
+        createMentoringSessionTab.setMargin(true);
+        createMentoringSessionTab.addComponent(new ClientMentoringSessionViewPage(main));
 
         tab = new TabSheet();
         tab.setHeight("100%");
         tab.setWidth("100%");
 
-        tab.addTab(countryTab, "Schedule Mentoring Session", null);
-        tab.addTab(provinceTab, "Assign Evaluations", null);
-        tab.addTab(countyTab, "Assign Mentors", null);
+        tab.addTab(createMentoringSessionTab, "Create Mentoring Session", null);
+        tab.addTab(enrollMenteesTab, "Enroll Mentees", null);
+        tab.addTab(reportMentoringTab, "Report Mentoring Session", null);
         
         
-        if (selectedTab.equals("COUNTRY")) {
-            tab.setSelectedTab(countryTab);
-        } else if (selectedTab.equals("PROVINCE")) {
-            tab.setSelectedTab(provinceTab);
-        } else if (selectedTab.equals("COUNTY")) {
-            tab.setSelectedTab(countyTab);
+        if (selectedTab.equals("CREATE")) {
+            tab.setSelectedTab(createMentoringSessionTab);
+        } else if (selectedTab.equals("ENROLL")) {
+            tab.setSelectedTab(enrollMenteesTab);
+        } else if (selectedTab.equals("REPORT")) {
+            tab.setSelectedTab(reportMentoringTab);
         }
         addComponent(tab);
     }

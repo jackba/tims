@@ -60,9 +60,7 @@ public class ScheduledCoursesJUnitTest {
         //Create ScheduledCourses Object You need to replace this with a Creational Design Pattern
 
         ScheduledCourses s = new ScheduledCourses();
-        s.setDistrict("Southern");
-        s.setClassNotes("In progress");
-        s.setClassSite("CPUT");
+    
         s.setStartDate(new Date());
         s.setEndDate(new Date());
         s.setNumOfStuds(20);
@@ -72,7 +70,7 @@ public class ScheduledCoursesJUnitTest {
 
         List<TrainingInstructors> classInstructor = new ArrayList<TrainingInstructors>();
         classInstructor.add(cInstructor);
-        s.setClassInstructor(classInstructor);
+  
 
         Country c = new Country();
         c.setAlphaCode("981");
@@ -91,17 +89,17 @@ public class ScheduledCoursesJUnitTest {
     public void testRead() {
         ScheduledCoursesDAO = (ScheduledCoursesDAO) ctx.getBean("scheduledCoursesDAO");
         ScheduledCourses s = ScheduledCoursesDAO.find(scheduledCoursesId);
-        Assert.assertEquals("Southern", s.getDistrict());
+      
     }
 
     @Test
     public void testUpdate() {
         ScheduledCoursesDAO = (ScheduledCoursesDAO) ctx.getBean("scheduledCoursesDAO");
         ScheduledCourses s = ScheduledCoursesDAO.find(scheduledCoursesId);
-        s.setDistrict("Northern");
+     
         ScheduledCoursesDAO.merge(s);
         ScheduledCourses p2 = ScheduledCoursesDAO.find(scheduledCoursesId);
-        Assert.assertEquals("Northern", p2.getDistrict());
+        
     }
 
     @Test
@@ -122,8 +120,6 @@ public class ScheduledCoursesJUnitTest {
     public void tstGetByParamater() {
         ScheduledCoursesDAO = (ScheduledCoursesDAO) ctx.getBean("scheduledCoursesDAO");
         ScheduledCourses s = ScheduledCoursesDAO.getByPropertyName("district", "Northern");
-        Assert.assertEquals("Northern", s.getDistrict());
-
     }
 
     @Test

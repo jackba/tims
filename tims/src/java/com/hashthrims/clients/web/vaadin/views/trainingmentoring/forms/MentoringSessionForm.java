@@ -5,10 +5,14 @@
 package com.hashthrims.clients.web.vaadin.views.trainingmentoring.forms;
 
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
+import com.hashthrims.clients.web.vaadin.views.managetraining.util.PeopleUtil;
+import com.hashthrims.domain.Person;
 import com.hashthrims.domain.employeelist.CompetencyList;
 import com.hashthrims.domain.employeelist.CompetencyType;
+import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.positions.Status;
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.MentoringObjective;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.domain.traininglist.MentoringTheme;
 import com.hashthrims.domain.traininglist.Mentors;
 import com.hashthrims.domain.traininglist.TrainingFunder;
@@ -16,9 +20,11 @@ import com.hashthrims.domain.traininglist.TrainingInstitution;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.DateField;
 import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
@@ -82,10 +88,11 @@ public class MentoringSessionForm {
         private Select selectCompetencyType;
         private Select selectTraniningInstitution;
         private Select selectMentoringSessionStatus;
-        private Select selectSessionType;
-        private Select selectTheme;
+        private Select selectFacility;
+        private ListSelect selectSessionType;
+        private ListSelect selectTheme;
         private ListSelect selectTrainingFunders;
-        private ListSelect selectCompetencies;
+        private ListSelect mentoringObjectivesList;
         private ListSelect selectMentors;
         private List<TrainingFunder> funders;
         private List<CompetencyList> competenciesLists;
@@ -102,19 +109,22 @@ public class MentoringSessionForm {
                 ((TextField) field).setVisible(false);
             } else if ("sessionName".equals(propertyId)) {
                 field = new TextField("Session Name:");
- 
                 ((TextField) field).setColumns(19);
                 ((TextField) field).setNullRepresentation("");
-    
                 ((TextField) field).setRequired(true);
                 ((TextField) field).setRequiredError("Please Enter Value");
+            } else if ("date".equals(propertyId)) {
+                field = new DateField("Date Of Mentoring:");
+                ((DateField) field).setRequired(true);
+                ((DateField) field).setRequiredError("Please Enter Value");
+                ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             } else if ("sessionMentors".equals(propertyId)) {
-                List<Mentors> mentors = data.getMentorsService().findAll();
+                List<Person> mentors = new PeopleUtil().getMentors(data.getPersonService().findAll());
                 selectMentors = new ListSelect("Session Mentors:");
                 selectMentors.setImmediate(true);
-                for (Mentors mentor : mentors) {
+                for (Person mentor : mentors) {
                     selectMentors.addItem(mentor.getId());
-                    selectMentors.setItemCaption(mentor.getId(), mentor.getFirstName() + " " + mentor.getLastName());
+                    selectMentors.setItemCaption(mentor.getId(), mentor.getPersonName() + " " + mentor.getPersonSurname());
                 }
                 selectMentors.setNewItemsAllowed(false);
                 selectMentors.setWidth("250");
@@ -123,11 +133,24 @@ public class MentoringSessionForm {
                 selectMentors.setMultiSelect(true);
                 selectMentors.setImmediate(true);
                 return selectMentors;
+            } else if ("mentoringVenue".equals(propertyId)) {
+                List<Facility> facilities = data.getFacilityService().findAll();
+                selectFacility = new Select("Mentoring Venue:");
+                for (Facility facility : facilities) {
+                    selectFacility.addItem(facility.getId());
+                    selectFacility.setItemCaption(facility.getId(), facility.getFacilityName());
+                }
+                selectFacility.setImmediate(true);
+                selectFacility.setNewItemsAllowed(true);
+                selectFacility.setWidth("250");
+                selectFacility.setRequired(true);
+                return selectFacility;
             } else if ("sessionStatus".equals(propertyId)) {
                 List<Status> statuses = data.getStatusService().findAll();
                 selectMentoringSessionStatus = new Select("Status:");
                 for (Status status : statuses) {
-                    selectMentoringSessionStatus.addItem(status.getStatus());
+                    selectMentoringSessionStatus.addItem(status.getId());
+                    selectMentoringSessionStatus.setItemCaption(status.getId(), status.getStatus());
                 }
                 selectMentoringSessionStatus.setImmediate(true);
                 selectMentoringSessionStatus.setNewItemsAllowed(true);
@@ -151,7 +174,8 @@ public class MentoringSessionForm {
                 funders = data.getTrainingFunderService().findAll();
                 selectTrainingFunders = new ListSelect("Training Funders:");
                 for (TrainingFunder ss : funders) {
-                    selectTrainingFunders.addItem(ss.getTrainingFunderName());
+                    selectTrainingFunders.addItem(ss.getId());
+                    selectTrainingFunders.setItemCaption(ss.getId(), ss.getTrainingFunderName());
                 }
                 selectTrainingFunders.setNewItemsAllowed(false);
                 selectTrainingFunders.setWidth("250");
@@ -161,57 +185,52 @@ public class MentoringSessionForm {
                 selectTrainingFunders.setMultiSelect(true);
                 selectTrainingFunders.setImmediate(true);
                 return selectTrainingFunders;
-            } else if ("mentoringCompetencies".equals(propertyId)) {
-                selectCompetencies = new ListSelect("Mentoring Competencies:");
-                selectCompetencies.setNewItemsAllowed(false);
-                selectCompetencies.setWidth("500");
-                selectCompetencies.setHeight("100");
-                selectCompetencies.setRequired(true);
-                selectCompetencies.setNullSelectionAllowed(false);
-                selectCompetencies.setMultiSelect(true);
-                selectCompetencies.setImmediate(true);
-                if (c != null) {
-                    competenciesLists = c.getCompetencyList();
-                    for (CompetencyList competencyList : competenciesLists) {
-                        selectCompetencies.addItem(competencyList.getComp_name());
-                    }
-                } else {
+            } else if ("mentoringObjectives".equals(propertyId)) {
+                List<MentoringObjective> mentoringObjectives = data.getMentoringObjectiveService().findAll();
+                mentoringObjectivesList = new ListSelect("Mentoring Objectives: ");
+                for (MentoringObjective mentoringObjective : mentoringObjectives) {
+                    mentoringObjectivesList.addItem(mentoringObjective.getId());
+                    mentoringObjectivesList.setItemCaption(mentoringObjective.getId(), mentoringObjective.getMentoringObjective());
                 }
-                return selectCompetencies;
-            } else if ("mentoringNotes".equals(propertyId)) {
-                field = new TextField("Mentoring Notes :");
-
-                ((TextField) field).setWidth("500");
-                //((TextField) field).setHeight("100");
-                ((TextField) field).setNullRepresentation("");
-
-                ((TextField) field).setRequired(true);
-                ((TextField) field).setRequiredError("Please Enter  Notes");
-            } else if ("mentoringTheme".equals(propertyId)) {
+                mentoringObjectivesList.setNewItemsAllowed(false);
+                mentoringObjectivesList.setWidth("500");
+                mentoringObjectivesList.setHeight("100");
+                mentoringObjectivesList.setRequired(true);
+                mentoringObjectivesList.setNullSelectionAllowed(false);
+                mentoringObjectivesList.setMultiSelect(true);
+                mentoringObjectivesList.setImmediate(true);
+                return mentoringObjectivesList;
+            } else if ("mentoringThemes".equals(propertyId)) {
                 List<MentoringTheme> themes = data.getMentoringThemeService().findAll();
-                selectTheme = new Select("Mentoring Theme:");
+                selectTheme = new ListSelect("Mentoring Theme:");
                 for (MentoringTheme theme : themes) {
                     selectTheme.addItem(theme.getId());
                     selectTheme.setItemCaption(theme.getId(), theme.getMentoringTheme());
                 }
-                selectTheme.setImmediate(true);
-                selectTheme.setNewItemsAllowed(true);
-                selectTheme.setWidth("250");
+                selectTheme.setNewItemsAllowed(false);
+                selectTheme.setWidth("500");
+                selectTheme.setHeight("100");
                 selectTheme.setRequired(true);
+                selectTheme.setNullSelectionAllowed(false);
+                selectTheme.setMultiSelect(true);
+                selectTheme.setImmediate(true);
                 return selectTheme;
-            } else if ("sessionType".equals(propertyId)) {
-                List<MentoringSessionType> sts = data.getMentoringSessionTypeService().findAll();
-                selectSessionType = new Select("Mentoring Session Type:");
-                for (MentoringSessionType st : sts) {
+            } else if ("mentoringSessionType".equals(propertyId)) {
+                List<SessionType> sts = data.getMentoringSessionTypeService().findAll();
+                selectSessionType = new ListSelect("Mentoring Session Type:");
+                for (SessionType st : sts) {
                     selectSessionType.addItem(st.getId());
                     selectSessionType.setItemCaption(st.getId(), st.getSessionTypeName());
                 }
-                selectSessionType.setImmediate(true);
-                selectSessionType.setNewItemsAllowed(true);
-                selectSessionType.setWidth("250");
+                selectSessionType.setNewItemsAllowed(false);
+                selectSessionType.setWidth("500");
+                selectSessionType.setHeight("100");
                 selectSessionType.setRequired(true);
+                selectSessionType.setNullSelectionAllowed(false);
+                selectSessionType.setMultiSelect(true);
+                selectSessionType.setImmediate(true);
                 return selectSessionType;
-            } else if ("competencyType".equals(propertyId)) {
+            } else if ("mentoringSubjectArea".equals(propertyId)) {
                 List<CompetencyType> fields = data.getCompetencyTypeService().findAll();
                 selectCompetencyType = new Select("Mentoring Subject Area:");
                 selectCompetencyType.addListener(this);
@@ -221,8 +240,9 @@ public class MentoringSessionForm {
                     selectCompetencyType.setItemCaption(fd.getId(), fd.getComp_name_typ());
                 }
                 selectCompetencyType.setNewItemsAllowed(false);
-                selectCompetencyType.setWidth("500");
+                selectCompetencyType.setWidth("250");
                 selectCompetencyType.setRequired(true);
+                selectCompetencyType.setNullSelectionAllowed(false);
                 return selectCompetencyType;
             }
             return field;
@@ -232,20 +252,6 @@ public class MentoringSessionForm {
         public void valueChange(ValueChangeEvent event) {
             final Property property = event.getProperty();
             if (property == selectCompetencyType) {
-                if (property.getValue() != null) {
-                    c = data.getCompetencyTypeService().find(new Long(property.getValue().toString()));
-                    competenciesLists = c.getCompetencyList();
-                    if (!selectCompetencies.isReadOnly()) {
-                        selectCompetencies.removeAllItems();
-                    }
-                    for (CompetencyList list : competenciesLists) {
-                        selectCompetencies.addItem(list.getComp_name());
-                    }
-                } else {
-                    if (!selectCompetencies.isReadOnly()) {
-                        selectCompetencies.removeAllItems();
-                    }
-                }
             }
         }
     }
@@ -287,23 +293,25 @@ public class MentoringSessionForm {
         protected void attachField(Object propertyId, Field field) {
             if (propertyId.equals("sessionName")) {
                 layout.addComponent(field, 0, 1);
-            } else if (propertyId.equals("mentoringTheme")) {
-                layout.addComponent(field, 0, 2);
-            } else if (propertyId.equals("sessionType")) {
+            } else if (propertyId.equals("mentoringSubjectArea")) {
                 layout.addComponent(field, 1, 1);
+            } else if (propertyId.equals("institutionName")) {
+                layout.addComponent(field, 0, 2);
+            } else if (propertyId.equals("date")) {
+                layout.addComponent(field, 1, 2);
             } else if (propertyId.equals("sessionStatus")) {
                 layout.addComponent(field, 0, 3);
-            } else if (propertyId.equals("sessionMentors")) { //--
-                layout.addComponent(field, 1, 4, 1, 5);
-            } else if (propertyId.equals("institutionName")) {
-                layout.addComponent(field, 1, 2);
-            } else if (propertyId.equals("mentoringNotes")) {
-                layout.addComponent(field, 0, 6, 1, 6);
+            } else if (propertyId.equals("mentoringVenue")) {
+                layout.addComponent(field, 1, 3);
             } else if (propertyId.equals("mentoringFunders")) {
                 layout.addComponent(field, 0, 4, 0, 5);
-            } else if (propertyId.equals("competencyType")) {
+            } else if (propertyId.equals("sessionMentors")) {
+                layout.addComponent(field, 1, 4, 1, 5);
+            } else if (propertyId.equals("mentoringSessionType")) {
+                layout.addComponent(field, 0, 6, 1, 6);
+            } else if (propertyId.equals("mentoringObjectives")) {
                 layout.addComponent(field, 0, 7, 1, 7);
-            } else if (propertyId.equals("mentoringCompetencies")) {
+            } else if (propertyId.equals("mentoringThemes")) {
                 layout.addComponent(field, 0, 8, 1, 8);
             } else if (propertyId.equals("id")) {
                 layout.addComponent(field, 0, 9);

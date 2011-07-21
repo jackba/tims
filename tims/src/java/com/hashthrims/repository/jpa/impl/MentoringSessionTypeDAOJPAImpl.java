@@ -5,7 +5,7 @@
 
 package com.hashthrims.repository.jpa.impl;
 
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.repository.jpa.MentoringSessionTypeDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,50 +27,50 @@ public class MentoringSessionTypeDAOJPAImpl  implements MentoringSessionTypeDAO{
     private EntityManager em;
 
     @Override
-    public MentoringSessionType find(Long id) {
-        return em.find(MentoringSessionType.class, id);
+    public SessionType find(Long id) {
+        return em.find(SessionType.class, id);
     }
 
     @Override
-    public void persist(MentoringSessionType entity) {
+    public void persist(SessionType entity) {
         em.persist(entity);
     }
 
     @Override
-    public void merge(MentoringSessionType entity) {
+    public void merge(SessionType entity) {
         em.merge(entity);
     }
 
     @Override
-    public void remove(MentoringSessionType entity) {
-        MentoringSessionType acc =em.find(MentoringSessionType.class, entity.getId());
+    public void remove(SessionType entity) {
+        SessionType acc =em.find(SessionType.class, entity.getId());
         em.remove(acc);
     }
 
     @Override
-    public List<MentoringSessionType> findAll() {
-        return (List<MentoringSessionType>) em.createQuery("SELECT a FROM MentoringSessionType a").getResultList();
+    public List<SessionType> findAll() {
+        return (List<SessionType>) em.createQuery("SELECT a FROM SessionType a").getResultList();
     }
 
     @Override
-    public List<MentoringSessionType> findInRange(int firstResult, int maxResults) {
-        return em.createQuery("SELECT a from MentoringSessionType a").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public List<SessionType> findInRange(int firstResult, int maxResults) {
+        return em.createQuery("SELECT a from SessionType a").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     @Override
     public long count() {
-         return (Long) em.createQuery("SELECT count(a) FROM MentoringSessionType a").getSingleResult();
+         return (Long) em.createQuery("SELECT count(a) FROM SessionType a").getSingleResult();
     }
 
     @Override
-    public MentoringSessionType getByPropertyName(String propertyName, String propertyValue) {
-        List<MentoringSessionType> list = em.createQuery("SELECT e FROM  MentoringSessionType e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
+    public SessionType getByPropertyName(String propertyName, String propertyValue) {
+        List<SessionType> list = em.createQuery("SELECT e FROM  SessionType e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
         return (list.isEmpty()) ? null : list.get(0);
     }
 
     @Override
-    public List<MentoringSessionType> getEntitiesByProperName(String propertyName, String propertyValue) {
-          List<MentoringSessionType> list = em.createQuery("SELECT e FROM  MentoringSessionType e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
+    public List<SessionType> getEntitiesByProperName(String propertyName, String propertyValue) {
+          List<SessionType> list = em.createQuery("SELECT e FROM  SessionType e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
         return list;
     }
 

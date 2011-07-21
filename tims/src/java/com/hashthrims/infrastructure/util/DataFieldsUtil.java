@@ -35,7 +35,7 @@ public class DataFieldsUtil {
     public List getSelectListLongFields(Object obj) {
 
         List<Long> list = new ArrayList<Long>();
-        Collection data = (Collection) obj;
+        Collection<Long> data = (Collection<Long>) obj;
         for (Iterator it = data.iterator(); it.hasNext();) {
             Object object = it.next();
             list.add(Long.parseLong(object.toString()));

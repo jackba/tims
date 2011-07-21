@@ -8,7 +8,6 @@ package com.hashthrims.clients.web.vaadin.views.training.tables;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.traininglist.Criteria;
-import com.hashthrims.domain.traininglist.TrainingCourseCategory;
 import java.util.List;
 
 /**

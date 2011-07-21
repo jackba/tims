@@ -5,6 +5,7 @@
 package com.hashthrims.clients.web.vaadin.views.people.views;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
+import com.hashthrims.clients.web.vaadin.views.people.tables.NewPersonTable;
 import com.hashthrims.clients.web.vaadin.views.people.tables.PersonTable;
 import com.hashthrims.domain.Person;
 
@@ -31,7 +32,7 @@ public class PersonsReultsPageView extends VerticalLayout {
         
         final VerticalLayout searchTab = new VerticalLayout();
         searchTab.setMargin(true);
-        PersonTable table = new PersonTable(app, personLists);
+        NewPersonTable table = new NewPersonTable(app, personLists);
                
         searchTab.addComponent(new SearchForPersonViewPage(main,table,personLists));
 

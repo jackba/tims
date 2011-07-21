@@ -65,7 +65,7 @@ public class TrainingCoursesJUnitTest {
         TrainingCourses t = new TrainingCourses();
         t.setCourseName("Food Tech");
         t.setCourseTopic("Food Enzyme Fundamentals");
-        t.setCourseNotes("Started");
+       
         
         EmployeeCourses competency = new EmployeeCourses();
 //        competency.setComEvaluation(null);

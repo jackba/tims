@@ -85,7 +85,7 @@ public class CourseViewPage extends VerticalLayout implements
             course.setCourseStatus(record.getItemProperty("Status").toString());
             course.setCourseType(record.getItemProperty("Type").toString());
             course.setTrainingInstitution(record.getItemProperty("Offered By").toString());
-            course.setCourseNotes(record.getItemProperty("Notes").toString());
+            course.setCourseObjective(record.getItemProperty("Objective").toString());
 
 
 
@@ -142,7 +142,7 @@ public class CourseViewPage extends VerticalLayout implements
         String courseType = form.getField("courseType").getValue().toString();
         String courseStatus = form.getField("courseStatus").getValue().toString();
         String trainingInstitution = form.getField("trainingInstitution").getValue().toString();
-        // String courseNotes = form.getField("courseNotes").getValue().toString();
+        String courseObjective = form.getField("courseObjective").getValue().toString();
         String courseCriteria = form.getField("criteria").getValue().toString();
 
 
@@ -153,6 +153,7 @@ public class CourseViewPage extends VerticalLayout implements
         simpleFields.put("trainingInstitution", trainingInstitution);
         simpleFields.put("courseCriteria", courseCriteria);
         simpleFields.put("courseType", courseType);
+         simpleFields.put("courseObjective", courseObjective);
 
 
         Object competency = form.getField("competency").getValue();
@@ -175,6 +176,7 @@ public class CourseViewPage extends VerticalLayout implements
         String courseStatus = form.getField("courseStatus").getValue().toString();
         String trainingInstitution = form.getField("trainingInstitution").getValue().toString();
         String courseCriteria = form.getField("criteria").getValue().toString();
+        String courseObjective = form.getField("courseObjective").getValue().toString();
 
         Map<String, String> simpleFields = new HashMap<String, String>();
         simpleFields.put("courseName", courseName);
@@ -183,6 +185,7 @@ public class CourseViewPage extends VerticalLayout implements
         simpleFields.put("trainingInstitution", trainingInstitution);
         simpleFields.put("courseCriteria", courseCriteria);
         simpleFields.put("courseType", courseType);
+         simpleFields.put("courseObjective", courseObjective);
 
 
         Object competency = form.getField("competency").getValue();

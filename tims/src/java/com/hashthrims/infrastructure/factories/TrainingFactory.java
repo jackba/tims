@@ -7,6 +7,7 @@ package com.hashthrims.infrastructure.factories;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.Contacts;
 import com.hashthrims.domain.EmployeeMentoring;
+import com.hashthrims.domain.Person;
 import com.hashthrims.domain.employeelist.CompetencyEvaluation;
 import com.hashthrims.domain.employeelist.CompetencyList;
 import com.hashthrims.domain.employeelist.MentorsRoles;
@@ -19,7 +20,10 @@ import com.hashthrims.domain.traininglist.MentoringField;
 import com.hashthrims.domain.traininglist.MentoringFunders;
 import com.hashthrims.domain.traininglist.MentoringMentors;
 import com.hashthrims.domain.traininglist.MentoringSession;
+import com.hashthrims.domain.traininglist.MentoringSessionObjective;
+import com.hashthrims.domain.traininglist.MentoringSessionTheme;
 import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.domain.traininglist.MentoringTheme;
 import com.hashthrims.domain.traininglist.Mentors;
 import com.hashthrims.domain.traininglist.ScheduledCourses;
@@ -66,33 +70,11 @@ public class TrainingFactory {
     private CityService cityService;
     private static ClientDataService data = new ClientDataService();
 
-//    public EmployeeMentoring createTraining(String notes, boolean retraining, boolean competency) {
-//        EmployeeMentoring t = new EmployeeMentoring();
-////        this value must also be generated
-//        ScheduledCourses schedule = new ScheduledCourses();
-//        Date requestedDate = new Date();
-////        TrainingCourseEvaluation courseEvaluation = (new TrainingCourseEvaluationFactory()).;
-//
-//        TrainingCourseRequestors courseRequestor;
-//        t.setNotes(notes);
-//        t.setRequestedDate(requestedDate);
-//        t.setRetraining(retraining);
-//        t.setCompetency(competency);
-////        courseEvaluation
-//        t.setCourseEvaluation(new TrainingCourseEvaluation());
-////        courseRequestor
-//        t.setCourseRequestor(new TrainingCourseRequestors());
-//        t.setSchedule(schedule);
-//        return t;
-//    }
     public ScheduledCourses createScheduledCourses(int numOfStuds, Date startDate, Date endDate, String classNotes, Country classLocation, String classSite, String district) {
         ScheduledCourses sc = new ScheduledCourses();
         sc.setNumOfStuds(numOfStuds);
-        sc.setClassNotes(classNotes);
-        sc.setClassSite(classSite);
         sc.setStartDate(startDate);
         sc.setEndDate(endDate);
-        sc.setClassLocation(classLocation);
 
         return sc;
     }
@@ -265,120 +247,19 @@ public class TrainingFactory {
 
     public MentoringSession createMentoringSession(Map<String, String> simpleFields,
             List<String> competencies, List<String> trainingFunders, List<String> mentors) {
-        MentoringSession ms = new MentoringSession();
-        List<MentoringFunders> funders = new ArrayList<MentoringFunders>();
-        List<MentoringCompetencies> comps = new ArrayList<MentoringCompetencies>();
-        List<MentoringMentors> mentoringMentors = new ArrayList<MentoringMentors>();
-
-
-        ms.setSessionName(simpleFields.get("sessionName"));
-        ms.setMentoringNotes(simpleFields.get("mentoringNotes"));
-
-        Long themeId = Long.parseLong(simpleFields.get("mentoringTheme").toString());
-        MentoringTheme theme = data.getMentoringThemeService().find(themeId);
-        ms.setMentoringTheme(theme);
-
-        Long instId = Long.parseLong(simpleFields.get("institutionName").toString());
-        TrainingInstitution ti = data.getTrainingInstitutionService().find(instId);
-        ms.setInstitutionName(ti);
-
-        Status status = data.getStatusService().getByPropertyName("status", simpleFields.get("sessionStatus"));
-        ms.setSessionStatus(status);
-
-        Long sessionId = Long.parseLong(simpleFields.get("sessionType").toString());
-        MentoringSessionType menttype = data.getMentoringSessionTypeService().find(sessionId);
-        ms.setMentoringSessionType(menttype);
-
-        for (String funderName : trainingFunders) {
-            TrainingFunder f = data.getTrainingFunderService().getByPropertyName("trainingFunderName", funderName);
-            MentoringFunders cf = new MentoringFunders();
-            cf.setFundersName(f.getTrainingFunderName());
-            cf.setFundersId(f.getId());
-            funders.add(cf);
-        }
-
-
-        for (String competencyList : competencies) {
-            CompetencyList l = data.getCompetencyList().getByPropertyName("compName", competencyList);
-            MentoringCompetencies cc = new MentoringCompetencies();
-            cc.setCompetencyId(l.getId());
-            cc.setCompetencyName(l.getComp_name());
-            comps.add(cc);
-        }
-
-        for (String mentor : mentors) {
-            Long mentorId = Long.parseLong(mentor);
-            Mentors m = data.getMentorsService().find(mentorId);
-            MentoringMentors mm = new MentoringMentors();
-            mm.setMentorsId(m.getId());
-            mentoringMentors.add(mm);
-
-        }
-        ms.setMentoringMentors(mentoringMentors);
-        ms.setMentoringFunders(funders);
-        ms.setMentoringCompetencies(comps);
 
 
 
 
-        return ms;
+
+        return null;
     }
 
     public MentoringSession updateMentoringSessions(Map<String, String> simpleFields,
             List<String> competencies, List<String> trainingFunders, List<String> mentors, Long mentoringId) {
         MentoringSession mSession = loadMentoringSessions(mentoringId);
 
-        //Reset Competencies and Funders
-        data.getMentoringSessionService().restFundersAndCompetencies(mSession);
-
-        MentoringSession ms = loadMentoringSessions(mentoringId);
-        ms.setSessionName(simpleFields.get("sessionName"));
-        ms.setMentoringNotes(simpleFields.get("mentoringNotes"));
-
-
-        Long themeId = Long.parseLong(simpleFields.get("mentoringTheme").toString());
-        MentoringTheme theme = data.getMentoringThemeService().find(themeId);
-        ms.setMentoringTheme(theme);
-
-        Long instId = Long.parseLong(simpleFields.get("institutionName").toString());
-        TrainingInstitution ti = data.getTrainingInstitutionService().find(instId);
-        ms.setInstitutionName(ti);
-
-        Status status = data.getStatusService().getByPropertyName("status", simpleFields.get("sessionStatus"));
-        ms.setSessionStatus(status);
-
-        Long sessionId = Long.parseLong(simpleFields.get("sessionType").toString());
-        MentoringSessionType menttype = data.getMentoringSessionTypeService().find(sessionId);
-        ms.setMentoringSessionType(menttype);
-
-        for (String funderName : trainingFunders) {
-            TrainingFunder f = data.getTrainingFunderService().getByPropertyName("trainingFunderName", funderName);
-            MentoringFunders cf = new MentoringFunders();
-            cf.setFundersName(f.getTrainingFunderName());
-            cf.setFundersId(f.getId());
-            ms.getMentoringFunders().add(cf);
-        }
-
-
-        for (String competencyList : competencies) {
-            CompetencyList l = data.getCompetencyList().getByPropertyName("compName", competencyList);
-            MentoringCompetencies cc = new MentoringCompetencies();
-            cc.setCompetencyId(l.getId());
-            cc.setCompetencyName(l.getComp_name());
-            ms.getMentoringCompetencies().add(cc);
-        }
-
-        for (String mentor : mentors) {
-            Long mentorId = Long.parseLong(mentor);
-            Mentors m = data.getMentorsService().find(mentorId);
-            MentoringMentors mm = new MentoringMentors();
-            mm.setMentorsId(m.getId());
-            ms.getMentoringMentors().add(mm);
-
-        }
-
-
-        return ms;
+        return mSession;
     }
 
     public MentoringSession loadMentoringSessions(Long MentoringSessionId) {
@@ -400,5 +281,119 @@ public class TrainingFactory {
 
     public MentorsRoles loadMentorsRoles(Long mentoringId) {
         return data.getMentorsRolesService().find(mentoringId);
+    }
+
+    public MentoringSession createMentoringSession(String sessionName, Date dateRequested, Map<String, Long> ids, Map<String, List<Long>> lists) {
+        MentoringSession session = new MentoringSession();
+        session.setSessionName(sessionName);
+        session.setSessionDate(dateRequested);
+
+
+        session.setInstitutionName(data.getTrainingInstitutionService().find(ids.get("institutionName")));
+        session.setSessionStatus(data.getStatusService().find(ids.get("sessionStatus")));
+        session.setMentoringVenue(data.getFacilityService().find(ids.get("mentoringVenue")));
+        session.setMentoringSubjectArea_CompetencyType(ids.get("mentoringSubjectArea"));
+
+
+
+
+        List<Long> mentoringFundersIds = lists.get("mentoringFundersIds");
+        for (Long id : mentoringFundersIds) {
+            TrainingFunder funder = data.getTrainingFunderService().find(id);
+            MentoringFunders mf = new MentoringFunders();
+            mf.setFundersId(funder.getId());
+            mf.setFundersName(funder.getTrainingFunderName());
+            session.getMentoringFunders().add(mf);
+
+        }
+
+        List<Long> sessionMentorsIds = lists.get("sessionMentorsIds");
+        for (Long id : sessionMentorsIds) {
+            MentoringMentors m = new MentoringMentors();
+            m.setMentorsId(id);
+            session.getMentoringMentors().add(m);
+
+        }
+
+        List<Long> mentoringObjectivesIds = lists.get("mentoringObjectivesIds");
+        MentoringSessionObjective objective = new MentoringSessionObjective();
+        for (Long id : mentoringObjectivesIds) {
+            objective.setMentoringObjectiveId(id);
+            session.getMentoringObjective().add(objective);
+        }
+
+        List<Long> mentoringThemesIds = lists.get("mentoringThemesIds");
+        MentoringSessionTheme stheme = new MentoringSessionTheme();
+        for (Long id : mentoringThemesIds) {
+            stheme.setSessionMentoringTheme(id);
+            session.getMentoringSessionTheme().add(stheme);
+        }
+
+        List<Long> mentoringSessionTypeIds = lists.get("mentoringSessionTypeIds");
+        MentoringSessionType mst = new MentoringSessionType();
+        for (Long id : mentoringSessionTypeIds) {
+            mst.setMentoringSessionType(id);
+            session.getMentoringSessionType().add(mst);
+        }
+
+        return session;
+    }
+
+    public MentoringSession updateMentoringSessions(String sessionName, Date dateRequested, Map<String, Long> ids, Map<String, List<Long>> lists, Long mentoringId) {
+        MentoringSession session = loadMentoringSessions(mentoringId);
+        //Reset Competencies and Funders
+        data.getMentoringSessionService().restFundersAndCompetencies(session);
+        session.setSessionName(sessionName);
+        session.setSessionDate(dateRequested);
+
+
+        session.setInstitutionName(data.getTrainingInstitutionService().find(ids.get("institutionName")));
+        session.setSessionStatus(data.getStatusService().find(ids.get("sessionStatus")));
+        session.setMentoringVenue(data.getFacilityService().find(ids.get("mentoringVenue")));
+        session.setMentoringSubjectArea_CompetencyType(ids.get("mentoringSubjectArea"));
+
+
+
+
+        List<Long> mentoringFundersIds = lists.get("mentoringFundersIds");
+        for (Long id : mentoringFundersIds) {
+            TrainingFunder funder = data.getTrainingFunderService().find(id);
+            MentoringFunders mf = new MentoringFunders();
+            mf.setFundersId(funder.getId());
+            mf.setFundersName(funder.getTrainingFunderName());
+            session.getMentoringFunders().add(mf);
+
+        }
+
+        List<Long> sessionMentorsIds = lists.get("sessionMentorsIds");
+        for (Long id : sessionMentorsIds) {
+            MentoringMentors m = new MentoringMentors();
+            m.setMentorsId(id);
+            session.getMentoringMentors().add(m);
+
+        }
+
+        List<Long> mentoringObjectivesIds = lists.get("mentoringObjectivesIds");
+        MentoringSessionObjective objective = new MentoringSessionObjective();
+        for (Long id : mentoringObjectivesIds) {
+            objective.setMentoringObjectiveId(id);
+            session.getMentoringObjective().add(objective);
+        }
+
+        List<Long> mentoringThemesIds = lists.get("mentoringThemesIds");
+        MentoringSessionTheme stheme = new MentoringSessionTheme();
+        for (Long id : mentoringThemesIds) {
+            stheme.setSessionMentoringTheme(id);
+            session.getMentoringSessionTheme().add(stheme);
+        }
+
+       List<Long> mentoringSessionTypeIds = lists.get("mentoringSessionTypeIds");
+        MentoringSessionType mst = new MentoringSessionType();
+        for (Long id : mentoringSessionTypeIds) {
+            mst.setMentoringSessionType(id);
+            session.getMentoringSessionType().add(mst);
+        }
+
+        return session;
     }
 }

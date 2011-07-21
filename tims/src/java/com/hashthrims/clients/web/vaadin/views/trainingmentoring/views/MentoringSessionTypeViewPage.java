@@ -11,7 +11,7 @@ import com.hashthrims.clients.web.vaadin.views.trainingmentoring.TrainingMentori
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.forms.MentoringSessionTypeForm;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.model.MentoringSessionTypeBean;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.tables.MentoringSessionTypeTable;
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.infrastructure.factories.traininglist.TrainingCoursesFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -123,20 +123,20 @@ public class MentoringSessionTypeViewPage extends VerticalLayout implements
 
     public void saveNewMentoringSessionType(Form form) {      
         final String mentoringSessionType = form.getField("mentoringSessionType").getValue().toString();
-        final MentoringSessionType c = factory.createMentoringSessionType(mentoringSessionType);
+        final SessionType c = factory.createMentoringSessionType(mentoringSessionType);
         data.getMentoringSessionTypeService().persist(c);
     }
 
     public void saveEditedMentoringSessionType(Form form) {
         final String mentoringSessionType = form.getField("mentoringSessionType").getValue().toString();
         final Long sessionId = Long.parseLong(form.getField("id").getValue().toString());
-        final MentoringSessionType c = factory.updateMentoringSessionType(mentoringSessionType, sessionId);
+        final SessionType c = factory.updateMentoringSessionType(mentoringSessionType, sessionId);
         data.getMentoringSessionTypeService().merge(c);
     }
 
     public void deleteScheduleCourses(Form form) {
         final Long mentoringId = Long.parseLong(form.getField("id").getValue().toString());
-        final MentoringSessionType c = factory.loadMentoringSessionType(mentoringId);
+        final SessionType c = factory.loadMentoringSessionType(mentoringId);
         data.getMentoringSessionTypeService().remove(c);
     }
 }

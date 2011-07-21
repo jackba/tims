@@ -170,7 +170,7 @@ public class MentoringThemeForm {
 
             }
             if ("mentoringTheme".equals(propertyId)) {
-                field = new TextField("Mentoring Theme:");
+                field = new TextField("Mentoring Objective:");
                 ((TextField) field).setColumns(30);
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);

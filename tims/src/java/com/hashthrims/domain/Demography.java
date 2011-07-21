@@ -29,6 +29,7 @@ public class Demography implements Serializable {
     private String gender;
     private String maritalStatus;
     private int dependants;
+    private String race;
 
     @OneToOne
     private Person personDemographics;
@@ -134,6 +135,20 @@ public class Demography implements Serializable {
      */
     public void setPersonDemographics(Person personDemographics) {
         this.personDemographics = personDemographics;
+    }
+
+    /**
+     * @return the race
+     */
+    public String getRace() {
+        return race;
+    }
+
+    /**
+     * @param race the race to set
+     */
+    public void setRace(String race) {
+        this.race = race;
     }
 
 }

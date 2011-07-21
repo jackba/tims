@@ -6,7 +6,11 @@ package com.hashthrims.infrastructure.factories;
 
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.*;
+import com.hashthrims.domain.employeelist.GenderList;
+import com.hashthrims.domain.employeelist.MentorsRoles;
+import com.hashthrims.domain.employeelist.RaceList;
 import com.hashthrims.domain.regionlist.City;
+import com.hashthrims.domain.traininglist.MentoringField;
 import com.hashthrims.infrastructure.conf.GetContext;
 import com.hashthrims.services.CityService;
 import com.hashthrims.services.PersonService;
@@ -23,9 +27,6 @@ public class PersonFactory {
     private PersonService personService;
     private CityService cityService;
     private ClientDataService data = new ClientDataService();
-
-
-  
 
     public Person loadPerson(Long id) {
         personService = (PersonService) ctx.getBean("personService");
@@ -45,17 +46,8 @@ public class PersonFactory {
         d.setGender(personValues.get("gender"));
         p.setDemography(d);
 
-//        EmployeePosition pos = new EmployeePosition();
-//        pos.setEnddate(dates.get("endDate"));
-//        pos.setStartDate(dates.get("startDate"));
-//        pos.setStatus(personValues.get("status"));
-//        Positions position = data.getPositionsService().getByPropertyName("positionCode", personValues.get("position"));
-//        pos.setPosition(position);
-//
-//
-//
-//        p.getPosition().add(pos);
-        cityService = (CityService)ctx.getBean("cityService");
+
+        cityService = (CityService) ctx.getBean("cityService");
         City c = cityService.getByPropertyName("name", personValues.get("residence"));
         p.setResidence(c);
 
@@ -73,22 +65,101 @@ public class PersonFactory {
         d.setGender(personValues.get("gender"));
         p.setDemography(d);
 
-//        EmployeePosition pos = new EmployeePosition();
-//
-//        pos.setEnddate(dates.get("endDate"));
-//        pos.setStartDate(dates.get("startDate"));
-//        pos.setStatus(personValues.get("status"));
-//        Positions position = data.getPositionsService().getByPropertyName("positionCode", personValues.get("position"));
-//        pos.setPosition(position);
-//
-//
-//
-//        p.getPosition().add(pos);
 
-        cityService = (CityService)ctx.getBean("cityService");
+        cityService = (CityService) ctx.getBean("cityService");
         City c = cityService.getByPropertyName("name", personValues.get("residence"));
         p.setResidence(c);
 
         return p;
+    }
+
+    public Person createNewPerson(Map<String, String> names, Map<String, Collection<Long>> lists, Map<String, Long> demo, Date dob) {
+        Person p = new Person();
+        p.setPersonName(names.get("firstname"));
+        p.setPersonOtherName(names.get("othername"));
+        p.setPersonSurname(names.get("surname"));
+
+        Demography d = new Demography();
+        d.setDob(dob);
+        GenderList gender = data.getGenderListService().find(demo.get("genderId"));
+        if (gender!=null) {
+            d.setGender(gender.getGender());
+        }
+        RaceList race = data.getRaceListService().find(demo.get("raceId"));
+        if (race!=null) {
+            d.setRace(race.getRaceName());
+        }
+        p.setDemography(d);
+
+        Collection<Long> rolesid = lists.get("rolesid");
+        for (Long roleid : rolesid) {
+            PersonRoles r = new PersonRoles();
+            r.setRoleName(getMentorsRolesName(data.getMentorsRolesService().find(roleid)));
+            p.getPersonRoles().add(r);
+        }
+        Collection<Long> competencyFieldId = lists.get("competencyFieldId");
+        for (Long compid : competencyFieldId) {
+            MentorExpertiseArea a = new MentorExpertiseArea();
+            a.setExpertiseAreaName(getFieldName(data.getMentoringFieldService().find(compid)));
+            p.getExpertiseArea().add(a);
+        }
+        Collection<Long> expertiseId = lists.get("expertiseId");
+        for (Long expertiseid : expertiseId) {
+            
+        }
+
+        return p;
+    }
+
+    public Person updateNewPerson(Map<String, String> names, Map<String, Collection<Long>> lists, Map<String, Long> demo, Date dob) {
+        Person p = data.getPersonService().find(demo.get("id"));
+        p.setPersonName(names.get("firstname"));
+        p.setPersonOtherName(names.get("othername"));
+        p.setPersonSurname(names.get("surname"));
+
+        Demography d = p.getDemography();
+        d.setDob(dob);
+        GenderList gender = data.getGenderListService().find(demo.get("genderId"));
+        if (gender!=null) {
+            d.setGender(gender.getGender());
+        }
+        RaceList race = data.getRaceListService().find(demo.get("raceId"));
+        if (race!=null) {
+            d.setRace(race.getRaceName());
+        }
+        p.setDemography(d);
+        
+        p.getPersonRoles().clear();
+        Collection<Long> rolesid = lists.get("rolesid");
+        for (Long roleid : rolesid) {
+            PersonRoles r = new PersonRoles();
+            r.setRoleName(getMentorsRolesName(data.getMentorsRolesService().find(roleid)));
+            p.getPersonRoles().add(r);
+        }
+        p.getExpertiseArea().clear();
+        Collection<Long> competencyFieldId = lists.get("competencyFieldId");
+        for (Long compid : competencyFieldId) {
+            MentorExpertiseArea a = new MentorExpertiseArea();
+             a.setExpertiseAreaName(getFieldName(data.getMentoringFieldService().find(compid)));
+            p.getExpertiseArea().add(a);
+        }
+        Collection<Long> expertiseId = lists.get("expertiseId");
+        for (Long expertiseid : expertiseId) {
+            
+        }
+
+        return p;
+    }
+
+    private String getMentorsRolesName(MentorsRoles role) {
+        if(role!=null)
+            return role.getMentorsRolesName();
+        return null;
+    }
+
+    private String getFieldName(MentoringField role) {
+        if(role!=null)
+            return role.getFieldName();
+        return null;
     }
 }

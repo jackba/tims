@@ -27,9 +27,6 @@ public class MentoringTheme implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String mentoringTheme;
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-    @JoinColumn(name = "mentoringtheme_id")
-    private List<MentoringSession> mentoringSession = new ArrayList<MentoringSession>();
     @OneToOne
     private MentoringField mentoringField;
 
@@ -94,17 +91,5 @@ public class MentoringTheme implements Serializable {
         this.mentoringField = mentoringField;
     }
 
-    /**
-     * @return the mentoringSession
-     */
-    public List<MentoringSession> getMentoringSession() {
-        return mentoringSession;
-    }
-
-    /**
-     * @param mentoringSession the mentoringSession to set
-     */
-    public void setMentoringSession(List<MentoringSession> mentoringSession) {
-        this.mentoringSession = mentoringSession;
-    }
+    
 }

@@ -9,6 +9,7 @@ import com.hashthrims.clients.web.vaadin.views.employeelists.demographics.views.
 import com.hashthrims.clients.web.vaadin.views.employeelists.demographics.views.GenderListViewPage;
 import com.hashthrims.clients.web.vaadin.views.employeelists.demographics.views.IdentificationTypeViewPage;
 import com.hashthrims.clients.web.vaadin.views.employeelists.demographics.views.MaritalStatusViewPage;
+import com.hashthrims.clients.web.vaadin.views.employeelists.demographics.views.RaceListViewPage;
 
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
@@ -25,7 +26,7 @@ public class DemographicsMenuView extends VerticalLayout {
     public DemographicsMenuView(HashThrimsMain app, String selectedTab) {
         main = app;
 
-       final  VerticalLayout maritalStatusTab = new VerticalLayout();
+        final VerticalLayout maritalStatusTab = new VerticalLayout();
         maritalStatusTab.setMargin(true);
         maritalStatusTab.addComponent(new MaritalStatusViewPage(main));
 
@@ -41,16 +42,22 @@ public class DemographicsMenuView extends VerticalLayout {
         genderListTab.setMargin(true);
         genderListTab.addComponent(new GenderListViewPage(main));
 
+        final VerticalLayout raceListTab = new VerticalLayout();
+        raceListTab.setMargin(true);
+        raceListTab.addComponent(new RaceListViewPage(main));
+
 
         tab = new TabSheet();
         tab.setHeight("100%");
         tab.setWidth("100%");
 
-       
-       // tab.addTab(maritalStatusTab, "Marital Status", null);
+
+        // tab.addTab(maritalStatusTab, "Marital Status", null);
         tab.addTab(identificationTypeTab, "Identification Type", null);
-       // tab.addTab(benefitTypeTab, "Benefit Type", null);
+        // tab.addTab(benefitTypeTab, "Benefit Type", null);
         tab.addTab(genderListTab, "Gender", null);
+        tab.addTab(raceListTab, "Race", null);
+
 
         if (selectedTab.equals("IDENTIFICATION TYPE")) {
             tab.setSelectedTab(identificationTypeTab);
@@ -60,6 +67,8 @@ public class DemographicsMenuView extends VerticalLayout {
             tab.setSelectedTab(maritalStatusTab);
         } else if (selectedTab.equals("GENDER LIST")) {
             tab.setSelectedTab(genderListTab);
+        } else if (selectedTab.equals("RACE LIST")) {
+            tab.setSelectedTab(raceListTab);
         }
         addComponent(tab);
     }

@@ -4,6 +4,7 @@
  */
 package com.hashthrims.clients.web.vaadin.views.trainingmentoring.model;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,15 +15,21 @@ public class MentoringSessionBean {
 
     private Long id;
     private String sessionName;
-    private String mentoringTheme;
-    private String institutionName;
-    private String sessionStatus;
-    private String mentoringNotes;
-    private String sessionType;
-    private String competencyType;
-    private List<String> mentoringFunders;
-    private List<String> mentoringCompetencies;
-    private List<String> sessionMentors;
+    private Long mentoringSubjectArea;
+    
+   
+    private Long institutionName;
+    private Date date;
+    
+    private Long sessionStatus;
+    private Long mentoringVenue;
+    
+    private List<Long> mentoringFunders;
+    private List<Long> sessionMentors;
+    
+    private List<Long> mentoringObjectives;
+    private List<Long> mentoringThemes;
+    private List<Long> mentoringSessionType;
 
     /**
      * @return the id
@@ -53,129 +60,142 @@ public class MentoringSessionBean {
     }
 
     /**
-     * @return the mentoringTheme
+     * @return the date
      */
-    public String getMentoringTheme() {
-        return mentoringTheme;
+    public Date getDate() {
+        return date;
     }
 
     /**
-     * @param mentoringTheme the mentoringTheme to set
+     * @param date the date to set
      */
-    public void setMentoringTheme(String mentoringTheme) {
-        this.mentoringTheme = mentoringTheme;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     /**
      * @return the institutionName
      */
-    public String getInstitutionName() {
+    public Long getInstitutionName() {
         return institutionName;
     }
 
     /**
      * @param institutionName the institutionName to set
      */
-    public void setInstitutionName(String institutionName) {
+    public void setInstitutionName(Long institutionName) {
         this.institutionName = institutionName;
     }
 
     /**
      * @return the sessionStatus
      */
-    public String getSessionStatus() {
+    public Long getSessionStatus() {
         return sessionStatus;
     }
 
     /**
      * @param sessionStatus the sessionStatus to set
      */
-    public void setSessionStatus(String sessionStatus) {
+    public void setSessionStatus(Long sessionStatus) {
         this.sessionStatus = sessionStatus;
-    }
-
-    /**
-     * @return the mentoringNotes
-     */
-    public String getMentoringNotes() {
-        return mentoringNotes;
-    }
-
-    /**
-     * @param mentoringNotes the mentoringNotes to set
-     */
-    public void setMentoringNotes(String mentoringNotes) {
-        this.mentoringNotes = mentoringNotes;
     }
 
     /**
      * @return the mentoringFunders
      */
-    public List<String> getMentoringFunders() {
+    public List<Long> getMentoringFunders() {
         return mentoringFunders;
     }
 
     /**
      * @param mentoringFunders the mentoringFunders to set
      */
-    public void setMentoringFunders(List<String> mentoringFunders) {
+    public void setMentoringFunders(List<Long> mentoringFunders) {
         this.mentoringFunders = mentoringFunders;
-    }
-
-    /**
-     * @return the mentoringCompetencies
-     */
-    public List<String> getMentoringCompetencies() {
-        return mentoringCompetencies;
-    }
-
-    /**
-     * @param mentoringCompetencies the mentoringCompetencies to set
-     */
-    public void setMentoringCompetencies(List<String> mentoringCompetencies) {
-        this.mentoringCompetencies = mentoringCompetencies;
-    }
-
-
-    /**
-     * @return the sessionType
-     */
-    public String getSessionType() {
-        return sessionType;
-    }
-
-    /**
-     * @param sessionType the sessionType to set
-     */
-    public void setSessionType(String sessionType) {
-        this.sessionType = sessionType;
     }
 
     /**
      * @return the sessionMentors
      */
-    public List<String> getSessionMentors() {
+    public List<Long> getSessionMentors() {
         return sessionMentors;
     }
 
     /**
      * @param sessionMentors the sessionMentors to set
      */
-    public void setSessionMentors(List<String> sessionMentors) {
+    public void setSessionMentors(List<Long> sessionMentors) {
         this.sessionMentors = sessionMentors;
     }
 
     /**
-     * @return the competencyType
+     * @return the mentoringObjectives
      */
-    public String getCompetencyType() {
-        return competencyType;
+    public List<Long> getMentoringObjectives() {
+        return mentoringObjectives;
     }
 
     /**
-     * @param competencyType the competencyType to set
+     * @param mentoringObjectives the mentoringObjectives to set
      */
-    public void setCompetencyType(String competencyType) {
-        this.competencyType = competencyType;
+    public void setMentoringObjectives(List<Long> mentoringObjectives) {
+        this.mentoringObjectives = mentoringObjectives;
+    }
+
+    /**
+     * @return the mentoringThemes
+     */
+    public List<Long> getMentoringThemes() {
+        return mentoringThemes;
+    }
+
+    /**
+     * @param mentoringThemes the mentoringThemes to set
+     */
+    public void setMentoringThemes(List<Long> mentoringThemes) {
+        this.mentoringThemes = mentoringThemes;
+    }
+
+    /**
+     * @return the mentoringSessionType
+     */
+    public List<Long> getMentoringSessionType() {
+        return mentoringSessionType;
+    }
+
+    /**
+     * @param mentoringSessionType the mentoringSessionType to set
+     */
+    public void setMentoringSessionType(List<Long> mentoringSessionType) {
+        this.mentoringSessionType = mentoringSessionType;
+    }
+
+    /**
+     * @return the mentoringSubjectArea
+     */
+    public Long getMentoringSubjectArea() {
+        return mentoringSubjectArea;
+    }
+
+    /**
+     * @param mentoringSubjectArea the mentoringSubjectArea to set
+     */
+    public void setMentoringSubjectArea(Long mentoringSubjectArea) {
+        this.mentoringSubjectArea = mentoringSubjectArea;
+    }
+
+    /**
+     * @return the mentoringVenue
+     */
+    public Long getMentoringVenue() {
+        return mentoringVenue;
+    }
+
+    /**
+     * @param mentoringVenue the mentoringVenue to set
+     */
+    public void setMentoringVenue(Long mentoringVenue) {
+        this.mentoringVenue = mentoringVenue;
     }
 }

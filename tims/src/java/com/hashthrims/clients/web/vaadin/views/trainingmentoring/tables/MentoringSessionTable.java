@@ -7,7 +7,9 @@ package com.hashthrims.clients.web.vaadin.views.trainingmentoring.tables;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.util.MentoringUtil;
+import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.traininglist.MentoringSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,30 +28,31 @@ public class MentoringSessionTable extends com.vaadin.ui.Table {
         setSizeFull();
         // Define the names and data types of columns.
         addContainerProperty("Session Name", String.class, null);
-        addContainerProperty("Session Type", String.class, null);
-        addContainerProperty("Mentoring Subject Area", String.class, null);
-        addContainerProperty("Mentoring Theme", String.class, null);
-        addContainerProperty("Status", String.class, null);
+        addContainerProperty("Session Date", Date.class, null);
         addContainerProperty("Training Institution", String.class, null);
-        addContainerProperty("Notes", String.class, null);
+        addContainerProperty("Mentoring venue", String.class, null);
+        
+       
+     
 
         // Add Data Columns
         List<MentoringSession> sessions = data.getMentoringSessionService().findAll();
         for (MentoringSession session : sessions) {
             addItem(new Object[]{session.getSessionName(),
-                        st.getSessionTypeName(session.getMentoringSessionType()),
-                        st.getMentoringField(session.getMentoringTheme()),
-                        st.getMentoringTheme(session.getMentoringTheme()),
-                        st.getStatus(session.getSessionStatus()),
+                        session.getSessionDate(),
                         st.getTrainingInstitution(session.getInstitutionName()),
-                        session.getMentoringNotes()}, session.getId());
+                        getMentoringVenue(session.getMentoringVenue())}, session.getId());
         }
 
         // Allow selecting items from the table.
         setSelectable(true);
         // Send changes in selection immediately to server.
         setImmediate(true);
+    }
 
-
+    private Object getMentoringVenue(Facility mentoringVenue) {
+        if(mentoringVenue!=null)
+            return mentoringVenue.getFacilityName();
+        return null;
     }
 }

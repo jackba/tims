@@ -30,7 +30,7 @@ public class TrainingCoursesTable extends com.vaadin.ui.Table {
         addContainerProperty("Status", String.class, null);
         addContainerProperty("Type", String.class, null);
         addContainerProperty("Offered By", String.class, null);
-        addContainerProperty("Notes", String.class, null);
+        addContainerProperty("Objective", String.class, null);
 
         // Add Data Columns
         List<TrainingCourses> trainingCoursess = data.getTrainingCoursesService().findAll();
@@ -40,7 +40,7 @@ public class TrainingCoursesTable extends com.vaadin.ui.Table {
                         st.getStatus(trainingCourses.getCourseStatus()),
                         st.getCourseType(trainingCourses.getCourseType()),
                         st.getTrainingInstitution(trainingCourses.getInstitutionName()),
-                        trainingCourses.getCourseNotes()}, trainingCourses.getId());
+                        trainingCourses.getCourseObjectives()}, trainingCourses.getId());
         }
 
         // Allow selecting items from the table.

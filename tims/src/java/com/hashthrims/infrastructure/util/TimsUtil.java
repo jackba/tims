@@ -21,7 +21,7 @@ import com.hashthrims.domain.traininglist.CourseCompetencies;
 import com.hashthrims.domain.traininglist.CourseTypeName;
 import com.hashthrims.domain.traininglist.MentoringCompetencies;
 import com.hashthrims.domain.traininglist.MentoringSession;
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.domain.traininglist.TrainingCourseCategory;
 import com.hashthrims.domain.traininglist.TrainingCourseRequestors;
 import com.hashthrims.domain.traininglist.TrainingCourses;
@@ -138,7 +138,7 @@ public class TimsUtil {
 
     public String getTypeOfMentoringSession(MentoringSession mentoringSession) {
         if (mentoringSession != null) {
-            return getMentoringType(mentoringSession.getMentoringSessionType());
+            return null; //getMentoringType(mentoringSession.getMentoringSessionType());
         }
 
         return null;
@@ -318,7 +318,7 @@ public class TimsUtil {
         return null;
     }
 
-    private String getMentoringType(MentoringSessionType mentoringSessionType) {
+    private String getMentoringType(SessionType mentoringSessionType) {
         if (mentoringSessionType != null) {
             return mentoringSessionType.getSessionTypeName();
         }

@@ -56,7 +56,7 @@ public class ManageCoursesTreeMenu extends Tree implements ItemClickListener {
     }
 
     private void showManageMentoringView() {
-         main.mainView.setSecondComponent(new TrainingMentoringMenuView(main, "POSITION"));
+         main.mainView.setSecondComponent(new ManageMentoringMenuView(main, "POSITION"));
 
     }
 

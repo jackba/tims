@@ -86,7 +86,7 @@ public class TrainingCoursesResourceImpl extends TrainingCoursesResource{
              u.setCourseCategory(form.getCourseCategory());
            
              u.setCourseName(form.getCourseName());
-             u.setCourseNotes(form.getCourseNotes());
+            
              u.setCourseStatus(form.getCourseStatus());
              u.setCourseTopic(form.getCourseTopic());
              u.setInstitutionName(form.getInstitutionName());

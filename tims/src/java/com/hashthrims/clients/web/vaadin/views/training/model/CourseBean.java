@@ -23,7 +23,7 @@ public class CourseBean {
     private List<String> competency;
     private List<String> targetGroup;
     private String criteria;
-    private String courseNotes;
+    private String courseObjective;
 
     /**
      * @return the courseId
@@ -154,15 +154,15 @@ public class CourseBean {
     /**
      * @return the courseNotes
      */
-    public String getCourseNotes() {
-        return courseNotes;
+    public String getCourseObjective() {
+        return courseObjective;
     }
 
     /**
      * @param courseNotes the courseNotes to set
      */
-    public void setCourseNotes(String courseNotes) {
-        this.courseNotes = courseNotes;
+    public void setCourseObjective(String courseNotes) {
+        this.courseObjective = courseNotes;
     }
 
     /**

@@ -90,8 +90,11 @@ public class MentoringSessionImplService implements MentoringSessionService {
     @Override
     public MentoringSession restFundersAndCompetencies(MentoringSession mSession) {
         mSession.getMentoringFunders().clear();
-        mSession.getMentoringCompetencies().clear();
         mSession.getMentoringMentors().clear();
+        mSession.getMentoringObjective().clear();
+        mSession.getMentoringSessionType().clear();
+        mSession.getMentoringSessionTheme().clear(); 
+        mSession.getMentoringObjective().clear();
         mentoringSessionDAO.merge(mSession);
         return mSession;
     }

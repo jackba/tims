@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.domain.traininglist;
 
+import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.positions.Status;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -23,18 +25,23 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class MentoringSession implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String sessionName;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date sessionDate;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
     private List<MentoringMentors> mentoringMentors = new ArrayList<MentoringMentors>();
-    @OneToOne
-    private MentoringSessionType  mentoringSessionType;
-    @OneToOne
-    private MentoringTheme mentoringTheme;
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "mentoringSession_id")
+    private List<MentoringSessionType> mentoringSessionType= new ArrayList<MentoringSessionType>();
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "mentoringSession_id")
+    private List<MentoringSessionTheme> mentoringSessionTheme = new ArrayList<MentoringSessionTheme>();
     @OneToOne
     private TrainingInstitution institutionName;
     @OneToOne
@@ -45,9 +52,15 @@ public class MentoringSession implements Serializable {
     private List<MentoringFunders> mentoringFunders = new ArrayList<MentoringFunders>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
-    private List<MentoringCompetencies> mentoringCompetencies = new  ArrayList<MentoringCompetencies>();
-
-
+    private List<MentoringCompetencies> mentoringCompetencies = new ArrayList<MentoringCompetencies>();
+    @OneToOne
+    private Facility mentoringVenue;
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "mentoringSession_id")
+    private List<MentoringSessionObjective> mentoringObjective = new ArrayList<MentoringSessionObjective>();
+    private Long MentoringSubjectArea_CompetencyType;
+    
+    
     public Long getId() {
         return id;
     }
@@ -93,22 +106,6 @@ public class MentoringSession implements Serializable {
      */
     public void setSessionName(String sessionName) {
         this.sessionName = sessionName;
-    }
-
-   
-
-    /**
-     * @return the mentoringTheme
-     */
-    public MentoringTheme getMentoringTheme() {
-        return mentoringTheme;
-    }
-
-    /**
-     * @param mentoringTheme the mentoringTheme to set
-     */
-    public void setMentoringTheme(MentoringTheme mentoringTheme) {
-        this.mentoringTheme = mentoringTheme;
     }
 
     /**
@@ -182,20 +179,6 @@ public class MentoringSession implements Serializable {
     }
 
     /**
-     * @return the mentoringSessionType
-     */
-    public MentoringSessionType getMentoringSessionType() {
-        return mentoringSessionType;
-    }
-
-    /**
-     * @param mentoringSessionType the mentoringSessionType to set
-     */
-    public void setMentoringSessionType(MentoringSessionType mentoringSessionType) {
-        this.mentoringSessionType = mentoringSessionType;
-    }
-
-    /**
      * @return the mentoringMentors
      */
     public List<MentoringMentors> getMentoringMentors() {
@@ -209,5 +192,91 @@ public class MentoringSession implements Serializable {
         this.mentoringMentors = mentoringMentors;
     }
 
+    /**
+     * @return the sessionDate
+     */
+    public Date getSessionDate() {
+        return sessionDate;
+    }
+
+    /**
+     * @param sessionDate the sessionDate to set
+     */
+    public void setSessionDate(Date sessionDate) {
+        this.sessionDate = sessionDate;
+    }
+
+    /**
+     * @return the mentoringVenue
+     */
+    public Facility getMentoringVenue() {
+        return mentoringVenue;
+    }
+
+    /**
+     * @param mentoringVenue the mentoringVenue to set
+     */
+    public void setMentoringVenue(Facility mentoringVenue) {
+        this.mentoringVenue = mentoringVenue;
+    }
+
+   
+
+    /**
+     * @return the mentoringSessionType
+     */
+    public List<MentoringSessionType> getMentoringSessionType() {
+        return mentoringSessionType;
+    }
+
+    /**
+     * @param mentoringSessionType the mentoringSessionType to set
+     */
+    public void setMentoringSessionType(List<MentoringSessionType> mentoringSessionType) {
+        this.mentoringSessionType = mentoringSessionType;
+    }
+
     
+
+    /**
+     * @return the MentoringSubjectArea_CompetencyType
+     */
+    public Long getMentoringSubjectArea_CompetencyType() {
+        return MentoringSubjectArea_CompetencyType;
+    }
+
+    /**
+     * @param MentoringSubjectArea_CompetencyType the MentoringSubjectArea_CompetencyType to set
+     */
+    public void setMentoringSubjectArea_CompetencyType(Long MentoringSubjectArea_CompetencyType) {
+        this.MentoringSubjectArea_CompetencyType = MentoringSubjectArea_CompetencyType;
+    }
+
+    /**
+     * @return the mentoringObjective
+     */
+    public List<MentoringSessionObjective> getMentoringObjective() {
+        return mentoringObjective;
+    }
+
+    /**
+     * @param mentoringObjective the mentoringObjective to set
+     */
+    public void setMentoringObjective(List<MentoringSessionObjective> mentoringObjective) {
+        this.mentoringObjective = mentoringObjective;
+    }
+
+    /**
+     * @return the mentoringSessionTheme
+     */
+    public List<MentoringSessionTheme> getMentoringSessionTheme() {
+        return mentoringSessionTheme;
+    }
+
+    /**
+     * @param mentoringSessionTheme the mentoringSessionTheme to set
+     */
+    public void setMentoringSessionTheme(List<MentoringSessionTheme> mentoringSessionTheme) {
+        this.mentoringSessionTheme = mentoringSessionTheme;
+    }
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.domain.traininglist;
 
 import java.io.Serializable;
@@ -21,7 +20,7 @@ public class MentoringSessionType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String sessionTypeName;
+    private Long mentoringSessionType;
 
     public Long getId() {
         return id;
@@ -53,21 +52,21 @@ public class MentoringSessionType implements Serializable {
 
     @Override
     public String toString() {
-        return "com.hashthrims.domain.traininglist.MentoringSessionType[id=" + id + "]";
+        return "com.hashthrims.domain.traininglist.MentoringSessionType[ id=" + id + " ]";
     }
 
     /**
-     * @return the sessionTypeName
+     * @return the mentoringSessionType
      */
-    public String getSessionTypeName() {
-        return sessionTypeName;
+    public Long getMentoringSessionType() {
+        return mentoringSessionType;
     }
 
     /**
-     * @param sessionTypeName the sessionTypeName to set
+     * @param mentoringSessionType the mentoringSessionType to set
      */
-    public void setSessionTypeName(String sessionTypeName) {
-        this.sessionTypeName = sessionTypeName;
+    public void setMentoringSessionType(Long mentoringSessionType) {
+        this.mentoringSessionType = mentoringSessionType;
     }
-
+    
 }

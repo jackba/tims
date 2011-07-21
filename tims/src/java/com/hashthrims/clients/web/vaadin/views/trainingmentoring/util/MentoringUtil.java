@@ -6,7 +6,7 @@ package com.hashthrims.clients.web.vaadin.views.trainingmentoring.util;
 
 import com.hashthrims.domain.positions.Status;
 import com.hashthrims.domain.traininglist.MentoringField;
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.domain.traininglist.MentoringTheme;
 import com.hashthrims.domain.traininglist.TrainingInstitution;
 
@@ -31,7 +31,7 @@ public class MentoringUtil {
         return null;
     }
 
-    public String  getSessionTypeName(MentoringSessionType mentoringSessionType) {
+    public String  getSessionTypeName(SessionType mentoringSessionType) {
         if(mentoringSessionType!=null)
             return mentoringSessionType.getSessionTypeName();
         return null;

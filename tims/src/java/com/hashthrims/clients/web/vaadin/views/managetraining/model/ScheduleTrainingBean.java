@@ -21,11 +21,12 @@ public class ScheduleTrainingBean {
     private Date courseEndDate;
     //Strings
     private Long course;
-    private String retraining;
+    private Long venue;
     private Long requestor;
 
     //variables for people selectors;
-    private Long facultyId;
+    private int courseCapacity;
+    private List<Long> trainers;
    
 
     /**
@@ -101,16 +102,7 @@ public class ScheduleTrainingBean {
     /**
      * @return the retraining
      */
-    public String getRetraining() {
-        return retraining;
-    }
-
-    /**
-     * @param retraining the retraining to set
-     */
-    public void setRetraining(String retraining) {
-        this.retraining = retraining;
-    }
+    
 
     /**
      * @return the requestor
@@ -127,18 +119,48 @@ public class ScheduleTrainingBean {
     }
 
    
+    
+
     /**
-     * @return the facultyId
+     * @return the trainers
      */
-    public Long getFacultyId() {
-        return facultyId;
+    public List<Long> getTrainers() {
+        return trainers;
     }
 
     /**
-     * @param facultyId the facultyId to set
+     * @param trainers the trainers to set
      */
-    public void setFacultyId(Long facultyId) {
-        this.facultyId = facultyId;
+    public void setTrainers(List<Long> trainers) {
+        this.trainers = trainers;
+    }
+
+    /**
+     * @return the courseCapacity
+     */
+    public int getCourseCapacity() {
+        return courseCapacity;
+    }
+
+    /**
+     * @param courseCapacity the courseCapacity to set
+     */
+    public void setCourseCapacity(int courseCapacity) {
+        this.courseCapacity = courseCapacity;
+    }
+
+    /**
+     * @return the venue
+     */
+    public Long getVenue() {
+        return venue;
+    }
+
+    /**
+     * @param venue the venue to set
+     */
+    public void setVenue(Long venue) {
+        this.venue = venue;
     }
 
 }

@@ -34,6 +34,7 @@ public class PersonBean implements Serializable{
     private Date startDate;
     private Date endDate;
     private String status;
+    private String race;
 
 
     /**
@@ -287,6 +288,20 @@ public class PersonBean implements Serializable{
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the race
+     */
+    public String getRace() {
+        return race;
+    }
+
+    /**
+     * @param race the race to set
+     */
+    public void setRace(String race) {
+        this.race = race;
     }
 
 }

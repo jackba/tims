@@ -5,7 +5,7 @@
 
 package com.hashthrims.services.Impl;
 
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.repository.jpa.MentoringSessionTypeDAO;
 import com.hashthrims.services.MentoringSessionTypeService;
 import java.util.List;
@@ -26,7 +26,7 @@ public class MentoringSessionTypeImplService implements MentoringSessionTypeServ
 
 
     @Override
-    public MentoringSessionType find(Long id) {
+    public SessionType find(Long id) {
         if(id!= null){
         return mentoringSessionTypeDAO.find(id);
         }
@@ -35,28 +35,28 @@ public class MentoringSessionTypeImplService implements MentoringSessionTypeServ
 
     @Transactional(readOnly= false)
     @Override
-    public void persist(MentoringSessionType entity) {
+    public void persist(SessionType entity) {
         mentoringSessionTypeDAO.persist(entity);
     }
 
     @Override
-    public void merge(MentoringSessionType entity) {
+    public void merge(SessionType entity) {
         mentoringSessionTypeDAO.merge(entity);
     }
 
     @Override
-    public void remove(MentoringSessionType entity) {
+    public void remove(SessionType entity) {
 
         mentoringSessionTypeDAO.remove(entity);
     }
 
     @Override
-    public List<MentoringSessionType> findAll() {
+    public List<SessionType> findAll() {
          return  mentoringSessionTypeDAO.findAll();
     }
 
     @Override
-    public List<MentoringSessionType> findInRange(int firstResult, int maxResults) {
+    public List<SessionType> findInRange(int firstResult, int maxResults) {
          return mentoringSessionTypeDAO.findInRange(firstResult, maxResults);
     }
 
@@ -66,7 +66,7 @@ public class MentoringSessionTypeImplService implements MentoringSessionTypeServ
     }
 
     @Override
-    public MentoringSessionType getByPropertyName(String propertyName, String propertyValue) {
+    public SessionType getByPropertyName(String propertyName, String propertyValue) {
                 return mentoringSessionTypeDAO.getByPropertyName(propertyName, propertyValue);
     }
 
@@ -85,7 +85,7 @@ public class MentoringSessionTypeImplService implements MentoringSessionTypeServ
     }
 
     @Override
-    public List<MentoringSessionType> getEntitiesByProperName(String propertyName, String propertyValue) {
+    public List<SessionType> getEntitiesByProperName(String propertyName, String propertyValue) {
         return mentoringSessionTypeDAO.getEntitiesByProperName(propertyName, propertyValue);
     }
 

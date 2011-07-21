@@ -48,10 +48,10 @@ public class Person implements Serializable, Comparable<Person> {
     private City residence;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "contacts_id")
-    private List<Contacts> contacts  = new ArrayList<Contacts>();
+    private List<Contacts> contacts = new ArrayList<Contacts>();
     @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "demography_id")
-    private Demography demography;
+    private Demography demography = new Demography();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EmployeePosition> position = new ArrayList<EmployeePosition>();
@@ -80,11 +80,15 @@ public class Person implements Serializable, Comparable<Person> {
     @JoinColumn(name = "person_id")
     private List<Mentees> mentees = new ArrayList<Mentees>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+//    @Cache( usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinColumn(name = "person_id")
-    private List<MentorExpertiseArea> expertiseArea= new ArrayList<MentorExpertiseArea>();
+    private List<MentorExpertiseArea> expertiseArea = new ArrayList<MentorExpertiseArea>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<PersonRoles> personRoles = new ArrayList<PersonRoles>();
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "person_id")
+    private List<EmployeeActionPlan> actionPlans = new ArrayList<EmployeeActionPlan>();
 
     public Long getId() {
         return id;
@@ -360,5 +364,19 @@ public class Person implements Serializable, Comparable<Person> {
      */
     public void setPersonRoles(List<PersonRoles> personRoles) {
         this.personRoles = personRoles;
+    }
+
+    /**
+     * @return the actionPlans
+     */
+    public List<EmployeeActionPlan> getActionPlans() {
+        return actionPlans;
+    }
+
+    /**
+     * @param actionPlans the actionPlans to set
+     */
+    public void setActionPlans(List<EmployeeActionPlan> actionPlans) {
+        this.actionPlans = actionPlans;
     }
 }

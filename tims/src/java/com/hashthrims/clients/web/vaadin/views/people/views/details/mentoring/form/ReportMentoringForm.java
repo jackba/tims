@@ -9,7 +9,7 @@ import com.hashthrims.domain.employeelist.CompetencyList;
 import com.hashthrims.domain.employeelist.CompetencyType;
 import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.offices.FacilityType;
-import com.hashthrims.domain.traininglist.MentoringSessionType;
+import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.domain.traininglist.Mentors;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
@@ -156,9 +156,9 @@ public class ReportMentoringForm {
                 selectFacilityType.setRequired(true);
                 return selectFacilityType;
             } else if ("typeOfSession".equals(propertyId)) {
-                List<MentoringSessionType> sts = data.getMentoringSessionTypeService().findAll();
+                List<SessionType> sts = data.getMentoringSessionTypeService().findAll();
                 selectSessionType = new Select("Session Type:");
-                for (MentoringSessionType st : sts) {
+                for (SessionType st : sts) {
                     selectSessionType.addItem(st.getId());
                     selectSessionType.setItemCaption(st.getId(), st.getSessionTypeName());
                 }

@@ -185,10 +185,9 @@ public class CourseForm {
                 selectCompetencies.setMultiSelect(true);
                 selectCompetencies.setImmediate(true);
                 return selectCompetencies;
-            } else if ("courseNotes".equals(propertyId)) {
-                field = new TextField("Course Notes :");
-                ((TextField) field).setWidth("250");
-                ((TextField) field).setHeight("100");
+            } else if ("courseObjective".equals(propertyId)) {
+                field = new TextField("Course Objective :");
+                ((TextField) field).setWidth("500");
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);              
             } else if ("courseName".equals(propertyId)) {
@@ -244,7 +243,7 @@ public class CourseForm {
 
         public CourseGridForm() {
             setCaption("Course Form");
-            layout = new GridLayout(2, 10);
+            layout = new GridLayout(2, 11);
             layout.setMargin(true);
             layout.setSpacing(true);
 
@@ -295,14 +294,15 @@ public class CourseForm {
             }else if (propertyId.equals("trainingFunder")) {
                 layout.addComponent(field, 0, 4, 0, 5);
             } else if (propertyId.equals("competency")) {
-                layout.addComponent(field, 0, 7, 1, 7);
+                layout.addComponent(field, 0, 8, 1, 8);
             } else if (propertyId.equals("targetGroup")) {
                 layout.addComponent(field, 1, 4, 1, 5);
             } else if (propertyId.equals("courseId")) {
-                layout.addComponent(field, 0, 8);
-
+                layout.addComponent(field, 0, 10);
             } else if (propertyId.equals("criteria")) {
                 layout.addComponent(field, 1, 3);
+            } else if (propertyId.equals("courseObjective")) {
+                layout.addComponent(field, 0,7,1, 7);
 
             }
 
