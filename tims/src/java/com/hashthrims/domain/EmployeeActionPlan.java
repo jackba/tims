@@ -27,8 +27,13 @@ public class EmployeeActionPlan implements Serializable {
     private String actionPlan;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date actionPlanDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date reviewPlanDate;
     private String actionPlanreview;
     private String status;
+    private boolean review;
+    private Long mentoringSessionId;
+    private Long nimmartSessionId;
     
 
     public Long getId() {
@@ -146,6 +151,62 @@ public class EmployeeActionPlan implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the review
+     */
+    public boolean isReview() {
+        return review;
+    }
+
+    /**
+     * @param review the review to set
+     */
+    public void setReview(boolean review) {
+        this.review = review;
+    }
+
+    /**
+     * @return the mentoringSessionId
+     */
+    public Long getMentoringSessionId() {
+        return mentoringSessionId;
+    }
+
+    /**
+     * @param mentoringSessionId the mentoringSessionId to set
+     */
+    public void setMentoringSessionId(Long mentoringSessionId) {
+        this.mentoringSessionId = mentoringSessionId;
+    }
+
+    /**
+     * @return the nimmartSessionId
+     */
+    public Long getNimmartSessionId() {
+        return nimmartSessionId;
+    }
+
+    /**
+     * @param nimmartSessionId the nimmartSessionId to set
+     */
+    public void setNimmartSessionId(Long nimmartSessionId) {
+        this.nimmartSessionId = nimmartSessionId;
+    }
+
+    /**
+     * @return the reviewPlanDate
+     */
+    public Date getReviewPlanDate() {
+        return reviewPlanDate;
+    }
+
+    /**
+     * @param reviewPlanDate the reviewPlanDate to set
+     */
+    public void setReviewPlanDate(Date reviewPlanDate) {
+        this.reviewPlanDate = reviewPlanDate;
     }
     
 }

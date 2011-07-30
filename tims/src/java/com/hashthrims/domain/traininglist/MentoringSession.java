@@ -32,13 +32,15 @@ public class MentoringSession implements Serializable {
     private Long id;
     private String sessionName;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date sessionDate;
+    private Date startDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date endDate;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
     private List<MentoringMentors> mentoringMentors = new ArrayList<MentoringMentors>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
-    private List<MentoringSessionType> mentoringSessionType= new ArrayList<MentoringSessionType>();
+    private List<MentoringSessionType> mentoringSessionType = new ArrayList<MentoringSessionType>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "mentoringSession_id")
     private List<MentoringSessionTheme> mentoringSessionTheme = new ArrayList<MentoringSessionTheme>();
@@ -59,8 +61,10 @@ public class MentoringSession implements Serializable {
     @JoinColumn(name = "mentoringSession_id")
     private List<MentoringSessionObjective> mentoringObjective = new ArrayList<MentoringSessionObjective>();
     private Long MentoringSubjectArea_CompetencyType;
-    
-    
+    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "mentoringSession_id")
+    private List<SessionAreasOfStrengthening> sessionAreasOfStrengthening = new ArrayList<SessionAreasOfStrengthening>();
+
     public Long getId() {
         return id;
     }
@@ -195,15 +199,15 @@ public class MentoringSession implements Serializable {
     /**
      * @return the sessionDate
      */
-    public Date getSessionDate() {
-        return sessionDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
     /**
      * @param sessionDate the sessionDate to set
      */
-    public void setSessionDate(Date sessionDate) {
-        this.sessionDate = sessionDate;
+    public void setStartDate(Date sessionDate) {
+        this.startDate = sessionDate;
     }
 
     /**
@@ -220,8 +224,6 @@ public class MentoringSession implements Serializable {
         this.mentoringVenue = mentoringVenue;
     }
 
-   
-
     /**
      * @return the mentoringSessionType
      */
@@ -235,8 +237,6 @@ public class MentoringSession implements Serializable {
     public void setMentoringSessionType(List<MentoringSessionType> mentoringSessionType) {
         this.mentoringSessionType = mentoringSessionType;
     }
-
-    
 
     /**
      * @return the MentoringSubjectArea_CompetencyType
@@ -278,5 +278,33 @@ public class MentoringSession implements Serializable {
      */
     public void setMentoringSessionTheme(List<MentoringSessionTheme> mentoringSessionTheme) {
         this.mentoringSessionTheme = mentoringSessionTheme;
+    }
+
+    /**
+     * @return the endDate
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * @return the sessionAreasOfStrengthening
+     */
+    public List<SessionAreasOfStrengthening> getSessionAreasOfStrengthening() {
+        return sessionAreasOfStrengthening;
+    }
+
+    /**
+     * @param sessionAreasOfStrengthening the sessionAreasOfStrengthening to set
+     */
+    public void setSessionAreasOfStrengthening(List<SessionAreasOfStrengthening> sessionAreasOfStrengthening) {
+        this.sessionAreasOfStrengthening = sessionAreasOfStrengthening;
     }
 }

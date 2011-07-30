@@ -57,7 +57,6 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
     private final Table enrolledPeopleTable;
     private final HorizontalLayout people = new HorizontalLayout();
     private final VerticalLayout layout = new VerticalLayout();
-    private final Button enrollButton = new Button("Enroll Paricipants");
     private final ListSelect peopleList = new ListSelect("Select People");
     private final ListSelect trainers = new ListSelect("List of Trainers for selected Course");
     private EvaluatePersonCourseWindow evaluateSubWindow;
@@ -273,11 +272,11 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
         return participants;
     }
 
-    private boolean isCourseInEmployeList(List<EmployeeCourses> empc, ScheduledCourses course) {
+    private boolean isCourseInEmployeList(List<EmployeeCourses> empc, ScheduledCourses scheduledCourse) {
         boolean isInList = false;
         for (EmployeeCourses employeeCourses : empc) {
             if (employeeCourses.getCourse() != null) {
-                if (course.getCourseId().equals(employeeCourses.getCourse().getId())) {
+                if (scheduledCourse.getId().equals(employeeCourses.getScheduledCourseSessionId())) {
                     isInList = true;
                 }
             }

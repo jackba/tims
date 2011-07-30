@@ -27,6 +27,7 @@ import com.hashthrims.domain.traininglist.SessionType;
 import com.hashthrims.domain.traininglist.MentoringTheme;
 import com.hashthrims.domain.traininglist.Mentors;
 import com.hashthrims.domain.traininglist.ScheduledCourses;
+import com.hashthrims.domain.traininglist.SessionAreasOfStrengthening;
 import com.hashthrims.domain.traininglist.TrainingCourseCategory;
 import com.hashthrims.domain.traininglist.TrainingCourseEvaluation;
 import com.hashthrims.domain.traininglist.TrainingCourseRequestors;
@@ -283,10 +284,11 @@ public class TrainingFactory {
         return data.getMentorsRolesService().find(mentoringId);
     }
 
-    public MentoringSession createMentoringSession(String sessionName, Date dateRequested, Map<String, Long> ids, Map<String, List<Long>> lists) {
+    public MentoringSession createMentoringSession(String sessionName, Map<String, Date> dates, Map<String, Long> ids, Map<String, List<Long>> lists) {
         MentoringSession session = new MentoringSession();
         session.setSessionName(sessionName);
-        session.setSessionDate(dateRequested);
+        session.setStartDate(dates.get("startDate"));
+        session.setEndDate(dates.get("endDate"));
 
 
         session.setInstitutionName(data.getTrainingInstitutionService().find(ids.get("institutionName")));
@@ -336,15 +338,23 @@ public class TrainingFactory {
             session.getMentoringSessionType().add(mst);
         }
 
+        List<Long> areasOfStrentheningIds = lists.get("areasOfStrentheningIds");
+        SessionAreasOfStrengthening area = new SessionAreasOfStrengthening();
+        for (Long id : areasOfStrentheningIds) {
+            area.setAreasOfStrentheningId(id);
+            session.getSessionAreasOfStrengthening().add(area);
+        }
+
         return session;
     }
 
-    public MentoringSession updateMentoringSessions(String sessionName, Date dateRequested, Map<String, Long> ids, Map<String, List<Long>> lists, Long mentoringId) {
+    public MentoringSession updateMentoringSessions(String sessionName, Map<String, Date> dates, Map<String, Long> ids, Map<String, List<Long>> lists, Long mentoringId) {
         MentoringSession session = loadMentoringSessions(mentoringId);
         //Reset Competencies and Funders
         data.getMentoringSessionService().restFundersAndCompetencies(session);
         session.setSessionName(sessionName);
-        session.setSessionDate(dateRequested);
+        session.setStartDate(dates.get("startDate"));
+        session.setEndDate(dates.get("endDate"));
 
 
         session.setInstitutionName(data.getTrainingInstitutionService().find(ids.get("institutionName")));
@@ -387,11 +397,17 @@ public class TrainingFactory {
             session.getMentoringSessionTheme().add(stheme);
         }
 
-       List<Long> mentoringSessionTypeIds = lists.get("mentoringSessionTypeIds");
+        List<Long> mentoringSessionTypeIds = lists.get("mentoringSessionTypeIds");
         MentoringSessionType mst = new MentoringSessionType();
         for (Long id : mentoringSessionTypeIds) {
             mst.setMentoringSessionType(id);
             session.getMentoringSessionType().add(mst);
+        }
+        List<Long> areasOfStrentheningIds = lists.get("areasOfStrentheningIds");
+        SessionAreasOfStrengthening area = new SessionAreasOfStrengthening();
+        for (Long id : areasOfStrentheningIds) {
+            area.setAreasOfStrentheningId(id);
+            session.getSessionAreasOfStrengthening().add(area);
         }
 
         return session;

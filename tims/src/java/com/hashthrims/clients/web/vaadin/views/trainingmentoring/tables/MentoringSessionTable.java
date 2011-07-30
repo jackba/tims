@@ -39,7 +39,7 @@ public class MentoringSessionTable extends com.vaadin.ui.Table {
         List<MentoringSession> sessions = data.getMentoringSessionService().findAll();
         for (MentoringSession session : sessions) {
             addItem(new Object[]{session.getSessionName(),
-                        session.getSessionDate(),
+                        session.getStartDate(),
                         st.getTrainingInstitution(session.getInstitutionName()),
                         getMentoringVenue(session.getMentoringVenue())}, session.getId());
         }

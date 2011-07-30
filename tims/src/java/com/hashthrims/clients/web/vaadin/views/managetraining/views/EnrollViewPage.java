@@ -15,8 +15,6 @@ import com.hashthrims.domain.traininglist.ScheduledCourses;
 import com.hashthrims.domain.traininglist.TrainingCourseRequestors;
 import com.hashthrims.domain.traininglist.TrainingCourses;
 import com.hashthrims.domain.traininglist.TrainingInstructors;
-import com.hashthrims.infrastructure.factories.EmployeeFactory;
-import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -34,9 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -49,11 +45,8 @@ public class EnrollViewPage extends VerticalLayout implements
     private final Form form;
     private final ScheduleTrainingForm pform;
     private final ClientDataService data = new ClientDataService();
-    private DataFieldsUtil fieldValues = new DataFieldsUtil();
-    private final EmployeeFactory factory = data.getEmployeeFactory();
     private final Table scheduledCoursesTable;
     private final HorizontalLayout people = new HorizontalLayout();
-    private final VerticalLayout layout = new VerticalLayout();
     private final Button enrollButton = new Button("Enroll Paricipants");
     private final ListSelect peopleList = new ListSelect("Select People");
     private final ListSelect trainers = new ListSelect("List of Trainers for selected Course");
@@ -113,8 +106,6 @@ public class EnrollViewPage extends VerticalLayout implements
         addComponent(people);
         addComponent(enrollButton);
         setComponentAlignment(scheduledCoursesTable, Alignment.MIDDLE_CENTER);
-
-
     }
 
     @Override
@@ -147,36 +138,6 @@ public class EnrollViewPage extends VerticalLayout implements
             main.mainView.setSecondComponent(new ManageTrainingMenuView(main, "ENROLL"));
         }
 
-    }
-
-    public void submitAttendanceList(Form form) {
-        String retraining = fieldValues.getStringFields(form.getField("retraining").getValue());
-        Long course = Long.parseLong(form.getField("course").getValue().toString());
-        Long requestor = Long.parseLong(form.getField("requestor").getValue().toString());
-
-        Date dateRequested = fieldValues.getDateFields(form.getField("dateRequested").getValue());
-        Date courseStartDate = fieldValues.getDateFields(form.getField("courseStartDate").getValue());
-        Date courseEndDate = fieldValues.getDateFields(form.getField("courseEndDate").getValue());
-
-        Map<String, Long> st = new HashMap<String, Long>();
-        st.put("course", course);
-        st.put("requestor", requestor);
-
-
-        Map<String, Date> dates = new HashMap<String, Date>();
-        dates.put("dateRequested", dateRequested);
-        dates.put("courseStartDate", courseStartDate);
-        dates.put("courseEndDate", courseEndDate);
-        EmployeeCourses ec = factory.createEmployeeCourse(st, dates, retraining);
-
-
-        Object attendees = form.getField("trainees").getValue();
-        List<Long> personsIds = fieldValues.getSelectListLongFields(attendees);
-        for (Long personId : personsIds) {
-            Person person = data.getPersonService().find(personId);
-            person.getCourses().add(ec);
-            data.getPersonService().persist(person);
-        }
     }
 
     private Table getTable() {
@@ -215,6 +176,7 @@ public class EnrollViewPage extends VerticalLayout implements
         TrainingCourseRequestors req = data.getTrainingCourseRequestorsType().find(course.getCourseRequestor());
         EmployeeCourses empc = new EmployeeCourses();
         empc.setCourse(tc);
+        empc.setScheduledCourseSessionId(courseId);
         empc.setCourseEndDate(course.getEndDate());
         empc.setCourseStartDate(course.getStartDate());
         empc.setRequestor(req);

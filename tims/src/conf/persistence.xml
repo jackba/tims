@@ -9,6 +9,7 @@
     <class>com.hashthrims.domain.traininglist.MentoringSessionObjective</class>
     <class>com.hashthrims.domain.traininglist.MentoringSessionTheme</class>
     <class>com.hashthrims.domain.traininglist.MentoringSessionType</class>
+    <class>com.hashthrims.domain.traininglist.SessionAreasOfStrengthening</class>
     <shared-cache-mode>ALL</shared-cache-mode>
   </persistence-unit>
 </persistence>

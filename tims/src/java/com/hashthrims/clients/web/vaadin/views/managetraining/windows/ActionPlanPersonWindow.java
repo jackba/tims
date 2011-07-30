@@ -6,11 +6,9 @@ package com.hashthrims.clients.web.vaadin.views.managetraining.windows;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
-import com.hashthrims.clients.web.vaadin.views.training.model.CourseBean;
 import com.hashthrims.domain.EmployeeActionPlan;
 import com.hashthrims.domain.Person;
 import com.hashthrims.domain.traininglist.ScheduledCourses;
-import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -84,10 +82,6 @@ public class ActionPlanPersonWindow extends Window implements ClickListener {
         panel.setContent(form);
         addComponent(panel);
         addComponent(footer);
-
-
-
-
     }
 
     @Override
@@ -96,18 +90,17 @@ public class ActionPlanPersonWindow extends Window implements ClickListener {
          if(source==cancel){
              close();
          }
-         
          if(source==addPlan){
              EmployeeActionPlan plan = new EmployeeActionPlan();
              plan.setActionPlan((String)actionPlan.getValue());
              plan.setActionPlanDate((Date)actionPlanDate.getValue());
              plan.setSchduledCourse(course.getId());
              plan.setCourseId(course.getCourseId());
+             plan.setStatus("PENDING");
              person.getActionPlans().add(plan);
              data.getPersonService().merge(person);
              close();
-             
-             
+  
          }
     }
 }

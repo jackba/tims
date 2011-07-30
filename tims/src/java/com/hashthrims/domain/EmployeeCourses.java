@@ -46,6 +46,7 @@ public class EmployeeCourses implements Serializable {
     private Date courseEndDate;
     @OneToOne
     private TrainingCourses course;
+    private Long scheduledCourseSessionId;
 
     public Long getId() {
         return id;
@@ -235,6 +236,20 @@ public class EmployeeCourses implements Serializable {
      */
     public void setCourse(TrainingCourses course) {
         this.course = course;
+    }
+
+    /**
+     * @return the scheduledCourseSessionId
+     */
+    public Long getScheduledCourseSessionId() {
+        return scheduledCourseSessionId;
+    }
+
+    /**
+     * @param scheduledCourseSessionId the scheduledCourseSessionId to set
+     */
+    public void setScheduledCourseSessionId(Long scheduledCourseSessionId) {
+        this.scheduledCourseSessionId = scheduledCourseSessionId;
     }
 
    

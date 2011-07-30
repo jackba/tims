@@ -19,7 +19,8 @@ public class MentoringSessionBean {
     
    
     private Long institutionName;
-    private Date date;
+    private Date startDate;
+    private Date endDate;
     
     private Long sessionStatus;
     private Long mentoringVenue;
@@ -30,6 +31,7 @@ public class MentoringSessionBean {
     private List<Long> mentoringObjectives;
     private List<Long> mentoringThemes;
     private List<Long> mentoringSessionType;
+    private List<Long> areasOfStrenthening;
 
     /**
      * @return the id
@@ -57,20 +59,6 @@ public class MentoringSessionBean {
      */
     public void setSessionName(String sessionName) {
         this.sessionName = sessionName;
-    }
-
-    /**
-     * @return the date
-     */
-    public Date getDate() {
-        return date;
-    }
-
-    /**
-     * @param date the date to set
-     */
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     /**
@@ -197,5 +185,47 @@ public class MentoringSessionBean {
      */
     public void setMentoringVenue(Long mentoringVenue) {
         this.mentoringVenue = mentoringVenue;
+    }
+
+    /**
+     * @return the areasOfStrenthening
+     */
+    public List<Long> getAreasOfStrenthening() {
+        return areasOfStrenthening;
+    }
+
+    /**
+     * @param areasOfStrenthening the areasOfStrenthening to set
+     */
+    public void setAreasOfStrenthening(List<Long> areasOfStrenthening) {
+        this.areasOfStrenthening = areasOfStrenthening;
+    }
+
+    /**
+     * @return the StartDate
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * @param StartDate the StartDate to set
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @return the endDate
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }
