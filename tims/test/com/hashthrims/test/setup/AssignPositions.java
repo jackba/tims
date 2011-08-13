@@ -67,7 +67,7 @@ public class AssignPositions {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
+    @Ignore
     public void assignPositions() {
         personDAO = (PersonDAO) ctx.getBean(PersonDAO.class);
         statusDAO = (StatusDAO) ctx.getBean(StatusDAO.class);
@@ -93,7 +93,7 @@ public class AssignPositions {
 
                 EmployeePosition p = new EmployeePosition();
                 Status postionStatus = statusDAO.getByPropertyName("status", "FILLED");
-                
+
                 position.setPositionStatus(postionStatus);
                 positionDAO.merge(position);
                 p.setStartDate(new Date());
@@ -107,7 +107,19 @@ public class AssignPositions {
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         }
+    }
 
-
+    @Test
+    public void deletePositions() {
+         personDAO = (PersonDAO) ctx.getBean(PersonDAO.class);
+         List<Person> people = personDAO.findAll();
+         for (Person person : people) {
+             if(person.getPosition().size()<1){
+             personDAO.remove(person);
+             }
+                 
+            
+        }
+        
     }
 }

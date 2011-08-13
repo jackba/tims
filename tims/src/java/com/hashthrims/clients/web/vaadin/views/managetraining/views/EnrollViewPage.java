@@ -28,6 +28,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window.Notification;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -180,13 +181,25 @@ public class EnrollViewPage extends VerticalLayout implements
         empc.setCourseEndDate(course.getEndDate());
         empc.setCourseStartDate(course.getStartDate());
         empc.setRequestor(req);
-        for (Long personId : participantsId) {
-            Person p = data.getPersonService().find(personId);
-            p.getCourses().add(empc);
-            data.getPersonService().merge(p);
-            int cp = course.getNumOfStuds();
-            course.setNumOfStuds(++cp);
-            data.getScheduledCoursesType().merge(course);
+        
+        if (course.getCourseCapacity()>=participantsId.size()) {
+            for (Long personId : participantsId) {
+                if (course.getCourseCapacity() != course.getNumOfStuds()) {
+                    Person p = data.getPersonService().find(personId);
+                    //ADD COURSE TO PERSON
+                    p.getCourses().add(empc);
+                    data.getPersonService().merge(p);
+                    int cp = course.getNumOfStuds();
+                    course.setNumOfStuds(++cp);
+                    //UPDATE NUMBER OF PEOPLE COUNTER 
+                    data.getScheduledCoursesType().merge(course);
+                } else {
+                    main.getMainWindow().showNotification("Sorry!! This Course is Now FULL", "Either increase the Course capacity or Deregister Some People", Notification.TYPE_ERROR_MESSAGE);
+                }
+            }
+        } else {
+            
+            main.getMainWindow().showNotification("Sorry!! Your Selection is Greater than Course Capacity", "Either increase the Course capacity or Deregister Some People", Notification.TYPE_ERROR_MESSAGE);
             
         }
         

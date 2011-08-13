@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.domain.traininglist;
 
 import java.io.Serializable;
@@ -17,13 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
-
 /**
  *
  * @author boniface
  */
 @Entity
 public class ScheduledCourses implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,7 +33,9 @@ public class ScheduledCourses implements Serializable {
     private Date startDate;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
-    private String courseName;;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateRequested;
+    private String courseName;
     private String venue;
     private Long venueId;
     private Long courseId;
@@ -44,7 +45,7 @@ public class ScheduledCourses implements Serializable {
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "scheduledcourse_id")
     private List<TrainingInstructors> classInstructors = new ArrayList<TrainingInstructors>();
-    
+
     public Long getId() {
         return id;
     }
@@ -77,7 +78,7 @@ public class ScheduledCourses implements Serializable {
     public String toString() {
         return "com.hashthrims.domain.traininglist.ScheduledCourses[id=" + id + "]";
     }
-       
+
     /**
      * @return the startDate
      */
@@ -106,7 +107,7 @@ public class ScheduledCourses implements Serializable {
         this.endDate = endDate;
     }
 
-      /**
+    /**
      * @return the numOfStuds
      */
     public int getNumOfStuds() {
@@ -247,9 +248,19 @@ public class ScheduledCourses implements Serializable {
     }
 
     /**
+     * @return the dateRequested
+     */
+    public Date getDateRequested() {
+        return dateRequested;
+    }
+
+    /**
+     * @param dateRequested the dateRequested to set
+     */
+    public void setDateRequested(Date dateRequested) {
+        this.dateRequested = dateRequested;
+    }
+    /**
      * @return the courseRequestor
      */
-   
-
-  
 }

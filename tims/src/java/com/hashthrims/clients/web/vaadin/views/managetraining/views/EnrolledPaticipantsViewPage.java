@@ -6,11 +6,13 @@ package com.hashthrims.clients.web.vaadin.views.managetraining.views;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
+import com.hashthrims.clients.web.vaadin.views.managementoring.views.windows.actionplans.views.ReviewActionPlanWindow;
 import com.hashthrims.clients.web.vaadin.views.managetraining.ManageTrainingMenuView;
 import com.hashthrims.clients.web.vaadin.views.managetraining.forms.ScheduleTrainingForm;
 import com.hashthrims.clients.web.vaadin.views.managetraining.model.ScheduleTrainingBean;
 import com.hashthrims.clients.web.vaadin.views.managetraining.windows.ActionPlanPersonWindow;
 import com.hashthrims.clients.web.vaadin.views.managetraining.windows.EvaluatePersonCourseWindow;
+import com.hashthrims.clients.web.vaadin.views.managetraining.windows.actionplans.views.ReviewDidaticActionPlanWindow;
 import com.hashthrims.clients.web.vaadin.views.people.views.details.course.form.EvaluateddCourseBean;
 import com.hashthrims.domain.EmployeeCourses;
 import com.hashthrims.domain.Person;
@@ -61,6 +63,7 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
     private final ListSelect trainers = new ListSelect("List of Trainers for selected Course");
     private EvaluatePersonCourseWindow evaluateSubWindow;
     private ActionPlanPersonWindow actionPlanSubWindow;
+    private ReviewDidaticActionPlanWindow reviewDidaticActionPlanWindow;
 
     public EnrolledPaticipantsViewPage(HashThrimsMain app) {
 
@@ -132,6 +135,46 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
             enrolledPeopleTable.removeAllItems();
             for (final Person person : participants) {
 
+                /////////////////////////////////////////
+
+                Button deregister = new Button("Deregister", new Button.ClickListener() {
+
+                    @Override
+                    public void buttonClick(ClickEvent event) {
+
+                        List<EmployeeCourses> courses = person.getCourses();
+                        EmployeeCourses em = null;
+                        for (EmployeeCourses c : courses) {
+                            if (cour.getId().equals(c.getScheduledCourseSessionId())) {
+                                em = c;
+                            }
+
+                        }
+                        person.getCourses().remove(em);
+                        int numofstudents = cour.getNumOfStuds();
+                        numofstudents--;
+                        cour.setNumOfStuds(numofstudents);
+                        data.getScheduledCoursesType().merge(cour);
+                        data.getPersonService().merge(person);
+                        main.mainView.setSecondComponent(new ManageTrainingMenuView(main, "EN"));
+                    }
+                });
+
+
+                /////////////////////////////////
+
+                Button revieActionPlan = new Button("Review Action Plans", new Button.ClickListener() {
+
+                    @Override
+                    public void buttonClick(ClickEvent event) {
+                        reviewDidaticActionPlanWindow = new ReviewDidaticActionPlanWindow(person, cour.getCourseId(), main);
+                        main.getMainWindow().addWindow(reviewDidaticActionPlanWindow);
+                    }
+                });
+
+
+
+////////////////////////////////////////////////////////////////////////
 
                 Button evaluateLink = new Button("Evaluate", new Button.ClickListener() {
 
@@ -177,7 +220,7 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
                     }
                 });
 
-                Button actionPlanLink = new Button("Action Plan", new Button.ClickListener() {
+                Button actionPlanLink = new Button("Add Action Plan", new Button.ClickListener() {
 
                     @Override
                     public void buttonClick(ClickEvent event) {
@@ -189,13 +232,19 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
 
                 evaluateLink.setStyleName(Reindeer.BUTTON_LINK);
                 actionPlanLink.setStyleName(Reindeer.BUTTON_LINK);
+                revieActionPlan.setStyleName(Reindeer.BUTTON_LINK);
+                deregister.setStyleName(Reindeer.BUTTON_LINK);
 
 
                 enrolledPeopleTable.addItem(new Object[]{
                             person.getPersonName(),
                             person.getPersonSurname(),
+                            person.getActionPlans().size(),
                             evaluateLink,
-                            actionPlanLink}, person.getId());
+                            actionPlanLink,
+                            revieActionPlan,
+                            deregister
+                        }, person.getId());
             }
 
             List<TrainingInstructors> tr = cour.getClassInstructors();
@@ -294,8 +343,12 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
         table.setColumnCollapsingAllowed(true);
         table.addContainerProperty("First Name", String.class, null);
         table.addContainerProperty("Surname", String.class, null);
+        table.addContainerProperty("Action Plans", String.class, null);
+
         table.addContainerProperty("Evaluation", Button.class, null);
-        table.addContainerProperty("Action Plane", Button.class, null);
+        table.addContainerProperty("Add Action Plan", Button.class, null);
+        table.addContainerProperty("Review Action Plan", Button.class, null);
+        table.addContainerProperty("Deregister", Button.class, null);
         return table;
     }
 }

@@ -5,6 +5,7 @@
 
 package com.hashthrims.clients.web.vaadin.views.managetraining.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ScheduleTrainingBean {
 
     //variables for people selectors;
     private int courseCapacity;
-    private List<Long> trainers;
+    private List<Long> trainers = new ArrayList<Long>();;
    
 
     /**
@@ -132,7 +133,7 @@ public class ScheduleTrainingBean {
      * @param trainers the trainers to set
      */
     public void setTrainers(List<Long> trainers) {
-        this.trainers = trainers;
+        this.setTrainers(trainers);
     }
 
     /**
@@ -162,5 +163,7 @@ public class ScheduleTrainingBean {
     public void setVenue(Long venue) {
         this.venue = venue;
     }
+
+    
 
 }

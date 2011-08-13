@@ -63,7 +63,7 @@ public class ManageTrainingMenuView extends VerticalLayout {
         }else if (selectedTab.equals("SCH")) {
             tab.setSelectedTab(scheduleTab);
         }else if (selectedTab.equals("EN")) {
-            tab.setSelectedTab(scheduleTab);
+            tab.setSelectedTab(enrolledTab);
         }
         addComponent(tab);
     }

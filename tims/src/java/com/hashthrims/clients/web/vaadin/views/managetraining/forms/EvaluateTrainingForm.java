@@ -6,7 +6,6 @@ package com.hashthrims.clients.web.vaadin.views.managetraining.forms;
 
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.util.GetPeopleInSpecificFacility;
-import com.hashthrims.clients.web.vaadin.views.managetraining.forms.ScheduleTrainingForm.ManageTrainingGridForm;
 import com.hashthrims.clients.web.vaadin.views.managetraining.util.PendingEvaluations;
 import com.hashthrims.domain.EmployeeCourses;
 import com.hashthrims.domain.Person;

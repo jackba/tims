@@ -42,6 +42,8 @@ public class ScheduleTrainingForm {
     // Define Buttons
 
     private Button submitListofAttendant = new Button("Schedule the Course");
+    private Button updateCources = new Button("Update the Course");
+    private Button cancel = new Button("Cancel");
     //Define Footer
     private HorizontalLayout footer;
     private static ClientDataService data = new ClientDataService();
@@ -56,10 +58,12 @@ public class ScheduleTrainingForm {
 
 
         // Add Listeners
-
+        updateCources.setVisible(false);
         footer = new HorizontalLayout();
         footer.setSpacing(true);
         footer.addComponent(submitListofAttendant);
+        footer.addComponent(updateCources);
+        footer.addComponent(cancel);
 
 
 
@@ -71,6 +75,34 @@ public class ScheduleTrainingForm {
         form.setFooter(footer);
 
         return form;
+    }
+
+    /**
+     * @return the updateCources
+     */
+    public Button getUpdateCources() {
+        return updateCources;
+    }
+
+    /**
+     * @param updateCources the updateCources to set
+     */
+    public void setUpdateCources(Button updateCources) {
+        this.updateCources = updateCources;
+    }
+
+    /**
+     * @return the cancel
+     */
+    public Button getCancel() {
+        return cancel;
+    }
+
+    /**
+     * @param cancel the cancel to set
+     */
+    public void setCancel(Button cancel) {
+        this.cancel = cancel;
     }
 
     class ManageTrainingFieldFactory extends DefaultFieldFactory implements Property.ValueChangeListener {
@@ -136,8 +168,9 @@ public class ScheduleTrainingForm {
                 field = new DateField("Date Training Requested:");
                 ((DateField) field).setRequired(true);
                 ((DateField) field).setRequiredError("Please Enter Value");
+                ((DateField) field).setDateFormat("dd-MMMM-yyyy");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
-                } else if ("courseCapacity".equals(propertyId)) {
+            } else if ("courseCapacity".equals(propertyId)) {
                 field = new TextField("Maximum Attendees:");
                 ((TextField) field).setRequired(true);
                 ((TextField) field).addValidator(new IntegerValidator("Value Has to be whole Number"));
@@ -148,11 +181,13 @@ public class ScheduleTrainingForm {
                 ((DateField) field).setRequired(true);
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
+                ((DateField) field).setDateFormat("dd-MMMM-yyyy");
             } else if ("courseStartDate".equals(propertyId)) {
                 field = new DateField("Date Course Starts:");
                 ((DateField) field).setRequired(true);
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
+                ((DateField) field).setDateFormat("dd-MMMM-yyyy");
             } else if ("trainers".equals(propertyId)) {
                 List<Person> trainers = getTrainers(data.getPersonService().findAll());
                 Collections.sort(trainers);
@@ -163,7 +198,7 @@ public class ScheduleTrainingForm {
                 }
                 selectTrainers.setNewItemsAllowed(false);
                 selectTrainers.setNullSelectionAllowed(false);
-                 selectTrainers.setMultiSelect(true);
+                selectTrainers.setMultiSelect(true);
                 selectTrainers.addListener(this);
                 selectTrainers.setImmediate(true);
                 selectTrainers.setWidth("500");
@@ -195,11 +230,11 @@ public class ScheduleTrainingForm {
             boolean isTrainer = false;
             List<PersonRoles> roles = person.getPersonRoles();
             for (PersonRoles role : roles) {
-                if (role.getRoleName()!=null) {
+                if (role.getRoleName() != null) {
                     if ("Trainer".equalsIgnoreCase(role.getRoleName())) {
                         isTrainer = true;
                     }
-                } 
+                }
             }
             return isTrainer;
         }
@@ -244,7 +279,7 @@ public class ScheduleTrainingForm {
                 layout.addComponent(field, 0, 5, 1, 5);
             } else if (propertyId.equals("id")) {
                 layout.addComponent(field, 0, 6);
-            }else if (propertyId.equals("courseCapacity")) {
+            } else if (propertyId.equals("courseCapacity")) {
                 layout.addComponent(field, 0, 4);
             }
         }

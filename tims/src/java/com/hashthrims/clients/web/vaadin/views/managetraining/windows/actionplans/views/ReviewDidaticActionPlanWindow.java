@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hashthrims.clients.web.vaadin.views.managementoring.views.windows.actionplans.views;
+package com.hashthrims.clients.web.vaadin.views.managetraining.windows.actionplans.views;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
@@ -31,7 +31,7 @@ import java.util.List;
  *
  * @author boniface
  */
-public class ReviewActionPlanWindow extends Window implements
+public class ReviewDidaticActionPlanWindow extends Window implements
         ClickListener, ValueChangeListener {
 
     private final HorizontalLayout footer = new HorizontalLayout();
@@ -44,7 +44,7 @@ public class ReviewActionPlanWindow extends Window implements
     private final Form form;
     private final ActionPlanForm pform;
 
-    public ReviewActionPlanWindow(Person p, Long sessionId, HashThrimsMain app) {
+    public ReviewDidaticActionPlanWindow(Person p, Long sessionId, HashThrimsMain app) {
         setModal(true);
         setClosable(true);
         setHeight("600px");
@@ -109,7 +109,6 @@ public class ReviewActionPlanWindow extends Window implements
 
         }
     }
-
     @Override
     public void valueChange(ValueChangeEvent event) {
         final Property property = event.getProperty();
@@ -123,7 +122,6 @@ public class ReviewActionPlanWindow extends Window implements
             actionBean.setActionPlanDate(fieldValues.getDateFromObject(record.getItemProperty("Date")));
             actionBean.setReviewDate(fieldValues.getDateFromObject(record.getItemProperty("Review Date")));
             actionBean.setStatus(record.getItemProperty("Status").toString());
-
             if (actionBean != form.getItemDataSource()) {
                 final BeanItem item = new BeanItem(actionBean);
                 form.setItemDataSource(item);

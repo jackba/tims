@@ -4,6 +4,7 @@
  */
 package com.hashthrims.infrastructure.util;
 
+import java.io.Serializable;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -14,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author boniface
  */
-public class GetUserCredentials {
+public class GetUserCredentials implements Serializable {
 
     public String username() {
         String username = null;

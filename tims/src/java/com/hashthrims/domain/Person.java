@@ -16,6 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
+
 /**
  *
  * @author boniface
@@ -80,7 +85,7 @@ public class Person implements Serializable, Comparable<Person> {
     @JoinColumn(name = "person_id")
     private List<Mentees> mentees = new ArrayList<Mentees>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-//    @Cache( usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache( usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinColumn(name = "person_id")
     private List<MentorExpertiseArea> expertiseArea = new ArrayList<MentorExpertiseArea>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
