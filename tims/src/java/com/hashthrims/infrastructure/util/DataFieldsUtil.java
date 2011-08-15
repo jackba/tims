@@ -59,19 +59,21 @@ public class DataFieldsUtil {
         String shortdate = "yyyy-MM-dd";
         SimpleDateFormat df = new SimpleDateFormat(pattern);
         SimpleDateFormat shdate = new SimpleDateFormat(shortdate);
-        if (obj.toString()!= null) {
-            try {
-                field = df.parse(obj.toString());
-            } catch (ParseException ex) {
+        if (obj!=null) {
+            if (obj.toString() != null) {
                 try {
-                    field = shdate.parse(obj.toString());
-                } catch (ParseException ex1) {
-                    Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex1);
+                    field = df.parse(obj.toString());
+                } catch (ParseException ex) {
+                    try {
+                        field = shdate.parse(obj.toString());
+                    } catch (ParseException ex1) {
+                        Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+                    Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                field = null;
             }
-        } else {
-            field = null;
         }
         return field;
     }
