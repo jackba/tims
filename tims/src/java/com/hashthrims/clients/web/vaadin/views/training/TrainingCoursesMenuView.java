@@ -13,6 +13,7 @@ import com.hashthrims.clients.web.vaadin.views.training.views.CriteriaViewPage;
 import com.hashthrims.clients.web.vaadin.views.training.views.TargetGroupViewPage;
 
 
+import com.hashthrims.clients.web.vaadin.views.training.views.UploadsViewPage;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
@@ -52,6 +53,10 @@ public class TrainingCoursesMenuView extends VerticalLayout {
         final VerticalLayout selectionCriteriaTab = new VerticalLayout();
         selectionCriteriaTab.setMargin(true);
         selectionCriteriaTab.addComponent(new CriteriaViewPage(main));
+        
+        final VerticalLayout uploadsTab = new VerticalLayout();
+        uploadsTab.setMargin(true);
+        uploadsTab.addComponent(new UploadsViewPage(main));
 
 
         tab = new TabSheet();
@@ -59,15 +64,12 @@ public class TrainingCoursesMenuView extends VerticalLayout {
         tab.setWidth("100%");
 
         tab.addTab(courseTypeTab, "Type of Training", null);
-       
-
         tab.addTab(targetGroupTab, "Target Group", null);
-
         tab.addTab(selectionCriteriaTab, "Selection Criteria", null);
-
         //tab.addTab(courseStatusTab, "Course Status ", null);
         tab.addTab(requesterTab, "Course Requester", null);
-         tab.addTab(trainingCourseTab, "Add Course", null);
+        tab.addTab(trainingCourseTab, "Add Course", null);
+        tab.addTab(uploadsTab, "Spreadsheet Uploads", null);
 
 
         if (selectedTab.equals("COURSE")) {
@@ -80,7 +82,7 @@ public class TrainingCoursesMenuView extends VerticalLayout {
             tab.setSelectedTab(requesterTab);
         } else if (selectedTab.equals("TARGET")) {
             tab.setSelectedTab(targetGroupTab);
-        }else if (selectedTab.equals("CRITERIA")) {
+        } else if (selectedTab.equals("CRITERIA")) {
             tab.setSelectedTab(selectionCriteriaTab);
         }
         addComponent(tab);
