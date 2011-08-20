@@ -25,6 +25,7 @@ public class TabAccordian extends Accordion {
     public static final String COURSES = " Manage TRAINING";
     public static final String CHANGE_PASSWORD = "Change PASSWORD";
     public static final String MENTORING_NIMART = "Mentoring NIMART";
+    public static final String EXCEL_UPLOADS = "Excel  UPLOADS";
     private final GetUserCredentials user;
 
     public TabAccordian(HashThrimsMain app) {
@@ -37,6 +38,11 @@ public class TabAccordian extends Accordion {
         VerticalLayout managePeople = new VerticalLayout();
         ManagePeopleTreeMenu managePeopleTree = new ManagePeopleTreeMenu(main);
         managePeople.addComponent(managePeopleTree);
+        
+        //Configure Manage People Menu
+        VerticalLayout excelUploads = new VerticalLayout();
+        ExcelUploadsTreeMenu excelUploadsTree = new ExcelUploadsTreeMenu(main);
+        excelUploads.addComponent(excelUploadsTree);
 
         addTab(managePeople, MANAGE_PEOPLE, null);
 
@@ -64,7 +70,10 @@ public class TabAccordian extends Accordion {
         changeYourDetails.addComponent(userDatailsTree);
         addTab(changeYourDetails, CHANGE_PASSWORD, null);
 
-
+ //Configure System Users
+        VerticalLayout systemUsers = new VerticalLayout();
+        ManageSystemUsersTreeMenu systemUsersTree = new ManageSystemUsersTreeMenu(app);
+        systemUsers.addComponent(systemUsersTree);
 
         // Configure System Menu
         VerticalLayout configureSystem = new VerticalLayout();
@@ -73,15 +82,9 @@ public class TabAccordian extends Accordion {
 
         if (user.isUserWithRole("ROLE_ADMIN")) {
             addTab(configureSystem, CONFIGURE_SYSTEM, null);
-        }
-
-        //Configure System Users
-        VerticalLayout systemUsers = new VerticalLayout();
-        ManageSystemUsersTreeMenu systemUsersTree = new ManageSystemUsersTreeMenu(app);
-        systemUsers.addComponent(systemUsersTree);
-
-        if (user.isUserWithRole("ROLE_ADMIN")) {
+            addTab(excelUploads, EXCEL_UPLOADS, null);
             addTab(systemUsers, SYSTEM_USERS, null);
         }
+
     }
 }
