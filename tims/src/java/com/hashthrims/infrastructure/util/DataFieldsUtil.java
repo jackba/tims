@@ -59,7 +59,7 @@ public class DataFieldsUtil {
         String shortdate = "yyyy-MM-dd";
         SimpleDateFormat df = new SimpleDateFormat(pattern);
         SimpleDateFormat shdate = new SimpleDateFormat(shortdate);
-        if (obj!=null) {
+        if (obj != null) {
             if (obj.toString() != null) {
                 try {
                     field = df.parse(obj.toString());
@@ -120,15 +120,15 @@ public class DataFieldsUtil {
         Date field = null;
         String pattern = "dd-MMMM-yyyy";
         SimpleDateFormat df = new SimpleDateFormat(pattern);
-        
-        if (obj.toString()!=null) {
+
+        if (obj.toString() != null) {
             try {
                 field = df.parse(obj.toString());
             } catch (ParseException ex) {
                 Logger.getLogger(DataFieldsUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return  field;
+        return field;
     }
 
     public String getDFormat(Date date) {
@@ -136,5 +136,14 @@ public class DataFieldsUtil {
             return new SimpleDateFormat("dd-MMMM-yyyy").format(date);
         }
         return null;
+    }
+
+    public Collection<Long> getLongValuesFromStringTokens(String string) {
+        Collection<Long> longs = new ArrayList<Long>();
+        String[] tokens = string.split("\\,");
+        for (String value : tokens) {
+            longs.add(new Long(value));
+        }
+        return longs;
     }
 }
