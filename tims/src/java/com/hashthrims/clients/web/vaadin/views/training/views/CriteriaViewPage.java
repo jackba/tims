@@ -11,7 +11,6 @@ import com.hashthrims.clients.web.vaadin.views.training.forms.CriteriaForm;
 import com.hashthrims.clients.web.vaadin.views.training.model.CriteriaBean;
 import com.hashthrims.clients.web.vaadin.views.training.tables.CriteriaTable;
 import com.hashthrims.domain.traininglist.Criteria;
-import com.hashthrims.domain.traininglist.TrainingCourseCategory;
 import com.hashthrims.infrastructure.factories.traininglist.TrainingCoursesFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;

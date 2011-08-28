@@ -142,8 +142,14 @@ public class DataFieldsUtil {
         Collection<Long> longs = new ArrayList<Long>();
         String[] tokens = string.split("\\,");
         for (String value : tokens) {
-            longs.add(new Long(value));
+            Double d = new Double(value);
+            longs.add(new Long(d.longValue()));
         }
         return longs;
+    }
+
+    public Long getLongsFromSpreadSheet(String toString) {
+        Double d = new Double(toString);
+        return d.longValue();
     }
 }

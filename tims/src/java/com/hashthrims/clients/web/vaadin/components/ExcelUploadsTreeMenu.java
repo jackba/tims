@@ -34,7 +34,7 @@ public class ExcelUploadsTreeMenu extends Tree implements ItemClickListener {
         addItem(COURSES);
         addItem(PEOPLE);
         addItem(COMPETENCIES);
-        addItem(MENTORING);
+        //addItem(MENTORING);
 
         //Add Listeners
         addListener((ItemClickListener) this);

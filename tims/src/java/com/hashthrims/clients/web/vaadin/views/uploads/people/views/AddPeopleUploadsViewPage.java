@@ -4,15 +4,13 @@
  */
 package com.hashthrims.clients.web.vaadin.views.uploads.people.views;
 
-import com.hashthrims.clients.web.vaadin.views.uploads.competencies.views.*;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
-import com.hashthrims.clients.web.vaadin.views.employeelists.EmployeeListMenuView;
 import com.hashthrims.clients.web.vaadin.views.people.ManagePeopleMenuView;
+import com.hashthrims.domain.EmployeePosition;
 import com.hashthrims.domain.Person;
-import com.hashthrims.domain.employeelist.CompetencyList;
+import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.infrastructure.factories.PersonFactory;
-import com.hashthrims.infrastructure.factories.employeelist.CompetencyListFactory;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.terminal.FileResource;
 import com.vaadin.terminal.ThemeResource;
@@ -51,7 +49,7 @@ public class AddPeopleUploadsViewPage extends VerticalLayout implements
     private File file;
     private Panel messagePanel = new Panel();
     final Upload courseType = new Upload("Upload the file here", this);
-     private DataFieldsUtil fieldValues = new DataFieldsUtil();
+    private DataFieldsUtil fieldValues = new DataFieldsUtil();
 
     public AddPeopleUploadsViewPage(HashThrimsMain app) {
         main = app;
@@ -62,7 +60,7 @@ public class AddPeopleUploadsViewPage extends VerticalLayout implements
         courseType.addListener((Upload.SucceededListener) this);
         courseType.addListener((Upload.FailedListener) this);
 
-        final Embedded sample = new Embedded("", new ThemeResource("images/excell.png"));
+        final Embedded sample = new Embedded("", new ThemeResource("images/uploads/people.png"));
 
         courseTypeLayout.addComponent(new Label("<h2> Sample Spread Sheet Format</h2>", Label.CONTENT_XHTML));
         courseTypeLayout.addComponent(new Label("<hr/>", Label.CONTENT_XHTML));
@@ -96,32 +94,39 @@ public class AddPeopleUploadsViewPage extends VerticalLayout implements
 
 
                     PersonFactory factory = data.getPersonFactory();
-                    String firstname = worksheet.getRow(i).getCell(0).toString();
                     String surname = worksheet.getRow(i).getCell(0).toString();
-                    String othername = worksheet.getRow(i).getCell(0).toString();
+                    String firstname = worksheet.getRow(i).getCell(1).toString();
+                    String othername = worksheet.getRow(i).getCell(2).toString();
                     names.put("firstname", firstname);
                     names.put("surname", surname);
                     names.put("othername", othername);
+                    Date dob = fieldValues.getDateFields(worksheet.getRow(i).getCell(3).toString());
 
-                    Long genderId = new Long(worksheet.getRow(i).getCell(0).toString());
-                    Long raceId = new Long(worksheet.getRow(i).getCell(0).toString());
+                    Long genderId = fieldValues.getLongsFromSpreadSheet(worksheet.getRow(i).getCell(4).toString());
+                    Long raceId = fieldValues.getLongsFromSpreadSheet(worksheet.getRow(i).getCell(5).toString());
                     demo.put("raceId", raceId);
                     demo.put("genderId", genderId);
 
-                    Date dob = fieldValues.getDateFields(worksheet.getRow(i).getCell(0).toString());
 
-                    Collection<Long> rolesid = fieldValues.getLongValuesFromStringTokens(worksheet.getRow(i).getCell(0).toString());
-                    Collection<Long> competencyFieldId = fieldValues.getLongValuesFromStringTokens(worksheet.getRow(i).getCell(0).toString());
-                    Collection<Long> expertiseId = fieldValues.getLongValuesFromStringTokens(worksheet.getRow(i).getCell(0).toString());
+
+                    Collection<Long> rolesid = fieldValues.getLongValuesFromStringTokens(worksheet.getRow(i).getCell(6).toString());
+                    Collection<Long> competencyFieldId = fieldValues.getLongValuesFromStringTokens(worksheet.getRow(i).getCell(8).toString());
+                    Collection<Long> expertiseId = fieldValues.getLongValuesFromStringTokens(worksheet.getRow(i).getCell(7).toString());
 
                     lists.put("rolesid", rolesid);
                     lists.put("competencyFieldId", competencyFieldId);
                     lists.put("expertiseId", expertiseId);
-
+                    Long positionId = fieldValues.getLongsFromSpreadSheet(worksheet.getRow(i).getCell(9).toString());
+                    Positions pos = data.getPositionsService().find(positionId);
 
                     Person p = null;
                     if (firstname != null || surname != null) {
                         p = factory.createNewPerson(names, lists, demo, dob);
+                        EmployeePosition em = new EmployeePosition();
+                        em.setPosition(pos);
+                        em.setStartDate(new Date());
+                        em.setStatus("CURRENT");
+                        p.getPosition().add(em);
                         data.getPersonService().persist(p);
                     } else {
                         throw new UnsupportedOperationException("First Name and Last Name needed");
@@ -129,7 +134,7 @@ public class AddPeopleUploadsViewPage extends VerticalLayout implements
 
 
                 }
-                 main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "NEW"));
+                main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "NEW"));
             } catch (FileNotFoundException e) {
                 messagePanel.addComponent(new Label("<h3> Problem With Upload</h3>", Label.CONTENT_XHTML));
             } catch (IOException e) {

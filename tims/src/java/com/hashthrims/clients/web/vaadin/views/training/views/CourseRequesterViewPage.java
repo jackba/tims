@@ -36,7 +36,7 @@ public class CourseRequesterViewPage extends VerticalLayout implements
     private HashThrimsMain main;
     private Form form;
     private CourseRequestorForm pform;
-     private static ClientDataService data = new ClientDataService();
+    private static ClientDataService data = new ClientDataService();
     private CourseRequestorTable table;
 
     public CourseRequesterViewPage(HashThrimsMain app) {
@@ -120,9 +120,6 @@ public class CourseRequesterViewPage extends VerticalLayout implements
 
     }
 
-
-        private String requestorName;
-    private Long requestorId;
     public void saveNewTrainingCourseRequestors(Form form) {
         TrainingCoursesFactory factory = data.getTrainingCoursesFactory();
         String req = form.getField("requestorName").getValue().toString();
@@ -131,15 +128,15 @@ public class CourseRequesterViewPage extends VerticalLayout implements
     }
 
     public void saveEditedTrainingCourseRequestors(Form form) {
-       TrainingCoursesFactory factory = data.getTrainingCoursesFactory();
-       String req = form.getField("requestorName").getValue().toString();
-       Long reqId = Long.parseLong(form.getField("requestorId").getValue().toString());
-       TrainingCourseRequestors s = factory.updatedTrainingCourseRequestors(req,reqId);
-       data.getTrainingCourseRequestorsType().merge(s);
+        TrainingCoursesFactory factory = data.getTrainingCoursesFactory();
+        String req = form.getField("requestorName").getValue().toString();
+        Long reqId = Long.parseLong(form.getField("requestorId").getValue().toString());
+        TrainingCourseRequestors s = factory.updatedTrainingCourseRequestors(req, reqId);
+        data.getTrainingCourseRequestorsType().merge(s);
     }
 
     public void deleteTrainingCourseRequestors(Form form) {
-       TrainingCoursesFactory factory = data.getTrainingCoursesFactory();
+        TrainingCoursesFactory factory = data.getTrainingCoursesFactory();
         Long reqId = Long.parseLong(form.getField("requestorId").getValue().toString());
         TrainingCourseRequestors c = factory.loadTrainingCourseRequestors(reqId);
         data.getTrainingCourseRequestorsType().remove(c);

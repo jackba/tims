@@ -47,12 +47,12 @@ public class SubjectAreaUploadsViewPage extends VerticalLayout implements
         main = app;
         setSizeFull();
 
-        courseType.setButtonCaption("Upload Now");
+        courseType.setButtonCaption("Upload Subject Areas Now");
 
         courseType.addListener((Upload.SucceededListener) this);
         courseType.addListener((Upload.FailedListener) this);
 
-        final Embedded sample = new Embedded("", new ThemeResource("images/excell.png"));
+        final Embedded sample = new Embedded("", new ThemeResource("images/uploads/subjectsareas.png"));
 
         courseTypeLayout.addComponent(new Label("<h2> Sample Spread Sheet Format</h2>", Label.CONTENT_XHTML));
         courseTypeLayout.addComponent(new Label("<hr/>", Label.CONTENT_XHTML));

@@ -4,13 +4,12 @@
  */
 package com.hashthrims.clients.web.vaadin.views.uploads.courses.views;
 
-import com.hashthrims.clients.web.vaadin.views.uploads.people.views.*;
-import com.hashthrims.clients.web.vaadin.views.uploads.competencies.views.*;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.employeelists.EmployeeListMenuView;
-import com.hashthrims.domain.employeelist.CompetencyList;
-import com.hashthrims.infrastructure.factories.employeelist.CompetencyListFactory;
+import com.hashthrims.clients.web.vaadin.views.training.TrainingCoursesMenuView;
+import com.hashthrims.domain.traininglist.Criteria;
+import com.hashthrims.infrastructure.factories.traininglist.TrainingCoursesFactory;
 import com.vaadin.terminal.FileResource;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Embedded;
@@ -54,7 +53,7 @@ public class SelectionCriteriaUploadsViewPage extends VerticalLayout implements
         courseType.addListener((Upload.SucceededListener) this);
         courseType.addListener((Upload.FailedListener) this);
 
-        final Embedded sample = new Embedded("", new ThemeResource("images/excell.png"));
+        final Embedded sample = new Embedded("", new ThemeResource("images/uploads/criteria.png"));
 
         courseTypeLayout.addComponent(new Label("<h2> Sample Spread Sheet Format</h2>", Label.CONTENT_XHTML));
         courseTypeLayout.addComponent(new Label("<hr/>", Label.CONTENT_XHTML));
@@ -80,15 +79,13 @@ public class SelectionCriteriaUploadsViewPage extends VerticalLayout implements
                 HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
                 HSSFSheet worksheet = workbook.getSheetAt(0);
                 for (int i = 0; i < worksheet.getPhysicalNumberOfRows(); i++) {
-                    CompetencyListFactory factory = data.getCompetencyListFactory();
-                    String competencyName = worksheet.getRow(i).getCell(0).toString();
-                    String competencyNotes = "NONE";
-                    String competencyType = worksheet.getRow(i).getCell(1).toString();
-                    CompetencyList c = factory.createCompetencyList(competencyName, competencyNotes, competencyType);
-                    data.getCompetencyList().persist(c);
+                    TrainingCoursesFactory factory = data.getTrainingCoursesFactory();
+                    String criteria = worksheet.getRow(i).getCell(0).toString();
+                    Criteria c = factory.createCriteria(criteria);
+                    data.getCriteriaService().persist(c);
 
                 }
-                main.mainView.setSecondComponent(new EmployeeListMenuView(main, "COMPETENCY"));
+                 main.mainView.setSecondComponent(new TrainingCoursesMenuView(main, "CRITERIA"));
 
             } catch (FileNotFoundException e) {
                 messagePanel.addComponent(new Label("<h3> Problem With Upload</h3>", Label.CONTENT_XHTML));

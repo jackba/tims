@@ -69,7 +69,7 @@ public class TrainingCoursesMenuView extends VerticalLayout {
         //tab.addTab(courseStatusTab, "Course Status ", null);
         tab.addTab(requesterTab, "Course Requester", null);
         tab.addTab(trainingCourseTab, "Add Course", null);
-        tab.addTab(uploadsTab, "Spreadsheet Uploads", null);
+       // tab.addTab(uploadsTab, "Spreadsheet Uploads", null);
 
 
         if (selectedTab.equals("COURSE")) {

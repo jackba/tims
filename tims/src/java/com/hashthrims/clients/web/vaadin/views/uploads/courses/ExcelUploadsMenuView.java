@@ -4,7 +4,6 @@
  */
 package com.hashthrims.clients.web.vaadin.views.uploads.courses;
 
-import com.hashthrims.clients.web.vaadin.views.trainingmentoring.*;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.views.MentoringAreasListViewPage;
 import com.hashthrims.clients.web.vaadin.views.trainingmentoring.views.MentoringObjectiveViewPage;

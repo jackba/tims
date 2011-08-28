@@ -8,7 +8,9 @@ import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.employeelists.EmployeeListMenuView;
 import com.hashthrims.domain.employeelist.CompetencyList;
+import com.hashthrims.domain.employeelist.CompetencyType;
 import com.hashthrims.infrastructure.factories.employeelist.CompetencyListFactory;
+import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.terminal.FileResource;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Embedded;
@@ -42,17 +44,18 @@ public class CompetenciesUploadsViewPage extends VerticalLayout implements
     private File file;
     private Panel messagePanel = new Panel();
     final Upload courseType = new Upload("Upload the file here", this);
+    private DataFieldsUtil fieldValues = new DataFieldsUtil();
 
     public CompetenciesUploadsViewPage(HashThrimsMain app) {
         main = app;
         setSizeFull();
 
-        courseType.setButtonCaption("Upload Now");
+        courseType.setButtonCaption("Upload Competencies Now");
 
         courseType.addListener((Upload.SucceededListener) this);
         courseType.addListener((Upload.FailedListener) this);
 
-        final Embedded sample = new Embedded("", new ThemeResource("images/excell.png"));
+        final Embedded sample = new Embedded("", new ThemeResource("images/uploads/comps.png"));
 
         courseTypeLayout.addComponent(new Label("<h2> Sample Spread Sheet Format</h2>", Label.CONTENT_XHTML));
         courseTypeLayout.addComponent(new Label("<hr/>", Label.CONTENT_XHTML));
@@ -81,7 +84,11 @@ public class CompetenciesUploadsViewPage extends VerticalLayout implements
                     CompetencyListFactory factory = data.getCompetencyListFactory();
                     String competencyName = worksheet.getRow(i).getCell(0).toString();
                     String competencyNotes = "NONE";
-                    String competencyType = worksheet.getRow(i).getCell(1).toString();
+                    
+                    Long genderId = fieldValues.getLongsFromSpreadSheet(worksheet.getRow(i).getCell(1).toString());
+                    
+                    CompetencyType ct = data.getCompetencyTypeService().find(genderId);
+                    String competencyType = ct.getComp_name_typ();
                     CompetencyList c = factory.createCompetencyList(competencyName, competencyNotes, competencyType);
                     data.getCompetencyList().persist(c);
 
