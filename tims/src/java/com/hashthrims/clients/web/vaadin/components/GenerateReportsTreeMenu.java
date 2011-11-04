@@ -5,28 +5,30 @@
 package com.hashthrims.clients.web.vaadin.components;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
-import com.hashthrims.clients.web.vaadin.views.reports.ReportsMenuView;
+import com.hashthrims.clients.web.vaadin.views.reports.courses.CoursesReportsMenuView;
+import com.hashthrims.clients.web.vaadin.views.reports.facilities.FacilitiesReportsMenuView;
+import com.hashthrims.clients.web.vaadin.views.reports.people.PeopleReportsMenuView;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Tree;
+
 /**
  *
  * @author boniface
  */
-public class GenerateReportsTreeMenu extends Tree implements ItemClickListener{
-     private HashThrimsMain main;
-    public static final Object MANAGE_PEOPLE = "Manage Staff";
-    public static final Object SEARCH_RECORD = "Search Records";
-    public static final Object VIEW_REPORTS = "View Reports";
-    public static final Object CONFIGURE_SYSTEM = "Configure System";
-    public static final Object ADD_USERS = "Add System Users";
-    public static final Object ADD_COURSES = "Add Courses";
-    public static final Object CHANGE_PASSWORD = "Change Password";
+public class GenerateReportsTreeMenu extends Tree implements ItemClickListener {
+
+    private HashThrimsMain main;
+    public static final Object PEOPLE_REPORTS = "People REPORTS";
+    public static final Object COURSE_REPORTS = "Course REPORTS";
+    public static final Object FACILITY_REPORTS = "Facility REPORTS";
+
     public GenerateReportsTreeMenu(HashThrimsMain app) {
-     this.main= app;
- 
-      addItem(SEARCH_RECORD);
-      addItem(VIEW_REPORTS);
+        this.main = app;
+
+        addItem(PEOPLE_REPORTS);
+        addItem(COURSE_REPORTS);
+        addItem(FACILITY_REPORTS);
         /*
          * We want items to be selectable but do not want the user to be able to
          * de-select an item.
@@ -37,29 +39,36 @@ public class GenerateReportsTreeMenu extends Tree implements ItemClickListener{
         // Make application handle item click events
         addListener((ItemClickListener) this);
     }
-   
- @Override
-  public void itemClick(ItemClickEvent event) {
 
-  Object itemId = event.getItemId();
-   if (itemId!= null) {
-      if (VIEW_REPORTS.equals(itemId)) {
-                showPositionTabViewPage();
+    @Override
+    public void itemClick(ItemClickEvent event) {
+
+        Object itemId = event.getItemId();
+        if (itemId != null) {
+            if (PEOPLE_REPORTS.equals(itemId)) {
+                showPeopleReportsTabViewPage();
+            } else if (COURSE_REPORTS.equals(itemId)) {
+                showCourseReportsTabViewPage();
+            } else if (FACILITY_REPORTS.equals(itemId)) {
+                showFacilityReportsTabViewPage();
             }
-//      else if(VIEW_REPORTS.equals(itemId)) {
-//                showPositionTabViewPage();
-//            }
-      
-
         }
 
 
-      }
-private void showPositionTabViewPage() {
-    ReportsMenuView w = new ReportsMenuView(main,"POSITION");
-//    ,"POSITION"
+    }
+
+    private void showPeopleReportsTabViewPage() {
+        PeopleReportsMenuView w = new PeopleReportsMenuView(main, "POSITION");
+        main.mainView.setSecondComponent(w);
+    }
+
+    private void showCourseReportsTabViewPage() {
+        CoursesReportsMenuView w = new CoursesReportsMenuView(main, "POSITION");
+        main.mainView.setSecondComponent(w);
+    }
+
+    private void showFacilityReportsTabViewPage() {
+        FacilitiesReportsMenuView w = new FacilitiesReportsMenuView(main, "POSITION");
         main.mainView.setSecondComponent(w);
     }
 }
-
-

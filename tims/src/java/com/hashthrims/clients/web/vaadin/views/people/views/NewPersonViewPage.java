@@ -50,6 +50,9 @@ public class NewPersonViewPage extends VerticalLayout implements
     private NewPersonTable table;
     private DateUtil date = new DateUtil();
     private DataFieldsUtil fieldValues = new DataFieldsUtil();
+    private Button tableButton = new Button();
+    private final String SHOW_TABLE = "Show Table to Edit";
+    private final String HIDE_TABLE = "Hide Table";
 
     public NewPersonViewPage(HashThrimsMain app) {
 
@@ -62,7 +65,7 @@ public class NewPersonViewPage extends VerticalLayout implements
         pform.getCancel().addListener((ClickListener) this);
         pform.getDelete().addListener((ClickListener) this);
         pform.getUpdate().addListener((ClickListener) this);
-
+        tableButton.addListener((ClickListener) this);
         NewPersonBean bean = new NewPersonBean();
         BeanItem item = new BeanItem(bean);
         form.setItemDataSource(item);
@@ -73,7 +76,9 @@ public class NewPersonViewPage extends VerticalLayout implements
         List<Person> persons = data.getPersonService().findAll();
         table = new NewPersonTable(main, persons);
         table.addListener((ValueChangeListener) this);
-        addComponent(table);
+        tableButton.setSizeFull();
+        tableButton.setCaption(SHOW_TABLE);
+        addComponent(tableButton);
 
     }
 
@@ -82,8 +87,6 @@ public class NewPersonViewPage extends VerticalLayout implements
         Property property = event.getProperty();
 
         if (property == table) {
-
-
             Item record = table.getItem(table.getValue());
             NewPersonBean bean = new NewPersonBean();
             Person p = data.getPersonService().find(new Long(table.getValue().toString()));
@@ -121,6 +124,8 @@ public class NewPersonViewPage extends VerticalLayout implements
             }
 
             bean.setRolesId(roles);
+            
+            
 
 
             if (bean != form.getItemDataSource()) {
@@ -163,6 +168,15 @@ public class NewPersonViewPage extends VerticalLayout implements
             deletePerson(form);
             main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "NEW"));
 
+        } else if (source == tableButton) {
+            if (SHOW_TABLE.equals(tableButton.getCaption())) {
+                tableButton.setCaption(HIDE_TABLE);
+                addComponent(table);
+            } else {
+                tableButton.setCaption(SHOW_TABLE);
+                removeComponent(table);
+            }
+
         }
     }
 
@@ -170,22 +184,46 @@ public class NewPersonViewPage extends VerticalLayout implements
         Map<String, String> names = new HashMap<String, String>();
         Map<String, Collection<Long>> lists = new HashMap<String, Collection<Long>>();
         Map<String, Long> demo = new HashMap<String, Long>();
+        Map<String, Date> dates = new HashMap<String, Date>();
 
 
         PersonFactory factory = data.getPersonFactory();
         String firstname = fieldValues.getStringFields(form.getField("firstname").getValue());
         String surname = fieldValues.getStringFields(form.getField("surname").getValue());
         String othername = fieldValues.getStringFields(form.getField("othername").getValue());
+
+        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumber").getValue());
+        String cellnumber = fieldValues.getStringFields(form.getField("cellnumber").getValue());
+        String faxnumber = fieldValues.getStringFields(form.getField("faxnumber").getValue());
+        String email = fieldValues.getStringFields(form.getField("email").getValue());
+        String idType = fieldValues.getStringFields(form.getField("idType").getValue());
+        String idValue = fieldValues.getStringFields(form.getField("idValue").getValue());
+
         names.put("firstname", firstname);
         names.put("surname", surname);
         names.put("othername", othername);
+        names.put("telephoneNumber", telephoneNumber);
+        names.put("cellnumber", cellnumber);
+        names.put("faxnumber", faxnumber);
+        names.put("email", email);
+        names.put("idType", idType);
+        names.put("idValue", idValue);
+
 
         Long genderId = fieldValues.getLongFields(form.getField("genderId").getValue());
         Long raceId = fieldValues.getLongFields(form.getField("raceid").getValue());
+        Long positionId = fieldValues.getLongFields(form.getField("positionId").getValue());
+        Long facilityId = fieldValues.getLongFields(form.getField("facilityId").getValue());
         demo.put("raceId", raceId);
         demo.put("genderId", genderId);
+        demo.put("positionId", positionId);
+        demo.put("facilityId", facilityId);
 
         Date dob = fieldValues.getDateFields(form.getField("dob").getValue());
+        Date startDate = fieldValues.getDateFields(form.getField("startDate").getValue());
+        dates.put("dob", dob);
+        dates.put("startDate", startDate);
+
 
         Collection<Long> rolesid = fieldValues.getSelectListLongFields(form.getField("rolesId").getValue());
         Collection<Long> competencyFieldId = fieldValues.getSelectListLongFields(form.getField("competencyFieldId").getValue());
@@ -198,7 +236,7 @@ public class NewPersonViewPage extends VerticalLayout implements
 
         Person p = null;
         if (firstname != null || surname != null) {
-            p = factory.createNewPerson(names, lists, demo, dob);
+            p = factory.createNewPerson(names, lists, demo, dates);
             data.getPersonService().persist(p);
         } else {
             throw new UnsupportedOperationException("First Name and Last Name needed");
@@ -211,25 +249,47 @@ public class NewPersonViewPage extends VerticalLayout implements
         Map<String, String> names = new HashMap<String, String>();
         Map<String, Collection<Long>> lists = new HashMap<String, Collection<Long>>();
         Map<String, Long> demo = new HashMap<String, Long>();
+        Map<String, Date> dates = new HashMap<String, Date>();
 
 
         PersonFactory factory = data.getPersonFactory();
         String firstname = fieldValues.getStringFields(form.getField("firstname").getValue());
         String surname = fieldValues.getStringFields(form.getField("surname").getValue());
         String othername = fieldValues.getStringFields(form.getField("othername").getValue());
+
+        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumbe").getValue());
+        String cellnumber = fieldValues.getStringFields(form.getField("cellnumber").getValue());
+        String faxnumber = fieldValues.getStringFields(form.getField("faxnumber").getValue());
+        String email = fieldValues.getStringFields(form.getField("email").getValue());
+        String idType = fieldValues.getStringFields(form.getField("idType").getValue());
+        String idValue = fieldValues.getStringFields(form.getField("idValue").getValue());
+
         names.put("firstname", firstname);
         names.put("surname", surname);
         names.put("othername", othername);
 
+        names.put("telephoneNumber", telephoneNumber);
+        names.put("cellnumber", cellnumber);
+        names.put("faxnumber", faxnumber);
+        names.put("email", email);
+        names.put("idType", idType);
+        names.put("idValue", idValue);
+
         Long genderId = fieldValues.getLongFields(form.getField("genderId").getValue());
         Long raceId = fieldValues.getLongFields(form.getField("raceid").getValue());
+        Long positionId = fieldValues.getLongFields(form.getField("positionId").getValue());
+        Long facilityId = fieldValues.getLongFields(form.getField("facilityId").getValue());
         Long id = fieldValues.getLongFields(form.getField("id").getValue());
         demo.put("raceId", raceId);
         demo.put("genderId", genderId);
         demo.put("id", id);
+        demo.put("positionId", positionId);
+        demo.put("facilityId", facilityId);
 
         Date dob = fieldValues.getDbDateFields(form.getField("dob").getValue());
-
+        Date startDate = fieldValues.getDateFields(form.getField("startDate").getValue());
+        dates.put("dob", dob);
+        dates.put("startDate", startDate);
         Collection<Long> rolesid = fieldValues.getSelectListLongFields(form.getField("rolesId").getValue());
         Collection<Long> competencyFieldId = fieldValues.getSelectListLongFields(form.getField("competencyFieldId").getValue());
         Collection<Long> expertiseId = fieldValues.getSelectListLongFields(form.getField("expertiseId").getValue());
@@ -241,7 +301,7 @@ public class NewPersonViewPage extends VerticalLayout implements
 
         Person p = null;
         if (firstname != null || surname != null) {
-            p = factory.updateNewPerson(names, lists, demo, dob);
+            p = factory.updateNewPerson(names, lists, demo, dates);
             data.getPersonService().merge(p);
         } else {
             throw new UnsupportedOperationException("First Name and Last Name needed");

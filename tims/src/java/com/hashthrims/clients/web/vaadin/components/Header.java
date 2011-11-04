@@ -25,7 +25,6 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.Reindeer;
 import java.io.Serializable;
 
-
 /**
  *
  * @author boniface
@@ -57,7 +56,7 @@ public class Header implements Serializable {
 
         HorizontalLayout toggles = new HorizontalLayout();
         toggles.setSpacing(true);
-       //
+        //
         Users u = data.getUsersService().getByPropertyName("email", username);
 
         titleLayout = new CssLayout();
@@ -67,8 +66,8 @@ public class Header implements Serializable {
             user.setSizeUndefined();
             titleLayout.addComponent(user);
         }
-        
-      //  System.out.println(" THE USER NAME IS "+new GetUserCredentials().username());
+
+        //  System.out.println(" THE USER NAME IS "+new GetUserCredentials().username());
 
 
 
@@ -127,6 +126,7 @@ public class Header implements Serializable {
             help.addComponent(helpText);
 
         }
+        
         if (!main.getMainWindow().getChildWindows().contains(help)) {
             main.getMainWindow().addWindow(help);
         }

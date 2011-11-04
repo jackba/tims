@@ -5,7 +5,7 @@
 package com.hashthrims.clients.web.vaadin.views.managetraining;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
-import com.hashthrims.clients.web.vaadin.views.managetraining.views.EnrollViewPage;
+import com.hashthrims.clients.web.vaadin.views.managetraining.views.ParticipantsEnrollViewPage;
 import com.hashthrims.clients.web.vaadin.views.managetraining.views.EnrolledPaticipantsViewPage;
 import com.hashthrims.clients.web.vaadin.views.managetraining.views.EvaluateTrainingViewPage;
 import com.hashthrims.clients.web.vaadin.views.managetraining.views.ScheduleTrainingViewPage;
@@ -38,7 +38,7 @@ public class ManageTrainingMenuView extends VerticalLayout {
 
         VerticalLayout enrollTab = new VerticalLayout();
         enrollTab.setMargin(true);
-        enrollTab.addComponent(new EnrollViewPage(main));
+        enrollTab.addComponent(new ParticipantsEnrollViewPage(main));
         
         VerticalLayout enrolledTab = new VerticalLayout();
         enrolledTab.setMargin(true);

@@ -9,9 +9,13 @@ import com.hashthrims.domain.*;
 import com.hashthrims.domain.employeelist.GenderList;
 import com.hashthrims.domain.employeelist.MentorsRoles;
 import com.hashthrims.domain.employeelist.RaceList;
+import com.hashthrims.domain.positions.Positions;
+import com.hashthrims.domain.positions.Status;
+import com.hashthrims.domain.regionlist.AddressType;
 import com.hashthrims.domain.regionlist.City;
 import com.hashthrims.domain.traininglist.MentoringField;
 import com.hashthrims.infrastructure.conf.GetContext;
+import com.hashthrims.infrastructure.factories.positions.PositionsFactory;
 import com.hashthrims.services.CityService;
 import com.hashthrims.services.PersonService;
 import java.util.*;
@@ -27,6 +31,7 @@ public class PersonFactory {
     private PersonService personService;
     private CityService cityService;
     private ClientDataService data = new ClientDataService();
+     private final PositionsFactory factory = data.getPositionFactory();
 
     public Person loadPerson(Long id) {
         personService = (PersonService) ctx.getBean("personService");
@@ -73,14 +78,54 @@ public class PersonFactory {
         return p;
     }
 
-    public Person createNewPerson(Map<String, String> names, Map<String, Collection<Long>> lists, Map<String, Long> demo, Date dob) {
+    public Person createNewPerson(Map<String, String> names, Map<String, Collection<Long>> lists, Map<String, Long> demo, Map<String, Date> dates) {
         Person p = new Person();
         p.setPersonName(names.get("firstname"));
         p.setPersonOtherName(names.get("othername"));
         p.setPersonSurname(names.get("surname"));
-
+        
+        //COntacts 
+//        names.put("telephoneNumber", telephoneNumber);
+//        names.put("cellnumber", cellnumber);
+//        names.put("faxnumber", faxnumber);
+//        names.put("email", email);
+        
+        Contacts c = new Contacts();
+        c.setAddressType("Personal Contact");
+        c.setCellnumber(names.get("telephoneNumber"));
+        c.setEmail(names.get("cellnumber"));
+        c.setFaxnumber(names.get("faxnumber"));
+        c.setTelephoneNumber(names.get("email"));
+        p.getContacts().add(c);
+        
+        // Identies
+//        names.put("idType", idType);
+//        names.put("idValue", idValue);
+//        
+        final Identities i = new Identities();
+        i.setIdType(names.get("idType"));
+        i.setIdValue(names.get("idValue"));
+        p.getIdentities().add(i);
+        //Position
+//        demo.put("positionId", positionId);
+//        demo.put("facilityId", facilityId);
+//        dates.put("startDate", startDate);
+       
+        final Long positionId = demo.get("positionId");
+        final Date startDate = dates.get("startDate");
+        final Positions position = data.getPositionsService().find(positionId);
+        final Status st= data.getStatusService().getByPropertyName("status", "FILLED");
+        position.setPositionStatus(st);
+        data.getPositionsService().merge(position);
+        EmployeePosition employeePositions = factory.createEmployeePosition(position, "CURRENT", startDate, null);
+        p.getPosition().add(employeePositions);
+        
+        //Demo
+//        dates.put("dob", dob);
+//        
+        
         Demography d = new Demography();
-        d.setDob(dob);
+        d.setDob(dates.get("dob"));
         GenderList gender = data.getGenderListService().find(demo.get("genderId"));
         if (gender!=null) {
             d.setGender(gender.getGender());
@@ -111,14 +156,54 @@ public class PersonFactory {
         return p;
     }
 
-    public Person updateNewPerson(Map<String, String> names, Map<String, Collection<Long>> lists, Map<String, Long> demo, Date dob) {
+    public Person updateNewPerson(Map<String, String> names, Map<String, Collection<Long>> lists, Map<String, Long> demo, Map<String, Date> dates) {
         Person p = data.getPersonService().find(demo.get("id"));
         p.setPersonName(names.get("firstname"));
         p.setPersonOtherName(names.get("othername"));
         p.setPersonSurname(names.get("surname"));
+        
+           //COntacts 
+//        names.put("telephoneNumber", telephoneNumber);
+//        names.put("cellnumber", cellnumber);
+//        names.put("faxnumber", faxnumber);
+//        names.put("email", email);
+        
+        Contacts c = new Contacts();
+        c.setAddressType("Personal Contact");
+        c.setCellnumber(names.get("telephoneNumber"));
+        c.setEmail(names.get("cellnumber"));
+        c.setFaxnumber(names.get("faxnumber"));
+        c.setTelephoneNumber(names.get("email"));
+       // p.getContacts().add(c);
+        
+        // Identies
+//        names.put("idType", idType);
+//        names.put("idValue", idValue);
+        
+        final Identities i = new Identities();
+        i.setIdType(names.get("idType"));
+        i.setIdValue(names.get("idValue"));
+       // p.getIdentities().add(i);
+//        
+        //Position
+//        demo.put("positionId", positionId);
+//        demo.put("facilityId", facilityId);
+//        dates.put("startDate", startDate);
+        
+        final Long positionId = demo.get("positionId");
+        final Date startDate = dates.get("startDate");
+        final Positions position = data.getPositionsService().find(positionId);
+        final Status st= data.getStatusService().getByPropertyName("status", "FILLED");
+        position.setPositionStatus(st);
+        data.getPositionsService().merge(position);
+        EmployeePosition employeePositions = factory.createEmployeePosition(position, "CURRENT", startDate, null);
+      //  p.getPosition().add(employeePositions);
+        //Demo
+//        dates.put("dob", dob);
+//        
 
         Demography d = p.getDemography();
-        d.setDob(dob);
+        d.setDob(dates.get("dob"));
         GenderList gender = data.getGenderListService().find(demo.get("genderId"));
         if (gender!=null) {
             d.setGender(gender.getGender());

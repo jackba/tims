@@ -127,7 +127,8 @@ public class PersonViewPage extends VerticalLayout implements
            main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "NEW"));
 
         } else if (source == pform.getDelete()) {
-            deletePerson(form);
+           deletePerson(form);
+            
           main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "NEW"));
 
         }

@@ -125,6 +125,7 @@ public class ScheduleTrainingForm {
                 ((TextField) field).setVisible(false);
             } else if ("course".equals(propertyId)) {
                 List<TrainingCourses> courses = data.getTrainingCoursesService().findAll();
+                Collections.sort(courses);
                 selectCourse = new Select("Course:");
                 for (TrainingCourses co : courses) {
                     selectCourse.addItem(co.getId());
@@ -194,7 +195,7 @@ public class ScheduleTrainingForm {
                 selectTrainers = new ListSelect("Select Trainers:");
                 for (Person trainer : trainers) {
                     selectTrainers.addItem(trainer.getId());
-                    selectTrainers.setItemCaption(trainer.getId(), trainer.getPersonName() + " " + trainer.getPersonSurname());
+                    selectTrainers.setItemCaption(trainer.getId(), trainer.getPersonSurname() + " " + trainer.getPersonName());
                 }
                 selectTrainers.setNewItemsAllowed(false);
                 selectTrainers.setNullSelectionAllowed(false);

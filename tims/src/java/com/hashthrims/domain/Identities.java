@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.domain;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,11 +17,13 @@ import javax.persistence.Id;
  */
 @Entity
 public class Identities implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String idType;
+    @Column(unique = true)
     private String idValue;
 
     public Long getId() {
@@ -84,5 +86,4 @@ public class Identities implements Serializable {
     public void setIdValue(String idValue) {
         this.idValue = idValue;
     }
-
 }

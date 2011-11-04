@@ -8,6 +8,8 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.employeelist.GenderList;
 import com.hashthrims.domain.employeelist.MentorsRoles;
 import com.hashthrims.domain.employeelist.RaceList;
+import com.hashthrims.domain.offices.Facility;
+import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.domain.traininglist.MentoringField;
 import com.hashthrims.domain.traininglist.TrainingCourseCategory;
 import com.hashthrims.infrastructure.util.TimsUtil;
@@ -31,6 +33,7 @@ import com.vaadin.ui.Select;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Runo;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -87,8 +90,12 @@ public class NewPersonForm {
         private Select selectRaceList;
         private ListSelect selectExpertise = new ListSelect("Expertise");
         private ListSelect mentoringAreas = new ListSelect("Mentoring Area");
-        ;
+        private Select selectAddressTypeList;
         private ListSelect selectRoles;
+        private Facility facility;
+        private List<Positions> positions;
+        private Select selectFacilityList;
+        private Select selectPositionList;
 
         @Override
         public Field createField(Item item, Object propertyId,
@@ -105,22 +112,14 @@ public class NewPersonForm {
                 ((TextField) field).setRequired(true);
                 ((TextField) field).setRequiredError("Please Enter Person Name");
                 ((TextField) field).setValidationVisible(true);
-              
-
-
             } else if ("surname".equals(propertyId)) {
                 field = new TextField("Surname:");
-
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
-
                 ((TextField) field).setRequired(true);
                 ((TextField) field).setRequiredError("Please Enter Value");
-         
-
             } else if ("othername".equals(propertyId)) {
                 field = new TextField("Other Name :");
-
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequiredError("Please Enter Value");
@@ -150,8 +149,9 @@ public class NewPersonForm {
                 selectRaceList.setWidth("250");
                 return selectRaceList;
             } else if ("dob".equals(propertyId)) {
-                field = new DateField("Date of Birth:");
+                 field = new DateField("Date Started (dd/mm/yyyy):");
                 ((DateField) field).setRequired(true);
+                ((DateField) field).setDateFormat("dd/MM/yyyy");
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
             } else if ("competencyFieldId".equals(propertyId)) {
@@ -185,6 +185,99 @@ public class NewPersonForm {
                 selectRoles.setImmediate(true);
                 selectRoles.setWidth("250");
                 return selectRoles;
+            } else if ("idValue".equals(propertyId)) {
+                field = new TextField("Indentity Value:");
+                ((TextField) field).setColumns(20);
+                ((TextField) field).setNullRepresentation("");
+                ((TextField) field).setRequired(true);
+                ((TextField) field).setRequiredError("Please Enter Value");
+            } else if ("idType".equals(propertyId)) {
+                //List<String> idTypes = data.getAddressTypeService().findAll();
+                selectAddressTypeList = new Select("Identity Type:");
+
+                selectAddressTypeList.addItem("National ID");
+                selectAddressTypeList.addItem("Registration ID");
+                selectAddressTypeList.addItem("Passport ID");
+                selectAddressTypeList.addItem("Employee ID");
+                selectAddressTypeList.addItem("Other ID");
+
+                selectAddressTypeList.setNewItemsAllowed(false);
+                selectAddressTypeList.addListener(this);
+                selectAddressTypeList.setImmediate(true);
+                selectAddressTypeList.setWidth("250");
+                selectAddressTypeList.setRequired(true);
+                return selectAddressTypeList;
+            } else if ("facilityId".equals(propertyId)) {
+                List<Facility> facilities = data.getFacilityService().findAll();
+                Collections.sort(facilities);
+                selectFacilityList = new Select("Facility");
+                for (Facility fac : facilities) {
+                    selectFacilityList.addItem(fac.getId());
+                    selectFacilityList.setItemCaption(fac.getId(), fac.getFacilityName());
+                }
+                selectFacilityList.setNewItemsAllowed(false);
+                selectFacilityList.addListener(this);
+                selectFacilityList.setImmediate(true);
+                selectFacilityList.setWidth("250");
+
+                return selectFacilityList;
+            } else if ("positionId".equals(propertyId)) {
+
+                selectPositionList = new Select("Position");
+                selectPositionList.setNewItemsAllowed(false);
+                selectPositionList.addListener(this);
+                if (facility != null) {
+                    positions = facility.getPositions();
+                    for (Positions pos : positions) {
+
+                        if (st.checkPositionAvalaibality(pos)) {
+                            selectPositionList.addItem(pos.getId());
+                            selectPositionList.setItemCaption(pos.getId(), pos.getPositionCode());
+                        }
+                    }
+                } else {
+                }
+                selectPositionList.setImmediate(true);
+                selectPositionList.setWidth("250");
+
+                return selectPositionList;
+            } else if ("startDate".equals(propertyId)) {
+                field = new DateField("Date Started (dd/mm/yyyy):");
+                ((DateField) field).setRequired(true);
+                 ((DateField) field).setDateFormat("dd/MM/yyyy");
+                ((DateField) field).setRequiredError("Please Enter Value");
+                ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
+            } else if ("telephoneNumber".equals(propertyId)) {
+                field = new TextField("Telephone Number:");
+
+                ((TextField) field).setColumns(20);
+                ((TextField) field).setNullRepresentation("");
+
+                ((TextField) field).setRequired(true);
+                ((TextField) field).setRequiredError("Please Enter Value");
+            } else if ("cellnumber".equals(propertyId)) {
+                field = new TextField("Cell Number:");
+
+                ((TextField) field).setColumns(20);
+                ((TextField) field).setNullRepresentation("");
+
+                ((TextField) field).setRequired(true);
+                ((TextField) field).setRequiredError("Please Enter Value");
+            } else if ("faxnumber".equals(propertyId)) {
+                field = new TextField("fax Number:");
+
+                ((TextField) field).setColumns(20);
+                ((TextField) field).setNullRepresentation("");
+                ((TextField) field).setRequired(true);
+                ((TextField) field).setRequiredError("Please Enter Value");
+            } else if ("email".equals(propertyId)) {
+                field = new TextField("Email :");
+
+                ((TextField) field).setColumns(20);
+                ((TextField) field).setNullRepresentation("");
+
+                ((TextField) field).setRequired(true);
+                ((TextField) field).setRequiredError("Please Enter Value");
             }
 
 
@@ -195,6 +288,26 @@ public class NewPersonForm {
         @Override
         public void valueChange(ValueChangeEvent event) {
             Property property = event.getProperty();
+
+            if (property == selectFacilityList) {
+                if (property.getValue() != null) {
+                    facility = data.getFacilityService().find(Long.parseLong(property.getValue().toString()));
+                    positions = facility.getPositions();
+                    if (!selectPositionList.isReadOnly()) {
+                        selectPositionList.removeAllItems();
+                    }
+                    for (Positions pos : positions) {
+                        if (st.checkPositionAvalaibality(pos)) {
+                            selectPositionList.addItem(pos.getId());
+                            selectPositionList.setItemCaption(pos.getId(), pos.getPositionCode());
+                        }
+                    }
+                } else {
+                    if (!selectPositionList.isReadOnly()) {
+                        selectPositionList.removeAllItems();
+                    }
+                }
+            }
 
             if (property == selectRoles) {
                 if (!selectExpertise.isReadOnly()) {
@@ -222,9 +335,6 @@ public class NewPersonForm {
                         }
                     }
 
-
-
-
                 }
 
             }
@@ -235,7 +345,7 @@ public class NewPersonForm {
         private boolean isMentor(Long id) {
             boolean isMentor = false;
             MentorsRoles role = data.getMentorsRolesService().find(id);
-            if (role!=null) {
+            if (role != null) {
                 if (role.getMentorsRolesName().equalsIgnoreCase("Mentor")) {
                     isMentor = true;
                 }
@@ -245,9 +355,9 @@ public class NewPersonForm {
 
         private boolean isResourPerson(Long id) {
             boolean isResourPerson = false;
-             MentorsRoles role = data.getMentorsRolesService().find(id);
-            if (role!=null) {
-               
+            MentorsRoles role = data.getMentorsRolesService().find(id);
+            if (role != null) {
+
                 if (role.getMentorsRolesName().equalsIgnoreCase("Resource Person")) {
                     isResourPerson = true;
                 }
@@ -262,7 +372,7 @@ public class NewPersonForm {
 
         public NewPersonGridForm() {
             setCaption("New Person Form");
-            layout = new GridLayout(3, 11);
+            layout = new GridLayout(3, 10);
             layout.setMargin(true);
             layout.setSpacing(true);
 
@@ -281,7 +391,7 @@ public class NewPersonForm {
             HorizontalLayout formFooter = new HorizontalLayout();
             formFooter.setSizeFull();
             formFooter.setStyleName(Runo.LAYOUT_DARKER);
-            layout.addComponent(formFooter, 0, 7, 1, 7);
+            layout.addComponent(formFooter, 0, 9, 1, 9);
 
             setLayout(layout);
 
@@ -295,20 +405,54 @@ public class NewPersonForm {
                 layout.addComponent(field, 1, 1);
             } else if (propertyId.equals("firstname")) {
                 layout.addComponent(field, 2, 1);
+
+
             } else if (propertyId.equals("dob")) {
                 layout.addComponent(field, 0, 2);
             } else if (propertyId.equals("genderId")) {
                 layout.addComponent(field, 1, 2);
             } else if (propertyId.equals("raceid")) {
                 layout.addComponent(field, 2, 2);
-            } else if (propertyId.equals("id")) {
+
+
+            } else if (propertyId.equals("facilityId")) {
+                layout.addComponent(field, 0, 3);
+            } else if (propertyId.equals("positionId")) {
+                layout.addComponent(field, 1, 3);
+            } else if (propertyId.equals("startDate")) {
+                layout.addComponent(field, 2, 3);
+
+
+            } else if (propertyId.equals("idType")) {
+                layout.addComponent(field, 0, 4);
+            } else if (propertyId.equals("idValue")) {
+                layout.addComponent(field, 1, 4);
+            } else if (propertyId.equals("email")) {
+                layout.addComponent(field, 2, 4);
+
+
+
+
+            } else if (propertyId.equals("cellnumber")) {
                 layout.addComponent(field, 0, 5);
+            } else if (propertyId.equals("telephoneNumber")) {
+                layout.addComponent(field, 1, 5);
+            } else if (propertyId.equals("faxnumber")) {
+                layout.addComponent(field, 2, 5);
+
+
+
+
+
+
             } else if (propertyId.equals("rolesId")) {
-                layout.addComponent(field, 0, 3, 0, 4);
+                layout.addComponent(field, 0, 6, 0, 7);
             } else if (propertyId.equals("expertiseId")) {
-                layout.addComponent(field, 1, 3, 1, 4);
+                layout.addComponent(field, 1, 6, 1, 7);
             } else if (propertyId.equals("competencyFieldId")) {
-                layout.addComponent(field, 2, 3, 2, 4);
+                layout.addComponent(field, 2, 6, 2, 7);
+            } else if (propertyId.equals("id")) {
+                layout.addComponent(field, 0, 8);
             }
 
         }

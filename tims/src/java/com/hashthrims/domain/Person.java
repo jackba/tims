@@ -19,13 +19,12 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-
-
 /**
  *
  * @author boniface
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Person implements Serializable, Comparable<Person> {
 
     private static long serialVersionUID = 1L;
@@ -85,7 +84,6 @@ public class Person implements Serializable, Comparable<Person> {
     @JoinColumn(name = "person_id")
     private List<Mentees> mentees = new ArrayList<Mentees>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-    @Cache( usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinColumn(name = "person_id")
     private List<MentorExpertiseArea> expertiseArea = new ArrayList<MentorExpertiseArea>();
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})

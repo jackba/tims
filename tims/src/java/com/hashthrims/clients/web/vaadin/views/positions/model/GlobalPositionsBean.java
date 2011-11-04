@@ -4,8 +4,6 @@
  */
 package com.hashthrims.clients.web.vaadin.views.positions.model;
 
-import java.util.List;
-
 /**
  *
  * @author stud
@@ -18,7 +16,7 @@ public class GlobalPositionsBean {
     private Long positionType;
     private Long positionStatus;
     private Long supervisor;
-    private Long department;
+    private Long dept;
     private Long job;
 
     /**
@@ -94,19 +92,7 @@ public class GlobalPositionsBean {
         this.supervisor = supervisor;
     }
 
-    /**
-     * @return the department
-     */
-    public Long getDepartment() {
-        return department;
-    }
-
-    /**
-     * @param department the department to set
-     */
-    public void setDepartment(Long department) {
-        this.department = department;
-    }
+  
 
     /**
      * @return the job
@@ -120,6 +106,14 @@ public class GlobalPositionsBean {
      */
     public void setJob(Long job) {
         this.job = job;
+    }
+
+    public Long getDept() {
+        return dept;
+    }
+
+    public void setDept(Long dept) {
+        this.dept = dept;
     }
 
     

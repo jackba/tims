@@ -91,6 +91,7 @@ public class AddPeopleUploadsViewPage extends VerticalLayout implements
                     Map<String, String> names = new HashMap<String, String>();
                     Map<String, Collection<Long>> lists = new HashMap<String, Collection<Long>>();
                     Map<String, Long> demo = new HashMap<String, Long>();
+                    Map<String, Date> dates = new HashMap<String, Date>();
 
 
                     PersonFactory factory = data.getPersonFactory();
@@ -101,6 +102,7 @@ public class AddPeopleUploadsViewPage extends VerticalLayout implements
                     names.put("surname", surname);
                     names.put("othername", othername);
                     Date dob = fieldValues.getDateFields(worksheet.getRow(i).getCell(3).toString());
+                    dates.put("dob", dob);
 
                     Long genderId = fieldValues.getLongsFromSpreadSheet(worksheet.getRow(i).getCell(4).toString());
                     Long raceId = fieldValues.getLongsFromSpreadSheet(worksheet.getRow(i).getCell(5).toString());
@@ -118,10 +120,10 @@ public class AddPeopleUploadsViewPage extends VerticalLayout implements
                     lists.put("expertiseId", expertiseId);
                     Long positionId = fieldValues.getLongsFromSpreadSheet(worksheet.getRow(i).getCell(9).toString());
                     Positions pos = data.getPositionsService().find(positionId);
-
+                    
                     Person p = null;
                     if (firstname != null || surname != null) {
-                        p = factory.createNewPerson(names, lists, demo, dob);
+                        p = factory.createNewPerson(names, lists, demo, dates);
                         EmployeePosition em = new EmployeePosition();
                         em.setPosition(pos);
                         em.setStartDate(new Date());

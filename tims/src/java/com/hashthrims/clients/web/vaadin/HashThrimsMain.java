@@ -28,6 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author boniface
  */
 public class HashThrimsMain extends Application implements HttpServletRequestListener {
+    
 
     public HorizontalSplitPanel mainView = new HorizontalSplitPanel();
     private static ThreadLocal<HashThrimsMain> threadLocal = new ThreadLocal<HashThrimsMain>();

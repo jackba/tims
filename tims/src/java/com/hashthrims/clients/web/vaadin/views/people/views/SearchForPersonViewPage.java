@@ -40,6 +40,7 @@ public class SearchForPersonViewPage extends VerticalLayout implements
     private static ClientDataService data = new ClientDataService();
     private final DataFieldsUtil fieldValues = new DataFieldsUtil();
 
+    //Search For Person View Page 
     public SearchForPersonViewPage(HashThrimsMain app, NewPersonTable table, List<Person> personLists) {
         main = app;
         setSizeFull();

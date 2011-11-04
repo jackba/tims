@@ -12,6 +12,7 @@ import com.hashthrims.clients.web.vaadin.views.positions.forms.GlobalPositionsFo
 import com.hashthrims.clients.web.vaadin.views.positions.model.GlobalPositionsBean;
 import com.hashthrims.clients.web.vaadin.views.positions.model.dtos.StringValues;
 import com.hashthrims.clients.web.vaadin.views.positions.table.GlobalPositionTable;
+import com.hashthrims.domain.offices.Department;
 import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.positions.GlobalPositions;
 import com.hashthrims.domain.positions.Positions;
@@ -80,7 +81,7 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
             final GlobalPositionsBean positionBean = new GlobalPositionsBean();
             positionBean.setPositionCode(record.getItemProperty("Position Code").toString());
             positionBean.setSupervisor(tb.getSupervisorId(record.getItemProperty("Supervisor").toString()));
-            positionBean.setDepartment(tb.getDepartmentId(record.getItemProperty("Department").toString()));
+            positionBean.setDept(tb.getDepartmentId(record.getItemProperty("Department").toString()));
             positionBean.setJob(tb.getPotisionTitleId(record.getItemProperty("Position Title").toString()));
             positionBean.setPositionType(tb.getPositionTypeId(record.getItemProperty("Position Type").toString()));
             positionBean.setPositionStatus(tb.getPositionStatusId(record.getItemProperty("Position Status").toString()));
@@ -141,7 +142,8 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
         val.setPositionCode(positionCode);
 
         final Long supervisor = fieldValues.getLongFields(form.getField("supervisor").getValue());
-        final Long department = fieldValues.getLongFields(form.getField("department").getValue());
+        Department d = data.getDepartmentService().getByPropertyName("deptName", form.getField("dept").getValue().toString());
+        final Long department = d.getId();
         final Long job = fieldValues.getLongFields(form.getField("job").getValue());
         final Long positionType = fieldValues.getLongFields(form.getField("positionType").getValue());
         final Long positionStatus = fieldValues.getLongFields(form.getField("positionStatus").getValue());
@@ -165,7 +167,7 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
         val.setPositionCode(positionCode);
 
         final Long supervisor = fieldValues.getLongFields(form.getField("supervisor").getValue());
-        final Long department = fieldValues.getLongFields(form.getField("department").getValue());
+        final Long department = fieldValues.getLongFields(form.getField("dept").getValue());
         final Long job = fieldValues.getLongFields(form.getField("job").getValue());
         final Long positionType = fieldValues.getLongFields(form.getField("positionType").getValue());
         final Long positionStatus = fieldValues.getLongFields(form.getField("positionStatus").getValue());

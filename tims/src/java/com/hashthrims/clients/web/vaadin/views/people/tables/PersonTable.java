@@ -96,7 +96,8 @@ public class PersonTable extends Table {
                 public void buttonClick(ClickEvent event) {
                     // Get the item identifier from the user-defined data.
                     //Long itemId = (Long) event.getButton().getData();
-                    data.getPersonService().remove(person);
+                
+                   data.getPersonService().remove(person);
                     main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
                     // getWindow().showNotification(person.getPersonName()+" " + person.getPersonSurname()+ " Has Been Deleted");
                 }

@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
  * @author boniface
  */
 public class GetContext {
+    
 
 private static ApplicationContext ctx;
 

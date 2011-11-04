@@ -6,7 +6,6 @@ package com.hashthrims.clients.web.vaadin.views.managetraining.views;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
-import com.hashthrims.clients.web.vaadin.views.managementoring.views.windows.actionplans.views.ReviewActionPlanWindow;
 import com.hashthrims.clients.web.vaadin.views.managetraining.ManageTrainingMenuView;
 import com.hashthrims.clients.web.vaadin.views.managetraining.forms.ScheduleTrainingForm;
 import com.hashthrims.clients.web.vaadin.views.managetraining.model.ScheduleTrainingBean;
@@ -36,7 +35,6 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -68,7 +66,10 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
     public EnrolledPaticipantsViewPage(HashThrimsMain app) {
 
         scheduledCoursesTable = getTable();
+        
+
         enrolledPeopleTable = getEnrolledTable();
+
         main = app;
         setSizeFull();
         pform = new ScheduleTrainingForm();
@@ -115,6 +116,9 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
         peopleList.setNullSelectionAllowed(false);
         peopleList.setMultiSelect(true);
 
+        Object[] properties = {"Start Date"};
+        boolean[] ascending = {false};
+        scheduledCoursesTable.sort(properties, ascending);
         addComponent(scheduledCoursesTable);
         setComponentAlignment(scheduledCoursesTable, Alignment.TOP_CENTER);
         people.setSizeFull();
@@ -274,7 +278,7 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
     }
 
     private Table getTable() {
-        Table table = new Table("Scheduled Courses");
+        Table table = new Table("Scheduled Courses With Enrolled Participants");
         table.setSizeFull();
         table.setMultiSelect(false);
         table.setSelectable(true);
@@ -285,15 +289,16 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
         table.addContainerProperty("Places", Integer.class, null);
         table.addContainerProperty("Course Venue", String.class, null);
         table.addContainerProperty("Organisation Offering", String.class, null);
-        table.addContainerProperty("Start Date", String.class, null);
-        table.addContainerProperty("End Date", String.class, null);
+        table.addContainerProperty("Start Date", Date.class, null);
+        table.addContainerProperty("End Date", Date.class, null);
         table.addContainerProperty("Enrollement", Integer.class, null);
         table.addContainerProperty("Status", String.class, null);
         return table;
     }
 
-    private String getDate(Date startDate) {
-        return new SimpleDateFormat("dd-MMMM-yyyy").format(startDate);
+    private Date getDate(Date date) {
+        //return new SimpleDateFormat("dd-MMMM-yyyy").format(startDate);
+        return date;
     }
 
     private String getStatus(ScheduledCourses course) {

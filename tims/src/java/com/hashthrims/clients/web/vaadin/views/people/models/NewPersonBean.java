@@ -12,11 +12,21 @@ import java.util.List;
  * @author boniface
  */
 public class NewPersonBean {
+
     private Long id;
     private String firstname;
     private String othername;
     private String surname;
     private Date dob;
+    private String telephoneNumber;
+    private String cellnumber;
+    private String faxnumber;
+    private String email;
+    private String idType;
+    private String idValue;
+    private Long positionId;
+    private Date startDate;
+    private Long facilityId;
     private Long raceid;
     private Long genderId;
     private List<Long> rolesId;
@@ -28,6 +38,78 @@ public class NewPersonBean {
      */
     public Long getId() {
         return id;
+    }
+
+    public String getCellnumber() {
+        return cellnumber;
+    }
+
+    public void setCellnumber(String cellnumber) {
+        this.cellnumber = cellnumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getFacilityId() {
+        return facilityId;
+    }
+
+    public void setFacilityId(Long facilityId) {
+        this.facilityId = facilityId;
+    }
+
+    public String getFaxnumber() {
+        return faxnumber;
+    }
+
+    public void setFaxnumber(String faxnumber) {
+        this.faxnumber = faxnumber;
+    }
+
+    public String getIdType() {
+        return idType;
+    }
+
+    public void setIdType(String idType) {
+        this.idType = idType;
+    }
+
+    public String getIdValue() {
+        return idValue;
+    }
+
+    public void setIdValue(String idValue) {
+        this.idValue = idValue;
+    }
+
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     /**
@@ -162,5 +244,4 @@ public class NewPersonBean {
     public void setCompetencyFieldId(List<Long> competencyFieldId) {
         this.competencyFieldId = competencyFieldId;
     }
-    
 }

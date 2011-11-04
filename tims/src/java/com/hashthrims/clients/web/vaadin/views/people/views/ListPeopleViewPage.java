@@ -7,7 +7,6 @@ package com.hashthrims.clients.web.vaadin.views.people.views;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.people.tables.NewPersonTable;
-import com.hashthrims.clients.web.vaadin.views.people.tables.PersonTable;
 import com.hashthrims.domain.Person;
 
 

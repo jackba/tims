@@ -11,7 +11,6 @@ import com.hashthrims.domain.jobs.Jobs;
 import com.hashthrims.domain.offices.Department;
 import com.hashthrims.domain.positions.GlobalPositions;
 import com.hashthrims.domain.positions.PositionTypes;
-import com.hashthrims.domain.positions.Positions;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -116,10 +115,10 @@ public class GlobalPositionsForm {
                 selectSupervisor.setWidth("250");
                 selectSupervisor.setRequired(true);
                 return selectSupervisor;
-            } else if ("department".equals(propertyId)) {
+            } else if ("dept".equals(propertyId)) {
                 departments = data.getDepartmentService().findAll();
                 selectDepartment = new Select("Department:");
-                selectDepartment.addListener(this);
+               // selectDepartment.addListener(this);
                 selectDepartment.setImmediate(true);
                 for (Department department : departments) {
                     selectDepartment.addItem(department.getId());

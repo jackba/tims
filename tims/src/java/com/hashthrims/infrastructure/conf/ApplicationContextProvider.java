@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContextAware;
  * @author boniface
  */
 public class ApplicationContextProvider implements ApplicationContextAware {
+    
     @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         GetContext.setApplicationContext(ctx);

@@ -59,7 +59,7 @@ public class FacilityPositionsGridForm extends Form {
             layout.addComponent(field, 0,2);
         } else if (propertyId.equals("supervisor")) {
             layout.addComponent(field, 1, 2);
-        } else if (propertyId.equals("department")) {
+        } else if (propertyId.equals("dept")) {
             layout.addComponent(field, 0, 3);
         } else if (propertyId.equals("positionStatus")) {
             layout.addComponent(field, 1,3);

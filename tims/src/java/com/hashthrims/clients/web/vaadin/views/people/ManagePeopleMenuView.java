@@ -6,10 +6,8 @@ package com.hashthrims.clients.web.vaadin.views.people;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.people.tables.NewPersonTable;
-import com.hashthrims.clients.web.vaadin.views.people.tables.PersonTable;
 import com.hashthrims.clients.web.vaadin.views.people.views.ListPeopleViewPage;
 import com.hashthrims.clients.web.vaadin.views.people.views.NewPersonViewPage;
-import com.hashthrims.clients.web.vaadin.views.people.views.PersonViewPage;
 import com.hashthrims.clients.web.vaadin.views.people.views.SearchForPersonViewPage;
 import com.hashthrims.clients.web.vaadin.views.people.views.SearchInFacilityViewPage;
 import com.hashthrims.domain.Person;

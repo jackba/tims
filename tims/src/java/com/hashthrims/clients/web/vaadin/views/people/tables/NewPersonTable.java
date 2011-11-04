@@ -14,6 +14,7 @@ import com.hashthrims.domain.Person;
 import com.hashthrims.domain.PersonRoles;
 import com.hashthrims.infrastructure.util.GetUserCredentials;
 import com.hashthrims.infrastructure.util.TimsUtil;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.Reindeer;
@@ -26,14 +27,14 @@ import java.util.List;
 public class NewPersonTable extends Table {
 
     private static ClientDataService data = new ClientDataService();
-     private final GetUserCredentials user = new GetUserCredentials();
+    private final GetUserCredentials user = new GetUserCredentials();
     private HashThrimsMain main;
     private TimsUtil st = new TimsUtil();
     private List<Person> persons;
 
     public NewPersonTable(HashThrimsMain app, List<Person> p) {
         this.main = app;
-        persons=p;
+        persons = p;
         // Make Table fill all space
         setSizeFull();
         // Define the names and data types of columns.
@@ -43,14 +44,14 @@ public class NewPersonTable extends Table {
         addContainerProperty("Roles", String.class, null);
         addContainerProperty("Facility", String.class, null);
         addContainerProperty("Details", Button.class, null);
-       // addContainerProperty("Edit", Button.class, null);
+        // addContainerProperty("Edit", Button.class, null);
         if (user.isUserWithRole("ROLE_ADMIN")) {
             addContainerProperty("Delete", Button.class, null);
         }
 
 
         // Add Data Columns
-       // List<Person> persons = data.getPersonService().findAll();
+        // List<Person> persons = data.getPersonService().findAll();
         for (final Person person : persons) {
             Button detailsField = new Button("show details");
             detailsField.setData(person.getId());
@@ -60,7 +61,7 @@ public class NewPersonTable extends Table {
                 public void buttonClick(ClickEvent event) {
                     // Get the item identifier from the user-defined data.
                     Long itemId = (Long) event.getButton().getData();
-                    main.mainView.setSecondComponent(new PersonDetailsView(person,main,""));
+                    main.mainView.setSecondComponent(new PersonDetailsView(person, main, ""));
                 }
             });
 
@@ -96,11 +97,58 @@ public class NewPersonTable extends Table {
 
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    // Get the item identifier from the user-defined data.
-                    //Long itemId = (Long) event.getButton().getData();
-                    data.getPersonService().remove(person);
-                    main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
-                    // getWindow().showNotification(person.getPersonName()+" " + person.getPersonSurname()+ " Has Been Deleted");
+                   
+                    deleteDialog();
+                    
+
+                }
+
+                private void deleteDialog() {
+
+                    final Window deleteDialog = new Window("About to Delete a Record");
+                    deleteDialog.setModal(true);
+                    deleteDialog.setStyleName(Reindeer.WINDOW_BLACK);
+                    deleteDialog.setWidth("260px");
+                    deleteDialog.setResizable(false);
+                    deleteDialog.setClosable(false);
+                    deleteDialog.setDraggable(false);
+                    deleteDialog.setCloseShortcut(KeyCode.ESCAPE, null);
+
+                    Label deleteTextQuestion = new Label(
+                            "Are you sure you want to Delete This Record?",
+                            Label.CONTENT_XHTML);
+                    deleteDialog.addComponent(deleteTextQuestion);
+
+                    HorizontalLayout buttons = new HorizontalLayout();
+                    buttons.setSpacing(true);
+                    Button yes = new Button("Yes", new Button.ClickListener() {
+
+                        @Override
+                        public void buttonClick(ClickEvent event) {
+                            data.getPersonService().remove(person);
+                            main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
+                            main.getMainWindow().removeWindow(deleteDialog);
+                        }
+                    });
+                    yes.setStyleName(Reindeer.BUTTON_DEFAULT);
+                    yes.focus();
+                    buttons.addComponent(yes);
+                    Button no = new Button("No", new Button.ClickListener() {
+
+                        @Override
+                        public void buttonClick(ClickEvent event) {
+                             main.mainView.setSecondComponent(new ManagePeopleMenuView(main, "SEARCH"));
+                             main.getMainWindow().removeWindow(deleteDialog);
+                        }
+                    });
+                    buttons.addComponent(no);
+
+                    deleteDialog.addComponent(buttons);
+                    ((VerticalLayout) deleteDialog.getContent()).setComponentAlignment(buttons,
+                            "center");
+                    ((VerticalLayout) deleteDialog.getContent()).setSpacing(true);
+
+                    main.getMainWindow().addWindow(deleteDialog);
                 }
             });
             delete.setStyleName(Reindeer.BUTTON_LINK);
@@ -114,17 +162,16 @@ public class NewPersonTable extends Table {
                             getRoleName(person.getPersonRoles()),
                             st.getFacilityName(person.getPosition()),
                             detailsField,
-                           
                             delete}, person.getId());
             } else {
 
                 addItem(new Object[]{person.getPersonName(),
                             person.getPersonSurname(),
                             st.getPositionTitle(person.getPosition()),
-                             getRoleName(person.getPersonRoles()),
+                            getRoleName(person.getPersonRoles()),
                             st.getFacilityName(person.getPosition()),
                             detailsField
-                            }, person.getId());
+                        }, person.getId());
 
             }
         }
@@ -145,8 +192,8 @@ public class NewPersonTable extends Table {
         bean.setPersonSurname(person.getPersonSurname());
         bean.setResidence(st.getResidence(person.getResidence()));
         bean.setGender(st.getGender(person.getDemography()));
-       
-       
+
+
         bean.setDob(st.getDob(person.getDemography()));
         return bean;
     }
@@ -156,7 +203,7 @@ public class NewPersonTable extends Table {
         for (PersonRoles role : personRoles) {
             roles.append(role.getRoleName());
             roles.append(", ");
-            
+
         }
         return roles;
     }

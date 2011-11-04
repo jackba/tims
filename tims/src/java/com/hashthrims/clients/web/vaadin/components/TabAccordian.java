@@ -38,7 +38,7 @@ public class TabAccordian extends Accordion {
         VerticalLayout managePeople = new VerticalLayout();
         ManagePeopleTreeMenu managePeopleTree = new ManagePeopleTreeMenu(main);
         managePeople.addComponent(managePeopleTree);
-        
+
         //Configure Manage People Menu
         VerticalLayout excelUploads = new VerticalLayout();
         ExcelUploadsTreeMenu excelUploadsTree = new ExcelUploadsTreeMenu(main);
@@ -62,7 +62,7 @@ public class TabAccordian extends Accordion {
         VerticalLayout reports = new VerticalLayout();
         GenerateReportsTreeMenu reportTree = new GenerateReportsTreeMenu(app);
         reports.addComponent(reportTree);
-        //addTab(reports, REPORTS, null);
+
 
         // Change Your  Details
         VerticalLayout changeYourDetails = new VerticalLayout();
@@ -70,7 +70,7 @@ public class TabAccordian extends Accordion {
         changeYourDetails.addComponent(userDatailsTree);
         addTab(changeYourDetails, CHANGE_PASSWORD, null);
 
- //Configure System Users
+        //Configure System Users
         VerticalLayout systemUsers = new VerticalLayout();
         ManageSystemUsersTreeMenu systemUsersTree = new ManageSystemUsersTreeMenu(app);
         systemUsers.addComponent(systemUsersTree);
@@ -84,6 +84,7 @@ public class TabAccordian extends Accordion {
             addTab(configureSystem, CONFIGURE_SYSTEM, null);
             addTab(excelUploads, EXCEL_UPLOADS, null);
             addTab(systemUsers, SYSTEM_USERS, null);
+            addTab(reports, REPORTS, null);
         }
 
     }
