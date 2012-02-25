@@ -68,6 +68,7 @@ public class UsersJUnitTest {
     public void testRead() {
         UsersDAO = (UsersDAO) ctx.getBean("usersDAO");
         Users u = UsersDAO.find(usersId);
+        Assert.assertNotNull(u);
        
     }
 

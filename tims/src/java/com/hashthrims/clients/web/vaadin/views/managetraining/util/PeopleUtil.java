@@ -66,7 +66,7 @@ public class PeopleUtil {
         boolean isPersonMentor = false;
         List<PersonRoles> roles = person.getPersonRoles();
         for (PersonRoles role : roles) {
-            if(role.getRoleName().equalsIgnoreCase("Mentor"))
+            if("Mentor".equalsIgnoreCase(role.getRoleName()))               
             isPersonMentor = true;
         }
        return isPersonMentor;
@@ -94,7 +94,7 @@ public class PeopleUtil {
     private String personFacility(List<EmployeePosition> position) {
         String clusterName = null;
         for (EmployeePosition p : position) {
-            if (p.getStatus().equalsIgnoreCase("CURRENT")) {
+            if ("CURRENT".equalsIgnoreCase(p.getStatus())) {
                 clusterName = getPosition(p);
             }
         }
@@ -131,7 +131,7 @@ public class PeopleUtil {
         boolean pendingPlan = false;
         for (EmployeeActionPlan employeeActionPlan : actionPlans) {
             if(employeeActionPlan.getActionPlan()!=null)
-                if(employeeActionPlan.getStatus().equalsIgnoreCase("PENDING")){
+                if("PENDING".equalsIgnoreCase(employeeActionPlan.getStatus())){
                     pendingPlan=true;
                 }
         }

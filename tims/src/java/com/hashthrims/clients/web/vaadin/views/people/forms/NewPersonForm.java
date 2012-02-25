@@ -149,7 +149,7 @@ public class NewPersonForm {
                 selectRaceList.setWidth("250");
                 return selectRaceList;
             } else if ("dob".equals(propertyId)) {
-                 field = new DateField("Date Started (dd/mm/yyyy):");
+                 field = new DateField("Date of Birth (dd/mm/yyyy):");
                 ((DateField) field).setRequired(true);
                 ((DateField) field).setDateFormat("dd/MM/yyyy");
                 ((DateField) field).setRequiredError("Please Enter Value");
@@ -233,6 +233,8 @@ public class NewPersonForm {
                         if (st.checkPositionAvalaibality(pos)) {
                             selectPositionList.addItem(pos.getId());
                             selectPositionList.setItemCaption(pos.getId(), pos.getPositionCode());
+                            
+                            
                         }
                     }
                 } else {

@@ -38,7 +38,7 @@ public class ActionPlanPersonWindow extends Window implements ClickListener {
     private final ScheduledCourses course;
     private final HashThrimsMain main;
     private final Person person;
-     private static ClientDataService data = new ClientDataService();
+    private static ClientDataService data = new ClientDataService();
 
     public ActionPlanPersonWindow(Person p, ScheduledCourses scheduledCourse, HashThrimsMain app) {
         main=app;

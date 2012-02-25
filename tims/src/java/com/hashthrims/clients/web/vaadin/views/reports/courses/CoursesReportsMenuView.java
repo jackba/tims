@@ -4,12 +4,10 @@
  */
 package com.hashthrims.clients.web.vaadin.views.reports.courses;
 
-import com.hashthrims.clients.web.vaadin.views.reports.people.*;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.views.reports.EmployeeViewPage;
 import com.hashthrims.clients.web.vaadin.views.reports.EmployeesTable;
 import com.hashthrims.clients.web.vaadin.views.reports.PositionsTable;
-import com.vaadin.ui.Label;
 
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;

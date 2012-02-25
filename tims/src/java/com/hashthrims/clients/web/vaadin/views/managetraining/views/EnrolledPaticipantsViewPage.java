@@ -12,6 +12,7 @@ import com.hashthrims.clients.web.vaadin.views.managetraining.model.ScheduleTrai
 import com.hashthrims.clients.web.vaadin.views.managetraining.windows.ActionPlanPersonWindow;
 import com.hashthrims.clients.web.vaadin.views.managetraining.windows.EvaluatePersonCourseWindow;
 import com.hashthrims.clients.web.vaadin.views.managetraining.windows.actionplans.views.ReviewDidaticActionPlanWindow;
+import com.hashthrims.clients.web.vaadin.views.people.views.PersonDetailsView;
 import com.hashthrims.clients.web.vaadin.views.people.views.details.course.form.EvaluateddCourseBean;
 import com.hashthrims.domain.EmployeeCourses;
 import com.hashthrims.domain.Person;
@@ -66,7 +67,7 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
     public EnrolledPaticipantsViewPage(HashThrimsMain app) {
 
         scheduledCoursesTable = getTable();
-        
+
 
         enrolledPeopleTable = getEnrolledTable();
 
@@ -232,15 +233,29 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
                         main.getMainWindow().addWindow(actionPlanSubWindow);
                     }
                 });
+                
+           Button detailsField  = new Button("Show Details", new Button.ClickListener() {
+
+                    @Override
+                    public void buttonClick(ClickEvent event) {
+                         main.mainView.setSecondComponent(new PersonDetailsView(person, main, ""));
+                    }
+                });
+
+
+               
+               
 
 
                 evaluateLink.setStyleName(Reindeer.BUTTON_LINK);
+                detailsField.setStyleName(Reindeer.BUTTON_LINK);
                 actionPlanLink.setStyleName(Reindeer.BUTTON_LINK);
                 revieActionPlan.setStyleName(Reindeer.BUTTON_LINK);
                 deregister.setStyleName(Reindeer.BUTTON_LINK);
 
 
                 enrolledPeopleTable.addItem(new Object[]{
+                            detailsField,
                             person.getPersonName(),
                             person.getPersonSurname(),
                             person.getActionPlans().size(),
@@ -346,6 +361,7 @@ public class EnrolledPaticipantsViewPage extends VerticalLayout implements
         table.setImmediate(true);
         table.addListener((ValueChangeListener) this);
         table.setColumnCollapsingAllowed(true);
+        table.addContainerProperty("Show Details", Button.class, null);
         table.addContainerProperty("First Name", String.class, null);
         table.addContainerProperty("Surname", String.class, null);
         table.addContainerProperty("Action Plans", String.class, null);

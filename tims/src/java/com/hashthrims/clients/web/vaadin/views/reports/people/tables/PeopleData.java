@@ -90,8 +90,6 @@ class PeopleData {
                 for (Person person : p) {
                     List<EmployeeCourses> courses = person.getCourses();
                     for (EmployeeCourses ec : courses) {
-                        System.out.println(" Get Course Date "+ec.getCourseStartDate());
-                        System.out.println(" get Start Date "+startDate);
                         if (startDate.before(ec.getCourseStartDate()) & endDate.after(ec.getCourseEndDate())) {
                             people.add(person);
 
@@ -100,8 +98,6 @@ class PeopleData {
                 }
             }
         } else if (dateSearchCombo.getPositionsCombo().getValue() == null & dateSearchCombo.getTopicCombo().getValue() != null) {
-
-           
 
             if (locationCombo.getFacility().getValue() != null) {
                 List<Person> p = data.getPersonService().findAll();
@@ -117,14 +113,31 @@ class PeopleData {
                         }
                     }
                 }
+            } else {
+                List<Person> p = data.getPersonService().findAll();
+                for (Person person : p) {
+                    List<EmployeeCourses> courses = person.getCourses();
+                    for (EmployeeCourses ec : courses) {
+                        if (startDate.before(ec.getCourseStartDate()) & endDate.after(ec.getCourseEndDate())) {
+
+                            if (new PersonLocation().isTrainingCourse(ec.getScheduledCourseSessionId(), dateSearchCombo.getTopicCombo().getValue())) {
+                                people.add(person);
+                            }
+
+                        }
+                    }
+                }
 
             }
 
 
+
+
         } else if (dateSearchCombo.getPositionsCombo().getValue() != null & dateSearchCombo.getTopicCombo().getValue() == null) {
 
-            
+
             if (locationCombo.getFacility().getValue() != null) {
+
                 List<Person> p = data.getPersonService().findAll();
                 for (Person person : p) {
                     List<EmployeeCourses> courses = person.getCourses();
@@ -139,10 +152,23 @@ class PeopleData {
                     }
                 }
 
+            } else {
+
+                List<Person> p = data.getPersonService().findAll();
+                for (Person person : p) {
+                    List<EmployeeCourses> courses = person.getCourses();
+                    for (EmployeeCourses ec : courses) {
+                        if (startDate.before(ec.getCourseStartDate()) & endDate.after(ec.getCourseEndDate())) {
+
+                            if (new PersonLocation().isPosition(person.getPosition(), dateSearchCombo.getPositionsCombo().getValue())) {
+                                people.add(person);
+                            }
+                        }
+                    }
+                }
             }
 
         } else {
-
             if (locationCombo.getFacility().getValue() != null) {
                 List<Person> p = data.getPersonService().findAll();
                 for (Person person : p) {
@@ -160,7 +186,26 @@ class PeopleData {
                     }
                 }
 
+            } else {
+                List<Person> p = data.getPersonService().findAll();
+                for (Person person : p) {
+                    List<EmployeeCourses> courses = person.getCourses();
+                    for (EmployeeCourses ec : courses) {
+                        if (startDate.before(ec.getCourseStartDate()) & endDate.after(ec.getCourseEndDate())) {
+
+                            if (new PersonLocation().isPosition(person.getPosition(), dateSearchCombo.getPositionsCombo().getValue())) {
+                                if (new PersonLocation().isTrainingCourse(ec.getScheduledCourseSessionId(), dateSearchCombo.getTopicCombo().getValue())) {
+                                    people.add(person);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
             }
+
+
         }
 
 

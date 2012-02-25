@@ -29,6 +29,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window.Notification;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -124,8 +125,8 @@ public class NewPersonViewPage extends VerticalLayout implements
             }
 
             bean.setRolesId(roles);
-            
-            
+
+
 
 
             if (bean != form.getItemDataSource()) {
@@ -140,6 +141,10 @@ public class NewPersonViewPage extends VerticalLayout implements
                 pform.getCancel().setVisible(true);
                 pform.getDelete().setVisible(true);
                 pform.getUpdate().setVisible(false);
+
+                if ((p.getContacts().size() < 1 || p.getIdentities().size() < 1 || p.getPosition().size() < 1)) {
+                    main.mainView.getWindow().showNotification("Caution", "The Person has some records for IDs, Contacts and Positions. These values will not update here. Please Update These values through Show details link. The rest of the Fields will update", Notification.TYPE_ERROR_MESSAGE);
+                }
             }
         }
     }
@@ -257,7 +262,7 @@ public class NewPersonViewPage extends VerticalLayout implements
         String surname = fieldValues.getStringFields(form.getField("surname").getValue());
         String othername = fieldValues.getStringFields(form.getField("othername").getValue());
 
-        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumbe").getValue());
+        String telephoneNumber = fieldValues.getStringFields(form.getField("telephoneNumber").getValue());
         String cellnumber = fieldValues.getStringFields(form.getField("cellnumber").getValue());
         String faxnumber = fieldValues.getStringFields(form.getField("faxnumber").getValue());
         String email = fieldValues.getStringFields(form.getField("email").getValue());

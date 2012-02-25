@@ -38,7 +38,7 @@ public class IdentitesDAOJPAImpl implements IdentitiesDAO{
     @Override
     public void merge(Identities entity) {
         em.merge(entity);
-        em.flush();
+        
     }
 
     @Override

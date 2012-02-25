@@ -8,6 +8,7 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.domain.EmployeePosition;
 import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.domain.traininglist.ScheduledCourses;
+import com.hashthrims.domain.traininglist.TrainingCourses;
 import java.util.List;
 
 /**
@@ -59,9 +60,12 @@ public class PersonLocation {
         boolean isTrainingCouse = false;
 
         ScheduledCourses sc = data.getScheduledCoursesType().find(scheduledCourseSessionId);
-
-        if (sc.getCourseId().equals(value)) {
-            isTrainingCouse = true;
+     
+        if (sc!=null) {
+            if (sc.getCourseId().equals(value)) {
+                
+                isTrainingCouse = true;
+            }
         }
 
         return isTrainingCouse;

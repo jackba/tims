@@ -446,7 +446,7 @@ public class PersonEditForm extends VerticalLayout implements Button.ClickListen
 
 
 
-            Label firstHeaderlabel = new Label("Person Demographics");
+            Label firstHeaderlabel = new Label("Person Demographics ");
             firstHeaderlabel.setStyleName(Runo.LABEL_H2);
             firstHeader.addComponent(firstHeaderlabel);
             layout.addComponent(firstHeader, 0, 0, 1, 0);

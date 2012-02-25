@@ -9,6 +9,7 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.managetraining.ManageTrainingMenuView;
 import com.hashthrims.clients.web.vaadin.views.managetraining.forms.ScheduleTrainingForm;
 import com.hashthrims.clients.web.vaadin.views.managetraining.model.ScheduleTrainingBean;
+import com.hashthrims.clients.web.vaadin.views.managetraining.windows.IndividualEnrollWindow;
 import com.hashthrims.domain.EmployeeCourses;
 import com.hashthrims.domain.Person;
 import com.hashthrims.domain.traininglist.ScheduledCourses;
@@ -19,16 +20,12 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Form;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window.Notification;
+import com.vaadin.ui.themes.Reindeer;
+import com.vaadin.ui.themes.Runo;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -47,14 +44,23 @@ public class ParticipantsEnrollViewPage extends VerticalLayout implements
     private final ClientDataService data = new ClientDataService();
     private final Table scheduledCoursesTable;
     private final HorizontalLayout people = new HorizontalLayout();
+    private final HorizontalLayout enrollPanel = new HorizontalLayout();
     private final Button enrollButton = new Button("Enroll Paricipants");
+    private final Button individualEnrollButton = new Button("Enroll Individual Paricipant");
+    private final Button bulkyEnrollButton = new Button("Enroll Group Participants");
     private final ListSelect peopleList = new ListSelect("Select People");
     private final ListSelect trainers = new ListSelect("List of Trainers for selected Course");
     private Long courseId;
     private Collection<Long> participantsId;
 
     public ParticipantsEnrollViewPage(HashThrimsMain app) {
+        individualEnrollButton.setSizeFull();
 
+        bulkyEnrollButton.setSizeFull();
+
+        enrollPanel.setSizeFull();
+        enrollPanel.addComponent(individualEnrollButton);
+        enrollPanel.addComponent(bulkyEnrollButton);
         scheduledCoursesTable = getTable();
         main = app;
         setSizeFull();
@@ -67,7 +73,8 @@ public class ParticipantsEnrollViewPage extends VerticalLayout implements
 
         // Add Listeners
         enrollButton.addListener((ClickListener) this);
-
+        individualEnrollButton.addListener((ClickListener) this);
+        bulkyEnrollButton.addListener((ClickListener) this);
         ScheduleTrainingBean bean = new ScheduleTrainingBean();
         BeanItem item = new BeanItem(bean);
         form.setItemDataSource(item);
@@ -102,12 +109,15 @@ public class ParticipantsEnrollViewPage extends VerticalLayout implements
         Object[] properties = {"Start Date"};
         boolean[] ascending = {false};
         scheduledCoursesTable.sort(properties, ascending);
+        addComponent(enrollPanel);
+        Label headerLabel = new Label("List of Scheduled Courses");
+        headerLabel.setStyleName(Reindeer.LABEL_H1);
+        addComponent(headerLabel);
         addComponent(scheduledCoursesTable);
         setComponentAlignment(scheduledCoursesTable, Alignment.TOP_CENTER);
         people.addComponent(peopleList);
         people.addComponent(trainers);
-        addComponent(people);
-        addComponent(enrollButton);
+
         setComponentAlignment(scheduledCoursesTable, Alignment.MIDDLE_CENTER);
     }
 
@@ -141,10 +151,30 @@ public class ParticipantsEnrollViewPage extends VerticalLayout implements
             main.mainView.setSecondComponent(new ManageTrainingMenuView(main, "ENROLL"));
         }
 
+        if (source == bulkyEnrollButton) {
+
+            if (courseId != null) {
+                addComponent(people);
+                addComponent(enrollButton);
+            } else {
+                main.getMainWindow().showNotification("No Course Selection Made", "Please Select The Course and Click on Enroll Again", Notification.TYPE_ERROR_MESSAGE);
+            }
+        }
+
+        if (source == individualEnrollButton) {
+
+            if (courseId != null) {
+                ScheduledCourses cour = data.getScheduledCoursesType().find(courseId);
+                main.getMainWindow().addWindow(new IndividualEnrollWindow(cour, main));
+            } else {
+                main.getMainWindow().showNotification("No Course Selection Made", "Please Select The Course and Click on Enroll Again", Notification.TYPE_ERROR_MESSAGE);
+            }
+        }
+
     }
 
     private Table getTable() {
-        Table table = new Table("Scheduled Courses For Enrolment");
+        Table table = new Table();
         table.setSizeFull();
         table.setMultiSelect(false);
         table.setSelectable(true);

@@ -25,8 +25,7 @@ public class Contacts implements Serializable {
     private String email;
     private String notes;
     private String addressType;
-    @OneToOne
-    private Person person;
+  
    
 
 
@@ -159,20 +158,6 @@ public class Contacts implements Serializable {
      */
     public void setAddressType(String addressType) {
         this.addressType = addressType;
-    }
-
-    /**
-     * @return the person
-     */
-    public Person getPerson() {
-        return person;
-    }
-
-    /**
-     * @param person the person to set
-     */
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
  

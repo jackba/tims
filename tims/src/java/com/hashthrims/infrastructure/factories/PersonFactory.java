@@ -31,7 +31,7 @@ public class PersonFactory {
     private PersonService personService;
     private CityService cityService;
     private ClientDataService data = new ClientDataService();
-     private final PositionsFactory factory = data.getPositionFactory();
+    private final PositionsFactory factory = data.getPositionFactory();
 
     public Person loadPerson(Long id) {
         personService = (PersonService) ctx.getBean("personService");
@@ -83,13 +83,9 @@ public class PersonFactory {
         p.setPersonName(names.get("firstname"));
         p.setPersonOtherName(names.get("othername"));
         p.setPersonSurname(names.get("surname"));
-        
-        //COntacts 
-//        names.put("telephoneNumber", telephoneNumber);
-//        names.put("cellnumber", cellnumber);
-//        names.put("faxnumber", faxnumber);
-//        names.put("email", email);
-        
+
+
+
         Contacts c = new Contacts();
         c.setAddressType("Personal Contact");
         c.setCellnumber(names.get("telephoneNumber"));
@@ -97,41 +93,35 @@ public class PersonFactory {
         c.setFaxnumber(names.get("faxnumber"));
         c.setTelephoneNumber(names.get("email"));
         p.getContacts().add(c);
-        
-        // Identies
-//        names.put("idType", idType);
-//        names.put("idValue", idValue);
-//        
+
+
         final Identities i = new Identities();
         i.setIdType(names.get("idType"));
         i.setIdValue(names.get("idValue"));
         p.getIdentities().add(i);
-        //Position
-//        demo.put("positionId", positionId);
-//        demo.put("facilityId", facilityId);
-//        dates.put("startDate", startDate);
-       
+
+
         final Long positionId = demo.get("positionId");
         final Date startDate = dates.get("startDate");
         final Positions position = data.getPositionsService().find(positionId);
-        final Status st= data.getStatusService().getByPropertyName("status", "FILLED");
+        final Status st = data.getStatusService().getByPropertyName("status", "FILLED");
         position.setPositionStatus(st);
         data.getPositionsService().merge(position);
         EmployeePosition employeePositions = factory.createEmployeePosition(position, "CURRENT", startDate, null);
         p.getPosition().add(employeePositions);
-        
+
         //Demo
 //        dates.put("dob", dob);
 //        
-        
+
         Demography d = new Demography();
         d.setDob(dates.get("dob"));
         GenderList gender = data.getGenderListService().find(demo.get("genderId"));
-        if (gender!=null) {
+        if (gender != null) {
             d.setGender(gender.getGender());
         }
         RaceList race = data.getRaceListService().find(demo.get("raceId"));
-        if (race!=null) {
+        if (race != null) {
             d.setRace(race.getRaceName());
         }
         p.setDemography(d);
@@ -150,7 +140,6 @@ public class PersonFactory {
         }
         Collection<Long> expertiseId = lists.get("expertiseId");
         for (Long expertiseid : expertiseId) {
-            
         }
 
         return p;
@@ -161,43 +150,49 @@ public class PersonFactory {
         p.setPersonName(names.get("firstname"));
         p.setPersonOtherName(names.get("othername"));
         p.setPersonSurname(names.get("surname"));
-        
-           //COntacts 
+
+        //COntacts 
 //        names.put("telephoneNumber", telephoneNumber);
 //        names.put("cellnumber", cellnumber);
 //        names.put("faxnumber", faxnumber);
 //        names.put("email", email);
-        
-        Contacts c = new Contacts();
-        c.setAddressType("Personal Contact");
-        c.setCellnumber(names.get("telephoneNumber"));
-        c.setEmail(names.get("cellnumber"));
-        c.setFaxnumber(names.get("faxnumber"));
-        c.setTelephoneNumber(names.get("email"));
-       // p.getContacts().add(c);
-        
+
+        if (p.getContacts().size() < 1) {
+            Contacts c = new Contacts();
+            c.setAddressType("Personal Contact");
+            c.setCellnumber(names.get("telephoneNumber"));
+            c.setEmail(names.get("cellnumber"));
+            c.setFaxnumber(names.get("faxnumber"));
+            c.setTelephoneNumber(names.get("email"));
+            p.getContacts().add(c);
+        }
+
         // Identies
 //        names.put("idType", idType);
 //        names.put("idValue", idValue);
-        
-        final Identities i = new Identities();
-        i.setIdType(names.get("idType"));
-        i.setIdValue(names.get("idValue"));
-       // p.getIdentities().add(i);
+
+        if (p.getIdentities().size() < 1) {
+            final Identities i = new Identities();
+            i.setIdType(names.get("idType"));
+            i.setIdValue(names.get("idValue"));
+            p.getIdentities().add(i);
+        }
 //        
         //Position
 //        demo.put("positionId", positionId);
 //        demo.put("facilityId", facilityId);
 //        dates.put("startDate", startDate);
-        
-        final Long positionId = demo.get("positionId");
-        final Date startDate = dates.get("startDate");
-        final Positions position = data.getPositionsService().find(positionId);
-        final Status st= data.getStatusService().getByPropertyName("status", "FILLED");
-        position.setPositionStatus(st);
-        data.getPositionsService().merge(position);
-        EmployeePosition employeePositions = factory.createEmployeePosition(position, "CURRENT", startDate, null);
-      //  p.getPosition().add(employeePositions);
+
+        if (p.getPosition().size() < 1) {
+            final Long positionId = demo.get("positionId");
+            final Date startDate = dates.get("startDate");
+            final Positions position = data.getPositionsService().find(positionId);
+            final Status st = data.getStatusService().getByPropertyName("status", "FILLED");
+            position.setPositionStatus(st);
+            data.getPositionsService().merge(position);
+            EmployeePosition employeePositions = factory.createEmployeePosition(position, "CURRENT", startDate, null);
+            p.getPosition().add(employeePositions);
+        }
         //Demo
 //        dates.put("dob", dob);
 //        
@@ -205,15 +200,15 @@ public class PersonFactory {
         Demography d = p.getDemography();
         d.setDob(dates.get("dob"));
         GenderList gender = data.getGenderListService().find(demo.get("genderId"));
-        if (gender!=null) {
+        if (gender != null) {
             d.setGender(gender.getGender());
         }
         RaceList race = data.getRaceListService().find(demo.get("raceId"));
-        if (race!=null) {
+        if (race != null) {
             d.setRace(race.getRaceName());
         }
         p.setDemography(d);
-        
+
         p.getPersonRoles().clear();
         Collection<Long> rolesid = lists.get("rolesid");
         for (Long roleid : rolesid) {
@@ -225,26 +220,27 @@ public class PersonFactory {
         Collection<Long> competencyFieldId = lists.get("competencyFieldId");
         for (Long compid : competencyFieldId) {
             MentorExpertiseArea a = new MentorExpertiseArea();
-             a.setExpertiseAreaName(getFieldName(data.getMentoringFieldService().find(compid)));
+            a.setExpertiseAreaName(getFieldName(data.getMentoringFieldService().find(compid)));
             p.getExpertiseArea().add(a);
         }
         Collection<Long> expertiseId = lists.get("expertiseId");
         for (Long expertiseid : expertiseId) {
-            
         }
 
         return p;
     }
 
     private String getMentorsRolesName(MentorsRoles role) {
-        if(role!=null)
+        if (role != null) {
             return role.getMentorsRolesName();
+        }
         return null;
     }
 
     private String getFieldName(MentoringField role) {
-        if(role!=null)
+        if (role != null) {
             return role.getFieldName();
+        }
         return null;
     }
 }

@@ -39,7 +39,7 @@ public class CountryDAOJPAImpl  implements CountryDAO {
     @Override
     public void merge(Country entity) {
         em.merge(entity);
-        em.flush();
+       
     }
 
     @Override

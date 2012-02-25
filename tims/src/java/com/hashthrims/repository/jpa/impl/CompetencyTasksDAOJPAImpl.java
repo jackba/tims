@@ -39,7 +39,7 @@ public class CompetencyTasksDAOJPAImpl  implements CompetencyTasksDAO {
     @Override
     public void merge(CompetencyTasks entity) {
         em.merge(entity);
-        em.flush();
+        
     }
 
     @Override

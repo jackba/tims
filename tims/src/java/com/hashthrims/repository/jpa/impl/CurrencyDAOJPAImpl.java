@@ -38,7 +38,7 @@ public class CurrencyDAOJPAImpl  implements CurrencyDAO {
     @Override
     public void merge(Currency entity) {
         em.merge(entity);
-        em.flush();
+      
     }
 
     @Override

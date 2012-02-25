@@ -131,7 +131,7 @@ public class TimsUtil {
 
     public String getDobLabel(Demography demography) {
         if (demography != null) {
-            return demography.getDob().toString();
+            return getDateofBirthString(demography.getDob());
         }
         return null;
     }
@@ -378,6 +378,12 @@ public class TimsUtil {
         if (course != null) {
             return course.getCourseName();
         }
+        return null;
+    }
+
+    private String getDateofBirthString(Date dob) {
+        if(dob!=null)
+            return dob.toString();
         return null;
     }
 }

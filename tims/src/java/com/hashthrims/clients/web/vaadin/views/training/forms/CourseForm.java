@@ -303,7 +303,6 @@ public class CourseForm {
                 layout.addComponent(field, 1, 3);
             } else if (propertyId.equals("courseObjective")) {
                 layout.addComponent(field, 0,7,1, 7);
-
             }
 
 

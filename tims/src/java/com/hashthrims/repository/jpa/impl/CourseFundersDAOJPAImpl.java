@@ -44,7 +44,7 @@ public class CourseFundersDAOJPAImpl implements CourseFundersDAO{
     public void remove(CourseFunders entity) {
         CourseFunders acc =em.find(CourseFunders.class, entity.getId());
         em.remove(acc);
-        em.flush();
+       
     }
 
     @Override

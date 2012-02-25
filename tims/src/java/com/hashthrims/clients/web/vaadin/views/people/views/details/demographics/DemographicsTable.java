@@ -63,7 +63,7 @@ public class DemographicsTable implements ClickListener {
         delete = new Button("Delete This Information");
         delete.addStyleName("link");
         table.addComponent(edit, 0, 2);
-        table.addComponent(delete, 0, 3);
+       // Disabled Delete Information table.addComponent(delete, 0, 3);
 
         edit.addListener((ClickListener) (this));
         delete.addListener((ClickListener) this);
@@ -177,6 +177,7 @@ public class DemographicsTable implements ClickListener {
         bean.setPersonName(person.getPersonName());
         bean.setPersonOtherName(person.getPersonOtherName());
         bean.setPersonSurname(person.getPersonSurname());
+        
 
         bean.setResidence(st.getResidence(person.getResidence()));
         bean.setGender(st.getGender(person.getDemography()));
