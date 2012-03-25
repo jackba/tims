@@ -21,8 +21,8 @@ import java.util.List;
  * @author boniface
  */
 public class PeopleUtil {
-    private final static ClientDataService data = new ClientDataService();
 
+    private final static ClientDataService data = new ClientDataService();
 
     public List<Person> getMentors(List<Person> list) {
         List<Person> mentors = new ArrayList<Person>();
@@ -30,7 +30,7 @@ public class PeopleUtil {
         for (Person person : people) {
             if (isPersonMentor(person)) {
                 mentors.add(person);
-            } 
+            }
         }
         return mentors;
     }
@@ -49,13 +49,13 @@ public class PeopleUtil {
         MentoringSession ms = data.getMentoringSessionService().find(mentoringSessionId);
         Facility facility = ms.getMentoringVenue();
         for (Person person : list) {
-            if(isPersonInCluster(facility,person)){
+            if (isPersonInCluster(facility, person)) {
                 if (hasPersonGotPendingActionPlan(person)) {
                     menteesInCluster.add(person);
                 }
             }
         }
-        return  menteesInCluster;
+        return menteesInCluster;
     }
 
     public List<Person> getNodePeopleWithPendingActionPlan(List<Person> list, Long clusterId) {
@@ -66,17 +66,18 @@ public class PeopleUtil {
         boolean isPersonMentor = false;
         List<PersonRoles> roles = person.getPersonRoles();
         for (PersonRoles role : roles) {
-            if("Mentor".equalsIgnoreCase(role.getRoleName()))               
-            isPersonMentor = true;
+            if ("Mentor".equalsIgnoreCase(role.getRoleName())) {
+                isPersonMentor = true;
+            }
         }
-       return isPersonMentor;
+        return isPersonMentor;
     }
 
-    private boolean isPersonInCluster(Facility facility,Person person) {
+    private boolean isPersonInCluster(Facility facility, Person person) {
         String personCluster = getPersonClusterName(person);
         boolean isPersonIncluster = false;
-        if(facility.getFacilityGrouping()!=null){
-            if (personCluster!=null) {
+        if (facility.getFacilityGrouping() != null) {
+            if (personCluster != null) {
                 if (personCluster.equalsIgnoreCase(clusterGroupingName(facility.getFacilityGrouping()))) {
                     isPersonIncluster = true;
                 }
@@ -86,8 +87,9 @@ public class PeopleUtil {
     }
 
     private String getPersonClusterName(Person person) {
-        if(person.getPosition().size()<0)
+        if (person.getPosition().size() < 0) {
             return null;
+        }
         return personFacility(person.getPosition());
     }
 
@@ -102,45 +104,97 @@ public class PeopleUtil {
     }
 
     private String getPosition(EmployeePosition p) {
-        if(p.getPosition()!=null)
+        if (p.getPosition() != null) {
             return getFacility(p.getPosition());
+        }
         return null;
     }
 
     private String getFacility(Positions position) {
-        if(position.getFacililty()!=null)
+        if (position.getFacililty() != null) {
             return getFacilityGrouping(position.getFacililty());
+        }
         return null;
     }
 
     private String getFacilityGrouping(Facility facililty) {
-        if(facililty.getFacilityGrouping()!=null)
+        if (facililty.getFacilityGrouping() != null) {
             return facililty.getFacilityGrouping().getCluster();
+        }
         return null;
     }
 
     private boolean hasPersonGotPendingActionPlan(Person person) {
         boolean hasPendingActionPlan = false;
-        if(person.getActionPlans().size()<0)
-            return  hasPendingActionPlan;
+        if (person.getActionPlans().size() < 0) {
+            return hasPendingActionPlan;
+        }
         return anypendingPlan(person.getActionPlans());
-            
+
     }
 
     private boolean anypendingPlan(List<EmployeeActionPlan> actionPlans) {
         boolean pendingPlan = false;
         for (EmployeeActionPlan employeeActionPlan : actionPlans) {
-            if(employeeActionPlan.getActionPlan()!=null)
-                if("PENDING".equalsIgnoreCase(employeeActionPlan.getStatus())){
-                    pendingPlan=true;
+            if (employeeActionPlan.getActionPlan() != null) {
+                if ("PENDING".equalsIgnoreCase(employeeActionPlan.getStatus())) {
+                    pendingPlan = true;
                 }
+            }
         }
         return pendingPlan;
     }
 
     private String clusterGroupingName(FacilityGrouping facilityGrouping) {
-        if(facilityGrouping!=null)
+        if (facilityGrouping != null) {
             return facilityGrouping.getCluster();
+        }
         return null;
+    }
+
+    public String getFacilityForPerson(Person person) {
+
+        List<EmployeePosition> positions = person.getPosition();
+
+        for (EmployeePosition employeePosition : positions) {
+            if ("CURRENT".equalsIgnoreCase(employeePosition.getStatus())) {
+                return employeePosition.getPosition().getFacililty().getFacilityName();
+            }
+        }
+        return null;
+    }
+
+    public String getPositionForPerson(Person person) {
+        List<EmployeePosition> positions = person.getPosition();
+
+        for (EmployeePosition employeePosition : positions) {
+            if ("CURRENT".equalsIgnoreCase(employeePosition.getStatus())) {
+                return employeePosition.getPosition().getJob().getJob_tittle();
+            }
+        }
+        return null;
+    }
+
+    public String getPositionCodeForPerson(Person person) {
+        List<EmployeePosition> positions = person.getPosition();
+
+        for (EmployeePosition employeePosition : positions) {
+            if ("CURRENT".equalsIgnoreCase(employeePosition.getStatus())) {
+                return employeePosition.getPosition().getPositionCode();
+            }
+        }
+        return null;
+    }
+
+    public EmployeePosition getEmployeePosition(List<EmployeePosition> positions) {
+        EmployeePosition ep = null;
+        if (positions.size() > 0) {
+            for (EmployeePosition employeePosition : positions) {
+                if ("CURRENT".equalsIgnoreCase(employeePosition.getStatus())) {
+                    ep = employeePosition;
+                }
+            }
+        }
+        return ep;
     }
 }

@@ -6,11 +6,14 @@ package com.hashthrims.clients.web.vaadin.views.managetraining.windows;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
+import com.hashthrims.clients.web.vaadin.views.managetraining.windows.traineeprofle.TraineePersonalInformation;
 import com.hashthrims.domain.EmployeeCourses;
 import com.hashthrims.domain.Person;
 import com.hashthrims.domain.traininglist.ScheduledCourses;
 import com.hashthrims.domain.traininglist.TrainingCourseRequestors;
 import com.hashthrims.domain.traininglist.TrainingCourses;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import java.util.Collections;
@@ -20,12 +23,13 @@ import java.util.List;
  *
  * @author boniface
  */
-public class IndividualEnrollWindow extends Window implements Button.ClickListener {
+public class IndividualEnrollWindow extends Window implements Button.ClickListener, Property.ValueChangeListener {
 
     private final HorizontalLayout enrollLayout = new HorizontalLayout();
     private final VerticalLayout layout = new VerticalLayout();
-    private final Button enroll = new Button("Enroll Participant");
-    private final Button cancel = new Button("Cancel Addition of New Person");
+    private final VerticalLayout canvas = new VerticalLayout();
+    private final Button enrollParticipant = new Button("Enroll Participant");
+    private final Button cancelAdditionOfNewPerson = new Button("Cancel Addition of New Person");
     private final Button addNewPerson = new Button("Add New Person");
     private final ScheduledCourses course;
     private final HashThrimsMain main;
@@ -36,11 +40,14 @@ public class IndividualEnrollWindow extends Window implements Button.ClickListen
     public IndividualEnrollWindow(ScheduledCourses course, HashThrimsMain main) {
         this.course = course;
         this.main = main;
-        newPerson = new AddNewPerson(main, course,this);
-        cancel.setSizeFull();
-        enroll.addListener((Button.ClickListener) this);
+        canvas.setSizeFull();
+        newPerson = new AddNewPerson(main, course, this);
+        cancelAdditionOfNewPerson.setSizeFull();
+        // Add Listeners 
+        participatnts.addListener((Property.ValueChangeListener) this);
+        enrollParticipant.addListener((Button.ClickListener) this);
         addNewPerson.addListener((Button.ClickListener) this);
-        cancel.addListener((Button.ClickListener) this);
+        cancelAdditionOfNewPerson.addListener((Button.ClickListener) this);
         List<Person> people = data.getPersonService().findAll();
         Collections.sort(people);
         for (Person person : people) {
@@ -59,11 +66,12 @@ public class IndividualEnrollWindow extends Window implements Button.ClickListen
         setCaption("Enroll Individual Into the Course " + course.getCourseName());
         enrollLayout.setSizeFull();
         enrollLayout.addComponent(participatnts);
-        enrollLayout.addComponent(enroll);
+        enrollLayout.addComponent(enrollParticipant);
         enrollLayout.addComponent(addNewPerson);
         layout.addComponent(new Label("<hr>", Label.CONTENT_XHTML));
         layout.addComponent(enrollLayout);
         layout.addComponent(new Label("<hr>", Label.CONTENT_XHTML));
+        layout.addComponent(canvas);
         addComponent(layout);
 
 
@@ -72,21 +80,19 @@ public class IndividualEnrollWindow extends Window implements Button.ClickListen
     @Override
     public void buttonClick(ClickEvent event) {
         final Button source = event.getButton();
-        if (source == enroll) {
+        if (source == enrollParticipant) {
             enrollParticipant(course.getId(), new Long(participatnts.getValue().toString()));
             closeWindow();
         }
         if (source == addNewPerson) {
-            layout.addComponent(newPerson);
-            layout.addComponent(cancel);
+            canvas.removeAllComponents();
+            canvas.addComponent(newPerson);
+            canvas.addComponent(cancelAdditionOfNewPerson);
 
 
         }
-        if (source == cancel) {
-            layout.removeComponent(cancel);
-            layout.removeComponent(newPerson);
-           
-
+        if (source == cancelAdditionOfNewPerson) {
+            canvas.removeAllComponents();
 
         }
     }
@@ -120,5 +126,19 @@ public class IndividualEnrollWindow extends Window implements Button.ClickListen
 
 
 
+    }
+
+    @Override
+    public void valueChange(ValueChangeEvent event) {
+        final Property property = event.getProperty();
+        if (property == participatnts) {
+            canvas.removeAllComponents();
+            if (participatnts.getValue()!=null) {
+                Long id = new Long(participatnts.getValue().toString());
+                canvas.addComponent(new TraineePersonalInformation(data.getPersonService().find(id),main));
+            }
+
+
+        }
     }
 }
