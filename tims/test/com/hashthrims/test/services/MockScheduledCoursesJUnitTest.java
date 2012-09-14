@@ -15,7 +15,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -58,7 +57,7 @@ public class MockScheduledCoursesJUnitTest {
      {
 
       ScheduledCourses s = new ScheduledCourses();
-      s.setDistrict("Western");
+//      s.setDistrict("Western");
 
 
 

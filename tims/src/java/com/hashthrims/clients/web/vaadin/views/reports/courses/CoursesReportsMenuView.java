@@ -24,19 +24,19 @@ public class CoursesReportsMenuView extends VerticalLayout {
 
     public CoursesReportsMenuView(HashThrimsMain app, String selectedTab) {
         main = app;
-      //  main.setTheme(getStyleName());
+        //  main.setTheme(getStyleName());
 
         VerticalLayout positionsTab = new VerticalLayout();
         positionsTab.setMargin(true);
-       positionsTab.addComponent(new PositionsTable(main));
+        positionsTab.addComponent(new PositionsTable(main));
 
         VerticalLayout employeesTab = new VerticalLayout();
         employeesTab.setMargin(true);
-       employeesTab.addComponent(new EmployeeViewPage(main));
+        employeesTab.addComponent(new EmployeeViewPage(main));
 
         VerticalLayout facilitiesTab = new VerticalLayout();
         facilitiesTab.setMargin(true);
-       // facilitiesTab.addComponent(new FacilityTable(app));
+        // facilitiesTab.addComponent(new FacilityTable(app));
 
         facilitiesTab.setHeight("100%");
         facilitiesTab.setWidth("500px");
@@ -47,12 +47,12 @@ public class CoursesReportsMenuView extends VerticalLayout {
         tab.addTab(positionsTab, "Positions", null);
         tab.addTab(employeesTab, "Employees", null);
         tab.addTab(facilitiesTab, "Facilities", null);
-      
+
         if (selectedTab.equals("POSITION")) {
             tab.setSelectedTab(positionsTab);
-        } else if (selectedTab.equals("EMPLOYEE")){
+        } else if (selectedTab.equals("EMPLOYEE")) {
             tab.setSelectedTab(employeesTab);
-        } else if (selectedTab.equals("FACILITY")){
+        } else if (selectedTab.equals("FACILITY")) {
             tab.setSelectedTab(facilitiesTab);
         }
         addComponent(tab);
