@@ -54,4 +54,15 @@ public interface PeopleReportDAO {
     public List<PeopleReport> getRecordByFacilityCourse(Date startDate, Date endDate, String course, String facility);
 
     public List<PeopleReport> getRecordByFacilityProfession(Date startDate, Date endDate, String profession, String facility);
+
+    //The Other Option Methods 
+    public List<PeopleReport> getRecordByFacilityProfessionAndCourse(Date startDate, Date endDate, String facility, String profession, String course);
+
+    public List<PeopleReport> getRecordByCityProfessionAndCourse(Date startDate, Date endDate, String city, String profession, String course);
+
+    public List<PeopleReport> getRecordBySubDistrictProfessionAndCourse(Date startDate, Date endDate, String subDistrict, String profession, String course);
+
+    public List<PeopleReport> getRecordByDistrictProfessionAndCourse(Date startDate, Date endDate, String district, String profession, String course);
+
+    public List<PeopleReport> getRecordByProvinceProfessionAndCourse(Date startDate, Date endDate, String profession, String course);
 }

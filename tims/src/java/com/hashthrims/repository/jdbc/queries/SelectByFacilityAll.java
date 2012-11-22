@@ -21,7 +21,7 @@ import org.springframework.jdbc.object.MappingSqlQuery;
 public class SelectByFacilityAll extends MappingSqlQuery<PeopleReport> {
 
     private static final String SQL_STATEMENT = " "
-            + "SELECT   "
+            + " SELECT "
             +   "person.personsurname , "
             +   "person.personname ,"
             +   "jobs.jobtittle , "
@@ -31,7 +31,7 @@ public class SelectByFacilityAll extends MappingSqlQuery<PeopleReport> {
             +   "employeecourses.courseenddate ,  "
             +   "employeecourses.coursestartdate ,  "
             +   "scheduledcourses.coursename "
-            + "FROM  "
+            + " FROM  "
             +   "public.person,  "
             +   "public.employeeposition, "
             +   "public.jobs,   public.facility, "
@@ -39,7 +39,7 @@ public class SelectByFacilityAll extends MappingSqlQuery<PeopleReport> {
             +   "public.district,   public.county, "
             +   "public.employeecourses, "
             +   "public.scheduledcourses "
-            + "WHERE"
+            + " WHERE "
             +   "employeeposition.person_id = person.id "
             +   "AND  employeeposition.status ='CURRENT' "
             +   "AND  employeeposition.position_id = positions.id "
@@ -50,14 +50,14 @@ public class SelectByFacilityAll extends MappingSqlQuery<PeopleReport> {
             +   "AND  district.county_id = county.id "
             +   "AND  employeecourses.person_id=person.id "
             +   "AND  scheduledcourses.id=employeecourses.scheduledcoursesessionid "
-            +   "AND  facility.facilityname = :facilityname "
+            +   "AND  facility.id = :facilityname "
             +   "AND  employeecourses.coursestartdate BETWEEN :coursestartdate AND :courseenddate ";
     
     public SelectByFacilityAll(DataSource dataSource){
         super(dataSource,SQL_STATEMENT);
         super.declareParameter(new SqlParameter("coursestartdate", Types.DATE));
         super.declareParameter(new SqlParameter("courseenddate", Types.DATE));
-        super.declareParameter(new SqlParameter("facilityname", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("facilityname", Types.BIGINT));
 
     }
 

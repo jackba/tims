@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.springframework.jdbc.object.MappingSqlQuery;
 
-
-
 /**
  *
  * @author boniface

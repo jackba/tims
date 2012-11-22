@@ -50,14 +50,14 @@ public class SelectByCityAll extends MappingSqlQuery<PeopleReport> {
             +   "AND  district.county_id = county.id "
             +   "AND  employeecourses.person_id=person.id "
             +   "AND  scheduledcourses.id=employeecourses.scheduledcoursesessionid "
-            +   "AND city.name = :name "
+            +   "AND city.id = :name "
             +   "AND  employeecourses.coursestartdate BETWEEN :coursestartdate AND :courseenddate ";
     
     public SelectByCityAll(DataSource dataSource){
         super(dataSource,SQL_STATEMENT);
         super.declareParameter(new SqlParameter("coursestartdate", Types.DATE));
         super.declareParameter(new SqlParameter("courseenddate", Types.DATE));
-        super.declareParameter(new SqlParameter("name", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("name", Types.BIGINT));
 
     }
 

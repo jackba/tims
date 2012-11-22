@@ -30,8 +30,8 @@ public class PeopleTable {
         table.addContainerProperty("Facility ", String.class, null);
 
         table.addContainerProperty("City", String.class, null);
-        table.addContainerProperty("Sub District", String.class, null);
-        table.addContainerProperty("District ", String.class, null);
+        table.addContainerProperty("District", String.class, null);
+        table.addContainerProperty("Sub District ", String.class, null);
 
 
         table.addContainerProperty("Course Start Date ", Date.class, null);

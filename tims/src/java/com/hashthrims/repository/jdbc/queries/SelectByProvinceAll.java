@@ -12,8 +12,6 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.MappingSqlQuery;
 
-
-
 /**
  *
  * @author boniface

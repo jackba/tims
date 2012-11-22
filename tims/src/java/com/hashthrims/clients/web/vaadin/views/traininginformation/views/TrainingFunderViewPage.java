@@ -36,9 +36,9 @@ public class TrainingFunderViewPage extends VerticalLayout implements
     private HashThrimsMain main;
     private Form form;
     private TrainingFunderForm cf;
-     private static ClientDataService data = new ClientDataService();
+    private static ClientDataService data = new ClientDataService();
     private TrainingFunderTable table;
-     private final DataFieldsUtil fieldValues = new DataFieldsUtil();
+    private final DataFieldsUtil fieldValues = new DataFieldsUtil();
 
     public TrainingFunderViewPage(HashThrimsMain app) {
         main = app;
@@ -161,7 +161,7 @@ public class TrainingFunderViewPage extends VerticalLayout implements
         TrainingFactory factory = data.getTrainingFactory();
         //OrganisationListFactory factory = data.getOfficeFactory();
 
-      
+
 
 
         String funderName = fieldValues.getStringFields(form.getField("trainingFunder").getValue());

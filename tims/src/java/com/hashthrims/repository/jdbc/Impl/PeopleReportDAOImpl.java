@@ -94,13 +94,15 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByFacility(String facility) {
+        System.out.println(" Get By FACILITY");
         List<PeopleReport> records = new ArrayList<PeopleReport>();
         List<PeopleReport> list = selectAllRecords.execute();
-        return records;
+        return list;
     }
 
     @Override
     public List<PeopleReport> getRecordByDate(Date startDate, Date endDate) {
+        System.out.println(" Get By RECORD DATE ");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -110,6 +112,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByProvinceAll(Date startDate, Date endDate) {
+        System.out.println(" Get By ALL PROVINCE ");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -118,6 +121,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByProvinceCourse(Date startDate, Date endDate, String course) {
+        System.out.println(" Get By COURSEY" + course);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -127,6 +131,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByProvinceProfession(Date startDate, Date endDate, String profession) {
+        System.out.println(" Get By ALL Profession" + profession);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -136,6 +141,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByDistrictAll(Date startDate, Date endDate, String district) {
+        System.out.println(" Get By ALL DISTRICT");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -145,6 +151,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByDistrictCourse(Date startDate, Date endDate, String course, String district) {
+        System.out.println(" Get By COURSE AND DISTRICT ");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -155,6 +162,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByDistrictProfession(Date startDate, Date endDate, String profession, String district) {
+        System.out.println(" Get By DISTRICT AND PROFESSION");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -165,15 +173,19 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordBySubDistrictAll(Date startDate, Date endDate, String subdistrict) {
+        System.out.println(" Get By ALL SubDistrict");
+        System.out.println(" THE DISTRICT IS " + subdistrict);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
         paramMap.put("countyname", subdistrict);
+        System.out.println(" THE SIZE OF THE RESULTS " + selectBySubDistrictAll.executeByNamedParam(paramMap).size());
         return selectBySubDistrictAll.executeByNamedParam(paramMap);
     }
 
     @Override
     public List<PeopleReport> getRecordBySubDistrictCourse(Date startDate, Date endDate, String course, String subdistrict) {
+        System.out.println(" Get By SUBD and COURSE");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -184,6 +196,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordBySubDistrictProfession(Date startDate, Date endDate, String profession, String subdistrict) {
+        System.out.println(" Get By SUB D and PROFES " + profession + "  " + subdistrict);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -194,15 +207,18 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByCityAll(Date startDate, Date endDate, String city) {
+        System.out.println(" Get By ALL CITY");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
         paramMap.put("name", city);
+
         return selectByCityAll.executeByNamedParam(paramMap);
     }
 
     @Override
     public List<PeopleReport> getRecordByCityCourse(Date startDate, Date endDate, String course, String city) {
+        System.out.println(" Get By CITY AND COURSE");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -213,6 +229,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByCityProfession(Date startDate, Date endDate, String profession, String city) {
+        System.out.println(" Get By PROF AND CITY");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -223,6 +240,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByFacilityAll(Date startDate, Date endDate, String facility) {
+        System.out.println(" Get By ALL FACILITY");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -232,6 +250,7 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByFacilityCourse(Date startDate, Date endDate, String course, String facility) {
+        System.out.println(" Get By FACILITY AND COURSE " + course + " The Facility is " + facility);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
@@ -242,11 +261,71 @@ public class PeopleReportDAOImpl implements PeopleReportDAO {
 
     @Override
     public List<PeopleReport> getRecordByFacilityProfession(Date startDate, Date endDate, String profession, String facility) {
+        System.out.println(" Get By FACILITY AND PROF ");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("coursestartdate", startDate);
         paramMap.put("courseenddate", endDate);
         paramMap.put("facilityname", facility);
         paramMap.put("jobtittle", profession);
         return selectByFacilityProfession.executeByNamedParam(paramMap);
+    }
+
+    @Override
+    public List<PeopleReport> getRecordByFacilityProfessionAndCourse(Date startDate, Date endDate, String facility, String profession, String course) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("coursestartdate", startDate);
+        paramMap.put("courseenddate", endDate);
+        paramMap.put("facilityname", facility);
+        paramMap.put("jobtittle", profession);
+        paramMap.put("coursename", course);
+
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<PeopleReport> getRecordByCityProfessionAndCourse(Date startDate, Date endDate, String city, String profession, String course) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("coursestartdate", startDate);
+        paramMap.put("courseenddate", endDate);
+        paramMap.put("name", city);
+        paramMap.put("jobtittle", profession);
+        paramMap.put("coursename", course);
+
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<PeopleReport> getRecordBySubDistrictProfessionAndCourse(Date startDate, Date endDate, String subdistrict, String profession, String course) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("coursestartdate", startDate);
+        paramMap.put("courseenddate", endDate);
+        paramMap.put("countyname", subdistrict);
+        paramMap.put("jobtittle", profession);
+        paramMap.put("coursename", course);
+
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<PeopleReport> getRecordByDistrictProfessionAndCourse(Date startDate, Date endDate, String district, String profession, String course) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("coursestartdate", startDate);
+        paramMap.put("courseenddate", endDate);
+        paramMap.put("districtname", district);
+        paramMap.put("jobtittle", profession);
+        paramMap.put("coursename", course);
+
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<PeopleReport> getRecordByProvinceProfessionAndCourse(Date startDate, Date endDate, String profession, String course) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("coursestartdate", startDate);
+        paramMap.put("courseenddate", endDate);
+        paramMap.put("jobtittle", profession);
+        paramMap.put("coursename", course);
+
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

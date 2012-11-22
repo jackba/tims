@@ -48,16 +48,16 @@ public class SelectBySubDistrictCourse extends MappingSqlQuery<PeopleReport> {
             + "AND  district.county_id = county.id "
             + "AND  employeecourses.person_id=person.id "
             + "AND  scheduledcourses.id=employeecourses.scheduledcoursesessionid "
-            + "AND district.districtname= :districtname "
-            + "AND scheduledcourses.coursename = :coursename "
+            + "AND district.id= :countyname "
+            + "AND scheduledcourses.courseid = :coursename "
             + "AND  employeecourses.coursestartdate BETWEEN :coursestartdate AND :courseenddate ";
 
     public SelectBySubDistrictCourse(DataSource dataSource) {
         super(dataSource, SQL_STATEMENT);
         super.declareParameter(new SqlParameter("coursestartdate", Types.DATE));
         super.declareParameter(new SqlParameter("courseenddate", Types.DATE));
-        super.declareParameter(new SqlParameter("districtname", Types.VARCHAR));
-        super.declareParameter(new SqlParameter("coursename", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("countyname", Types.BIGINT));
+        super.declareParameter(new SqlParameter("coursename", Types.BIGINT));
 
     }
 

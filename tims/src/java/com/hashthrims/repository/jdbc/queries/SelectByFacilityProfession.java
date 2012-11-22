@@ -48,16 +48,16 @@ public class SelectByFacilityProfession extends MappingSqlQuery<PeopleReport> {
             + "AND  district.county_id = county.id "
             + "AND  employeecourses.person_id=person.id "
             + "AND  scheduledcourses.id=employeecourses.scheduledcoursesessionid "
-            + "AND  facility.facilityname = :facilityname "
-            + "AND jobs.jobtittle = :jobtittle "
+            + "AND  facility.id = :facilityname "
+            + "AND jobs.id = :jobtittle "
             + "AND  employeecourses.coursestartdate BETWEEN :coursestartdate AND :courseenddate ";
 
     public SelectByFacilityProfession(DataSource dataSource) {
         super(dataSource, SQL_STATEMENT);
         super.declareParameter(new SqlParameter("coursestartdate", Types.DATE));
         super.declareParameter(new SqlParameter("courseenddate", Types.DATE));
-        super.declareParameter(new SqlParameter("jobtittle", Types.VARCHAR));
-        super.declareParameter(new SqlParameter("facilityname", Types.VARCHAR));
+        super.declareParameter(new SqlParameter("jobtittle", Types.BIGINT));
+        super.declareParameter(new SqlParameter("facilityname", Types.BIGINT));
 
     }
 

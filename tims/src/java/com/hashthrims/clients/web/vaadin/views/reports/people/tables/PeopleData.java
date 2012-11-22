@@ -8,9 +8,6 @@ import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 import com.hashthrims.clients.web.vaadin.views.reports.people.forms.DateSearchCombo;
 import com.hashthrims.clients.web.vaadin.views.reports.people.forms.LocationCombo;
 import com.hashthrims.clients.web.vaadin.views.reports.people.model.PeopleReport;
-import com.hashthrims.clients.web.vaadin.views.reports.people.util.PersonLocation;
-import com.hashthrims.domain.EmployeeCourses;
-import com.hashthrims.domain.Person;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +29,8 @@ class PeopleData {
         List<PeopleReport> people = new ArrayList<PeopleReport>();
         Date startDate = date.getDateFields(dateSearchCombo.getStartDate().getValue());
         Date endDate = date.getDateFields(dateSearchCombo.getEndDate().getValue());
+//        System.out.println(" Search Method Entered with values "+locationCombo.getFacility().getValue());
+//         System.out.println(" Search Method TOPIC with values "+dateSearchCombo.getTopicCombo().getValue());
 
         if (dateSearchCombo.getPositionsCombo().getValue() == null & dateSearchCombo.getTopicCombo().getValue() == null) {
 
@@ -42,41 +41,43 @@ class PeopleData {
             } else if (locationCombo.getSubDistrict().getValue() != null) {
                 return data.getPeopleReportService().getRecordBySubDistrictAll(startDate, endDate, locationCombo.getSubDistrict().getValue().toString());
             } else if (locationCombo.getDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordBySubDistrictAll(startDate, endDate, locationCombo.getDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordByDistrictAll(startDate, endDate, locationCombo.getDistrict().getValue().toString());
             } else {
                 return data.getPeopleReportService().getRecordByProvinceAll(startDate, endDate);
             }
         } else if (dateSearchCombo.getPositionsCombo().getValue() == null & dateSearchCombo.getTopicCombo().getValue() != null) {
             //Topic Search
+            System.out.println("TOPIC SEARCH ");
 
             if (locationCombo.getFacility().getValue() != null) {
-                return data.getPeopleReportService().getRecordByFacilityCourse(startDate, endDate, dateSearchCombo.getTopicCombo().getValue().toString(),dateSearchCombo.getPositionsCombo().getValue().toString());
+                return data.getPeopleReportService().getRecordByFacilityCourse(startDate, endDate, getTopic(dateSearchCombo.getTopicCombo().getValue()), getPosition(locationCombo.getFacility().getValue()));
             } else if (locationCombo.getCity().getValue() != null) {
-                return data.getPeopleReportService().getRecordByCityCourse(startDate, endDate, dateSearchCombo.getTopicCombo().getValue().toString(),locationCombo.getCity().getValue().toString());
+                return data.getPeopleReportService().getRecordByCityCourse(startDate, endDate, getTopic(dateSearchCombo.getTopicCombo().getValue()), locationCombo.getCity().getValue().toString());
             } else if (locationCombo.getSubDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordBySubDistrictCourse(startDate, endDate, dateSearchCombo.getTopicCombo().getValue().toString(),locationCombo.getSubDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordBySubDistrictCourse(startDate, endDate, getTopic(dateSearchCombo.getTopicCombo().getValue()), locationCombo.getSubDistrict().getValue().toString());
             } else if (locationCombo.getDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordBySubDistrictCourse(startDate, endDate, dateSearchCombo.getTopicCombo().getValue().toString(),locationCombo.getDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordByDistrictCourse(startDate, endDate, getTopic(dateSearchCombo.getTopicCombo().getValue()), locationCombo.getDistrict().getValue().toString());
             } else {
-                return data.getPeopleReportService().getRecordByProvinceCourse(startDate, endDate,dateSearchCombo.getTopicCombo().getValue().toString());
+                return data.getPeopleReportService().getRecordByProvinceCourse(startDate, endDate, getTopic(dateSearchCombo.getTopicCombo().getValue()));
             }
 
         } else if (dateSearchCombo.getPositionsCombo().getValue() != null & dateSearchCombo.getTopicCombo().getValue() == null) {
             //Course Professional
-
+            System.out.println("COURSE Search");
             if (locationCombo.getFacility().getValue() != null) {
-                return data.getPeopleReportService().getRecordByFacilityProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(),locationCombo.getFacility().getValue().toString());
+                return data.getPeopleReportService().getRecordByFacilityProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(), locationCombo.getFacility().getValue().toString());
             } else if (locationCombo.getCity().getValue() != null) {
-                return data.getPeopleReportService().getRecordByCityProfession(startDate, endDate,dateSearchCombo.getPositionsCombo().getValue().toString(), locationCombo.getCity().getValue().toString());
+                return data.getPeopleReportService().getRecordByCityProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(), locationCombo.getCity().getValue().toString());
             } else if (locationCombo.getSubDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordBySubDistrictProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(),locationCombo.getSubDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordBySubDistrictProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(), locationCombo.getSubDistrict().getValue().toString());
             } else if (locationCombo.getDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordBySubDistrictProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(),locationCombo.getDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordByDistrictProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(), locationCombo.getDistrict().getValue().toString());
             } else {
-                return data.getPeopleReportService().getRecordByProvinceProfession(startDate, endDate,dateSearchCombo.getPositionsCombo().getValue().toString());
+                return data.getPeopleReportService().getRecordByProvinceProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString());
             }
 
         } else {
+            System.out.println("All Others Search");
             if (locationCombo.getFacility().getValue() != null) {
                 return data.getPeopleReportService().getRecordByFacilityAll(startDate, endDate, locationCombo.getFacility().getValue().toString());
             } else if (locationCombo.getCity().getValue() != null) {
@@ -84,11 +85,22 @@ class PeopleData {
             } else if (locationCombo.getSubDistrict().getValue() != null) {
                 return data.getPeopleReportService().getRecordBySubDistrictAll(startDate, endDate, locationCombo.getSubDistrict().getValue().toString());
             } else if (locationCombo.getDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordBySubDistrictAll(startDate, endDate, locationCombo.getDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordByDistrictAll(startDate, endDate, locationCombo.getDistrict().getValue().toString());
             } else {
                 return data.getPeopleReportService().getRecordByProvinceAll(startDate, endDate);
             }
         }
+    }
 
+    private String getTopic(Object value) {
+        if(value!=null)
+            return value.toString();
+        return null;
+    }
+
+    private String getPosition(Object value) {
+        if(value!=null)
+            return value.toString();
+        return null;
     }
 }
