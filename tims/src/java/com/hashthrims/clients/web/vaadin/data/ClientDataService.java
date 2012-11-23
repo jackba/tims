@@ -37,6 +37,7 @@ import com.hashthrims.infrastructure.factories.offices.OrganisationListFactory;
 import com.hashthrims.infrastructure.factories.positions.PositionsFactory;
 import com.hashthrims.infrastructure.factories.traininglist.TrainingCoursesFactory;
 import com.hashthrims.repository.jdbc.PeopleReportDAO;
+import com.hashthrims.repository.jdbc.SnapshotDataDAO;
 import com.hashthrims.services.AccidentTypeListService;
 import com.hashthrims.services.AddressTypeService;
 import com.hashthrims.services.ApplicationsService;
@@ -251,8 +252,15 @@ public class ClientDataService {
     private MentoringAreasListService mentoringAreasListService;
     private MentoringObjectiveService mentoringObjectiveService;
     private PeopleReportDAO peopleReportService;
+    private SnapshotDataDAO snapshotDataDAO;
 
-    public PeopleReportDAO getPeopleReportService() {
+    public SnapshotDataDAO getSnapshotDataService() {
+        ctx = GetContext.getApplicationContext();
+        snapshotDataDAO = (SnapshotDataDAO) ctx.getBean("snapshotDataDAO");
+        return snapshotDataDAO;
+    }
+    
+     public PeopleReportDAO getPeopleReportService() {
         ctx = GetContext.getApplicationContext();
         peopleReportService = (PeopleReportDAO) ctx.getBean("peopleReportDAO");
         return peopleReportService;

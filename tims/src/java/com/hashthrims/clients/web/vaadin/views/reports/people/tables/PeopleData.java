@@ -29,9 +29,6 @@ class PeopleData {
         List<PeopleReport> people = new ArrayList<PeopleReport>();
         Date startDate = date.getDateFields(dateSearchCombo.getStartDate().getValue());
         Date endDate = date.getDateFields(dateSearchCombo.getEndDate().getValue());
-//        System.out.println(" Search Method Entered with values "+locationCombo.getFacility().getValue());
-//         System.out.println(" Search Method TOPIC with values "+dateSearchCombo.getTopicCombo().getValue());
-
         if (dateSearchCombo.getPositionsCombo().getValue() == null & dateSearchCombo.getTopicCombo().getValue() == null) {
 
             if (locationCombo.getFacility().getValue() != null) {
@@ -47,7 +44,6 @@ class PeopleData {
             }
         } else if (dateSearchCombo.getPositionsCombo().getValue() == null & dateSearchCombo.getTopicCombo().getValue() != null) {
             //Topic Search
-            System.out.println("TOPIC SEARCH ");
 
             if (locationCombo.getFacility().getValue() != null) {
                 return data.getPeopleReportService().getRecordByFacilityCourse(startDate, endDate, getTopic(dateSearchCombo.getTopicCombo().getValue()), getPosition(locationCombo.getFacility().getValue()));
@@ -63,7 +59,6 @@ class PeopleData {
 
         } else if (dateSearchCombo.getPositionsCombo().getValue() != null & dateSearchCombo.getTopicCombo().getValue() == null) {
             //Course Professional
-            System.out.println("COURSE Search");
             if (locationCombo.getFacility().getValue() != null) {
                 return data.getPeopleReportService().getRecordByFacilityProfession(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(), locationCombo.getFacility().getValue().toString());
             } else if (locationCombo.getCity().getValue() != null) {
@@ -77,30 +72,31 @@ class PeopleData {
             }
 
         } else {
-            System.out.println("All Others Search");
             if (locationCombo.getFacility().getValue() != null) {
-                return data.getPeopleReportService().getRecordByFacilityAll(startDate, endDate, locationCombo.getFacility().getValue().toString());
+                return data.getPeopleReportService().getRecordByFacilityProfessionAndCourse(startDate, endDate, locationCombo.getFacility().getValue().toString(), dateSearchCombo.getPositionsCombo().getValue().toString(), dateSearchCombo.getTopicCombo().getValue().toString());
             } else if (locationCombo.getCity().getValue() != null) {
-                return data.getPeopleReportService().getRecordByCityAll(startDate, endDate, locationCombo.getCity().getValue().toString());
+                return data.getPeopleReportService().getRecordByCityProfessionAndCourse(startDate, endDate, locationCombo.getCity().getValue().toString(), dateSearchCombo.getPositionsCombo().getValue().toString(), dateSearchCombo.getTopicCombo().getValue().toString());
             } else if (locationCombo.getSubDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordBySubDistrictAll(startDate, endDate, locationCombo.getSubDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordBySubDistrictProfessionAndCourse(startDate, endDate, locationCombo.getSubDistrict().getValue().toString(), dateSearchCombo.getPositionsCombo().getValue().toString(), dateSearchCombo.getTopicCombo().getValue().toString());
             } else if (locationCombo.getDistrict().getValue() != null) {
-                return data.getPeopleReportService().getRecordByDistrictAll(startDate, endDate, locationCombo.getDistrict().getValue().toString());
+                return data.getPeopleReportService().getRecordByDistrictProfessionAndCourse(startDate, endDate, locationCombo.getDistrict().getValue().toString(), dateSearchCombo.getPositionsCombo().getValue().toString(), dateSearchCombo.getTopicCombo().getValue().toString());
             } else {
-                return data.getPeopleReportService().getRecordByProvinceAll(startDate, endDate);
+                return data.getPeopleReportService().getRecordByProvinceProfessionAndCourse(startDate, endDate, dateSearchCombo.getPositionsCombo().getValue().toString(), dateSearchCombo.getTopicCombo().getValue().toString());
             }
         }
     }
 
     private String getTopic(Object value) {
-        if(value!=null)
+        if (value != null) {
             return value.toString();
+        }
         return null;
     }
 
     private String getPosition(Object value) {
-        if(value!=null)
+        if (value != null) {
             return value.toString();
+        }
         return null;
     }
 }

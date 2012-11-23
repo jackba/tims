@@ -105,6 +105,29 @@ public class LandingPageData {
         return null;
     }
     
+    public long getPeopleData(){
+        return data.getSnapshotDataService().getNumberOfPeople();
+    }
+    
+     public long getNumberOfMales(){
+        return data.getSnapshotDataService().getNumberOfMales();
+    }
+     
+      public long getNumberofFemales(){
+        return data.getSnapshotDataService().getNumberofFemales();
+    }
+      
+       public long getNumberofCourses(){
+        return data.getSnapshotDataService().getNumberofCourses();
+    }
+       
+        public long getNumberofVacancies(){
+        return data.getSnapshotDataService().getNumberofVacancies();
+    }
+        
+         public long getNumberScheduledCourses(){
+        return data.getSnapshotDataService().getNumberScheduledCourses();
+    }
     
     
     
