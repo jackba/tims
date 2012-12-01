@@ -87,7 +87,6 @@ public class ReportMentoringViewPage extends VerticalLayout implements ValueChan
         table.addContainerProperty("Session Venue", String.class, null);
 
         for (MentoringSession mentoringSession : scheduledSessions) {
-
             table.addItem(new Object[]{mentoringSession.getSessionName(),
                         mentoringSession.getInstitutionName().getTrainingInstitution(),
                         mentoringSession.getStartDate(),
@@ -118,7 +117,7 @@ public class ReportMentoringViewPage extends VerticalLayout implements ValueChan
             setTwinColumnAndClusterName(property.getValue());
             Panel panel = getPanel();
             clusterLabel.addComponent(panel);
-            footer.addComponent(addCompetenciesButton);
+//            footer.addComponent(addCompetenciesButton);
             Table mt = getMenteesTable(sessionId);
             menteesLayout.removeAllComponents();
             menteesLayout.addComponent(mt);
@@ -169,7 +168,7 @@ public class ReportMentoringViewPage extends VerticalLayout implements ValueChan
             competencies.setNullSelectionAllowed(false);
             competencies.addItem(comp.getId());
             competencies.setItemCaption(comp.getId(), comp.getComp_name());
-            twinColumn.addComponent(competencies);
+//            twinColumn.addComponent(competencies);
         }
     }
 
@@ -196,10 +195,12 @@ public class ReportMentoringViewPage extends VerticalLayout implements ValueChan
         table.addContainerProperty("Surname", String.class, null);
         table.addContainerProperty("First Name", String.class, null);
         table.addContainerProperty("Number of Action Plans", Integer.class, null);
-        table.addContainerProperty("Review Action Plan", Button.class, null);
         table.addContainerProperty("Add New Action Plan", Button.class, null);
+        table.addContainerProperty("Review Action Plan", Button.class, null);
+
         Set<Person> sessionMentees = new HashSet<Person>();
         List<Person> people = data.getPersonService().findAll();
+
         for (Person person : people) {
             List<EmployeeMentoring> mentoring = person.getMentoring();
 
@@ -210,9 +211,9 @@ public class ReportMentoringViewPage extends VerticalLayout implements ValueChan
                 }
             }
         }
+
         for (final Person person : sessionMentees) {
             Button actionPlanLink = new Button("New Action Plan", new Button.ClickListener() {
-
                 @Override
                 public void buttonClick(ClickEvent event) {
                     actionPlanSubWindow = new NewActionPlanWindow(person, mentoringSessionId, main);
@@ -220,7 +221,6 @@ public class ReportMentoringViewPage extends VerticalLayout implements ValueChan
                 }
             });
             Button revieActionPlan = new Button("Review Action Plan", new Button.ClickListener() {
-
                 @Override
                 public void buttonClick(ClickEvent event) {
                     reviewActionPlanWindow = new ReviewActionPlanWindow(person, mentoringSessionId, main);
@@ -233,8 +233,8 @@ public class ReportMentoringViewPage extends VerticalLayout implements ValueChan
             table.addItem(new Object[]{person.getPersonName(),
                         person.getPersonSurname(),
                         person.getActionPlans().size(),
-                        revieActionPlan,
-                        actionPlanLink
+                        actionPlanLink,
+                        revieActionPlan
                     }, person.getId());
         }
 

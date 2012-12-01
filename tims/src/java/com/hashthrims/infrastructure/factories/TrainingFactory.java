@@ -284,9 +284,12 @@ public class TrainingFactory {
         return data.getMentorsRolesService().find(mentoringId);
     }
 
-    public MentoringSession createMentoringSession(String sessionName, Map<String, Date> dates, Map<String, Long> ids, Map<String, List<Long>> lists) {
+    public MentoringSession createMentoringSession(Map<String, String> names, Map<String, Date> dates, Map<String, Long> ids, Map<String, List<Long>> lists) {
         MentoringSession session = new MentoringSession();
-        session.setSessionName(sessionName);
+
+        session.setSessionName(names.get("sessionName"));
+        session.setMentoringNotes(names.get("comments"));
+
         session.setStartDate(dates.get("startDate"));
         session.setEndDate(dates.get("endDate"));
 
@@ -348,11 +351,13 @@ public class TrainingFactory {
         return session;
     }
 
-    public MentoringSession updateMentoringSessions(String sessionName, Map<String, Date> dates, Map<String, Long> ids, Map<String, List<Long>> lists, Long mentoringId) {
+    public MentoringSession updateMentoringSessions(Map<String, String> names, Map<String, Date> dates, Map<String, Long> ids, Map<String, List<Long>> lists, Long mentoringId) {
+
         MentoringSession session = loadMentoringSessions(mentoringId);
         //Reset Competencies and Funders
         data.getMentoringSessionService().restFundersAndCompetencies(session);
-        session.setSessionName(sessionName);
+        session.setSessionName(names.get("sessionName"));
+        session.setMentoringNotes(names.get("comments"));
         session.setStartDate(dates.get("startDate"));
         session.setEndDate(dates.get("endDate"));
 

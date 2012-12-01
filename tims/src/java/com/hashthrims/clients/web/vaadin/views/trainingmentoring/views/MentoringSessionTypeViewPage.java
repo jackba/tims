@@ -73,7 +73,7 @@ public class MentoringSessionTypeViewPage extends VerticalLayout implements
         if (property == table) {
             final Item record = table.getItem(table.getValue());
             final MentoringSessionTypeBean mentoringSessionType = new MentoringSessionTypeBean();
-            mentoringSessionType.setMentoringSessionType(record.getItemProperty("Mentoring Session Type").toString());
+            mentoringSessionType.setMentoringSessionType(record.getItemProperty("Tools and Methods").toString());
             mentoringSessionType.setId(new Long(table.getValue().toString()));
 
 

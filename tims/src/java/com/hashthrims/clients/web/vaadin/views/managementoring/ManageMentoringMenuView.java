@@ -36,16 +36,12 @@ public class ManageMentoringMenuView extends VerticalLayout {
          final VerticalLayout createMentoringSessionTab = new VerticalLayout();
         createMentoringSessionTab.setMargin(true);
         createMentoringSessionTab.addComponent(new ClientMentoringSessionViewPage(main));
-
         tab = new TabSheet();
         tab.setHeight("100%");
         tab.setWidth("100%");
-
         tab.addTab(createMentoringSessionTab, "Create Mentoring Session", null);
         tab.addTab(enrollMenteesTab, "Enroll Mentees", null);
         tab.addTab(reportMentoringTab, "Report Mentoring Session", null);
-        
-        
         if (selectedTab.equals("CREATE")) {
             tab.setSelectedTab(createMentoringSessionTab);
         } else if (selectedTab.equals("ENROLL")) {

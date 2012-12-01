@@ -24,7 +24,7 @@ public class MentoringSessionTypeTable extends Table {
         // Make Table fill all space
         setSizeFull();
         // Define the names and data types of columns.
-        addContainerProperty("Mentoring Session Type", String.class, null);
+        addContainerProperty("Tools and Methods", String.class, null);
 
 
         // Add Data Columns

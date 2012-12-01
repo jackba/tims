@@ -61,14 +61,11 @@ public class TrainingMentoringMenuView extends VerticalLayout {
 
         // tab.addTab(mentorsTab, "Mentors", null);
         tab.addTab(themesTab, "Mentoring Theme", null);
-        tab.addTab(typeTab, "Mentoring Session Type", null);
+        tab.addTab(typeTab, "Tools and Methods", null);
         tab.addTab(mentoringObjectivesTab, "Mentoring Objective", null);
         tab.addTab(mentoringAreasTab, "Areas of Strengthening", null);
         tab.addTab(sessionTab, "Add Mentoring Session", null);
-        
-
-
-
+ 
         if (selectedTab.equals("MENTORS")) {
             tab.setSelectedTab(mentorsTab);
         } else if (selectedTab.equals("THEME")) {

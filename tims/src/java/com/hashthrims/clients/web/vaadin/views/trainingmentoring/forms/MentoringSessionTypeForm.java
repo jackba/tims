@@ -165,7 +165,7 @@ public class MentoringSessionTypeForm {
                 ((TextField) field).setVisible(false);
 
             }if ("mentoringSessionType".equals(propertyId)) {
-                field = new TextField("Mentoring Session Type:");
+                field = new TextField("Tools and Methods:");
                 ((TextField) field).setColumns(30);
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);

@@ -79,7 +79,7 @@ public class MentoringSessionViewPage extends VerticalLayout implements
 
     }
 
-     @Override
+    @Override
     public void valueChange(ValueChangeEvent event) {
         final Property property = event.getProperty();
 
@@ -91,6 +91,7 @@ public class MentoringSessionViewPage extends VerticalLayout implements
             mentoringSession.setId(c.getId());
             mentoringSession.setSessionName(c.getSessionName());
             mentoringSession.setStartDate(c.getStartDate());
+            mentoringSession.setComments(c.getMentoringNotes());
             mentoringSession.setEndDate(c.getEndDate());
             mentoringSession.setInstitutionName(c.getInstitutionName().getId());
 
@@ -193,7 +194,8 @@ public class MentoringSessionViewPage extends VerticalLayout implements
 
     public void saveNewMentoringSession(Form form) {
 
-        final String sessionName = form.getField("sessionName").getValue().toString();
+        final String sessionName = getStringvalue(form.getField("sessionName").getValue());
+        final String mentoringNotes = getStringvalue(form.getField("comments").getValue());
         final Date startDate = fieldValues.getDateFields(form.getField("startDate").getValue());
         final Date endDate = fieldValues.getDateFields(form.getField("startDate").getValue());
         final Map<String, Date> dates = new HashMap<String, Date>();
@@ -236,7 +238,11 @@ public class MentoringSessionViewPage extends VerticalLayout implements
         lists.put("mentoringSessionTypeIds", mentoringSessionTypeIds);
         lists.put("areasOfStrentheningIds", areasOfStrentheningIds);
 
-        final MentoringSession c = factory.createMentoringSession(sessionName, dates, ids, lists);
+        final Map<String, String> names = new HashMap<String, String>();
+        names.put("sessionName", sessionName);
+        names.put("comments", mentoringNotes);
+
+        final MentoringSession c = factory.createMentoringSession(names, dates, ids, lists);
         data.getMentoringSessionService().persist(c);
     }
 
@@ -244,7 +250,8 @@ public class MentoringSessionViewPage extends VerticalLayout implements
         final Long mentoringId = Long.parseLong(form.getField("id").getValue().toString());
 
 
-        final String sessionName = form.getField("sessionName").getValue().toString();
+        final String sessionName = getStringvalue(form.getField("sessionName").getValue());
+        final String mentoringNotes = getStringvalue(form.getField("comments").getValue());
         final Date startDate = fieldValues.getDateFields(form.getField("startDate").getValue());
         final Date endDate = fieldValues.getDateFields(form.getField("startDate").getValue());
         final Map<String, Date> dates = new HashMap<String, Date>();
@@ -287,8 +294,10 @@ public class MentoringSessionViewPage extends VerticalLayout implements
         lists.put("mentoringSessionTypeIds", mentoringSessionTypeIds);
         lists.put("areasOfStrentheningIds", areasOfStrentheningIds);
 
-
-        final MentoringSession c = factory.updateMentoringSessions(sessionName, dates, ids, lists, mentoringId);
+        final Map<String, String> names = new HashMap<String, String>();
+        names.put("sessionName", sessionName);
+        names.put("comments", mentoringNotes);
+        final MentoringSession c = factory.updateMentoringSessions(names, dates, ids, lists, mentoringId);
         data.getMentoringSessionService().merge(c);
     }
 
@@ -296,5 +305,12 @@ public class MentoringSessionViewPage extends VerticalLayout implements
         final Long mentoringSessionId = Long.parseLong(form.getField("id").getValue().toString());
         final MentoringSession c = factory.loadMentoringSessions(mentoringSessionId);
         data.getMentoringSessionService().remove(c);
+    }
+
+    private String getStringvalue(Object value) {
+        if (value != null) {
+            return value.toString();
+        }
+        return null;
     }
 }

@@ -15,7 +15,9 @@ public class MentoringSessionBean {
 
     private Long id;
     private String sessionName;
+    private String comments;
     private Long mentoringSubjectArea;
+    
     
    
     private Long institutionName;
@@ -46,6 +48,16 @@ public class MentoringSessionBean {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+    
+    
 
     /**
      * @return the sessionName

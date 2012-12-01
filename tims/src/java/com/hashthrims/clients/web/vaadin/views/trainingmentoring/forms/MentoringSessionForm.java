@@ -32,6 +32,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Select;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Runo;
 import java.util.Collections;
@@ -112,7 +113,12 @@ public class MentoringSessionForm {
                 ((TextField) field).setNullRepresentation("");
                 ((TextField) field).setRequired(true);
                 ((TextField) field).setRequiredError("Please Enter Value");
-            } else if ("startDate".equals(propertyId)) {
+            } else if ("comments".equals(propertyId)) {
+                field = new TextArea("Comments:");
+                ((TextArea) field).setWidth("500");
+                ((TextArea) field).setNullRepresentation("");
+                ((TextArea) field).setRequiredError("Please Enter Value");
+            }else if ("startDate".equals(propertyId)) {
                 field = new DateField("Start Date:");
                 ((DateField) field).setRequired(true);
                 ((DateField) field).setRequiredError("Please Enter Value");
@@ -241,7 +247,7 @@ public class MentoringSessionForm {
                 return selectAreasofStrenthening;
             } else if ("mentoringSessionType".equals(propertyId)) {
                 List<SessionType> sts = data.getMentoringSessionTypeService().findAll();
-                selectSessionType = new ListSelect("Memntoring Session Type:");
+                selectSessionType = new ListSelect("Tools and Methods:");
                 for (SessionType st : sts) {
                     selectSessionType.addItem(st.getId());
                     selectSessionType.setItemCaption(st.getId(), st.getSessionTypeName());
@@ -286,7 +292,7 @@ public class MentoringSessionForm {
 
         public MentoringSessionGridForm() {
             setCaption("Mentoring Session Form");
-            layout = new GridLayout(2, 12);
+            layout = new GridLayout(2, 15);
             layout.setMargin(true);
             layout.setSpacing(true);
             //layout.setSizeFull();
@@ -309,7 +315,7 @@ public class MentoringSessionForm {
             HorizontalLayout formFooter = new HorizontalLayout();
             formFooter.setSizeFull();
             formFooter.setStyleName(Runo.LAYOUT_DARKER);
-            layout.addComponent(formFooter, 0, 11, 1, 11);
+            layout.addComponent(formFooter, 0, 13, 1, 13);
             setLayout(layout);
         }
 
@@ -339,8 +345,10 @@ public class MentoringSessionForm {
                 layout.addComponent(field, 0, 8, 1, 8);
             } else if (propertyId.equals("areasOfStrenthening")) {
                 layout.addComponent(field, 0, 9, 1, 9);
+            } else if (propertyId.equals("comments")) {
+                layout.addComponent(field, 0, 10, 1, 10);
             } else if (propertyId.equals("id")) {
-                layout.addComponent(field, 0, 10);
+                layout.addComponent(field, 0, 14);
             }
 
 
