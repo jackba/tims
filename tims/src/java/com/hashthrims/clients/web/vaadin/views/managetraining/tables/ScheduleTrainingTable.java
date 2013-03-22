@@ -30,7 +30,7 @@ public class ScheduleTrainingTable extends Table {
     private final HashThrimsMain main;
     private final TimsUtil st = new TimsUtil();
 
-    public ScheduleTrainingTable(HashThrimsMain app, final ScheduleTrainingForm pform, final  Form form) {
+    public ScheduleTrainingTable(HashThrimsMain app, final ScheduleTrainingForm pform, final Form form) {
         main = app;
         // Make Table fill all space
         setSizeFull();
@@ -62,24 +62,23 @@ public class ScheduleTrainingTable extends Table {
             Button edit = new Button("Edit", new Button.ClickListener() {
                 @Override
                 public void buttonClick(ClickEvent event) {
-                   pform.getUpdateCources().setVisible(true); 
-                   form.setReadOnly(false);
+                    pform.getUpdateCources().setVisible(true);
+                    form.setReadOnly(false);
                 }
             });
 
             Button delete = new Button("Delete", new Button.ClickListener() {
-
                 @Override
                 public void buttonClick(ClickEvent event) {
-                    
-                    if (course.getNumOfStuds()<100) {
+
+                    if (course.getNumOfStuds() < 100) {
                         data.getScheduledCoursesType().remove(course);
                     } else {
-                        
-                        main.getMainWindow().showNotification("YOU CANNOT DELETE THIS SESSION", " There are participants registered for this Session. First Deregister Participants and then Try Again",Notification.TYPE_ERROR_MESSAGE);
-                        
+
+                        main.getMainWindow().showNotification("YOU CANNOT DELETE THIS SESSION", " There are participants registered for this Session. First Deregister Participants and then Try Again", Notification.TYPE_ERROR_MESSAGE);
+
                     }
-                    
+
                     main.mainView.setSecondComponent(new ManageTrainingMenuView(main, "SCH"));
                 }
             });
@@ -88,15 +87,15 @@ public class ScheduleTrainingTable extends Table {
 
 
             addItem(new Object[]{
-                        course.getCourseName(),
-                        course.getCourseCapacity(),
-                        course.getVenue(),
-                        course.getOrganisationName(),
-                        getDate(course.getStartDate()),
-                        getDate(course.getEndDate()),
-                        course.getNumOfStuds(),
-                        getStatus(course),
-                        edit, delete}, course.getId());
+                course.getCourseName(),
+                course.getCourseCapacity(),
+                course.getVenue(),
+                course.getOrganisationName(),
+                getDate(course.getStartDate()),
+                getDate(course.getEndDate()),
+                course.getNumOfStuds(),
+                getStatus(course),
+                edit, delete}, course.getId());
         }
         // Allow selecting items from the table.
         setNullSelectionAllowed(false);
@@ -108,7 +107,10 @@ public class ScheduleTrainingTable extends Table {
     }
 
     private String getDate(Date startDate) {
-        return new SimpleDateFormat("dd-MMMM-yyyy").format(startDate);
+        if (startDate != null) {
+            return new SimpleDateFormat("dd-MMMM-yyyy").format(startDate);
+        }
+        return null;
     }
 
     private String getStatus(ScheduledCourses course) {

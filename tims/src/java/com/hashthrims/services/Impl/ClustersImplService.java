@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("clustersService")
-@Transactional
+
 public class ClustersImplService implements ClustersService{
      @Autowired
     private ClustersDAO clustersDAO;
@@ -33,7 +33,7 @@ public class ClustersImplService implements ClustersService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Clusters entity) {
         clustersDAO.persist(entity);

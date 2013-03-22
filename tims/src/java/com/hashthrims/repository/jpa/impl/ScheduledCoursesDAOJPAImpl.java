@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.repository.jpa.impl;
 
 import com.hashthrims.domain.traininglist.ScheduledCourses;
@@ -10,6 +9,8 @@ import com.hashthrims.repository.jpa.ScheduledCoursesDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository("scheduledCoursesDAO")
 @Transactional
-public class ScheduledCoursesDAOJPAImpl implements ScheduledCoursesDAO{
+public class ScheduledCoursesDAOJPAImpl implements ScheduledCoursesDAO {
 
     @PersistenceContext
     private EntityManager em;
@@ -30,22 +31,26 @@ public class ScheduledCoursesDAOJPAImpl implements ScheduledCoursesDAO{
     }
 
     @Override
+    @CacheEvict(value = "schedules", allEntries = true)
     public void persist(ScheduledCourses entity) {
         em.persist(entity);
     }
 
     @Override
+    @CacheEvict(value = "schedules", allEntries = true)
     public void merge(ScheduledCourses entity) {
         em.merge(entity);
     }
 
     @Override
+    @CacheEvict(value = "schedules", allEntries = true)
     public void remove(ScheduledCourses entity) {
-        ScheduledCourses acc =em.find(ScheduledCourses.class, entity.getId());
+        ScheduledCourses acc = em.find(ScheduledCourses.class, entity.getId());
         em.remove(acc);
     }
 
     @Override
+    @Cacheable(value = "schedules")
     public List<ScheduledCourses> findAll() {
         return (List<ScheduledCourses>) em.createQuery("SELECT a FROM ScheduledCourses a").getResultList();
     }
@@ -57,7 +62,7 @@ public class ScheduledCoursesDAOJPAImpl implements ScheduledCoursesDAO{
 
     @Override
     public long count() {
-         return (Long) em.createQuery("SELECT count(a) FROM ScheduledCourses a").getSingleResult();
+        return (Long) em.createQuery("SELECT count(a) FROM ScheduledCourses a").getSingleResult();
     }
 
     @Override
@@ -68,8 +73,7 @@ public class ScheduledCoursesDAOJPAImpl implements ScheduledCoursesDAO{
 
     @Override
     public List<ScheduledCourses> getEntitiesByProperName(String propertyName, String propertyValue) {
-          List<ScheduledCourses> list = em.createQuery("SELECT e FROM  ScheduledCourses e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
+        List<ScheduledCourses> list = em.createQuery("SELECT e FROM  ScheduledCourses e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
         return list;
     }
-
 }

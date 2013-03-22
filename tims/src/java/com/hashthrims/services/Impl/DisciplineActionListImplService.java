@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("disciplineActionListService")
-@Transactional
+
 public class DisciplineActionListImplService implements DisciplineActionTypeListService{
      @Autowired
     private DisciplineActionTypeListDAO discipleneActionListDAO;
@@ -34,7 +34,7 @@ public class DisciplineActionListImplService implements DisciplineActionTypeList
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(DisciplineActionTypeList entity) {
         discipleneActionListDAO.persist(entity);

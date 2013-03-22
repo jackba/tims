@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,32 +17,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  *
  * @author boniface
  */
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Person implements Serializable, Comparable<Person> {
-
     private static long serialVersionUID = 1L;
-
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -50,46 +33,46 @@ public class Person implements Serializable, Comparable<Person> {
     private String personOtherName;
     @OneToOne
     private City residence;
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true,fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "contacts_id")
     private List<Contacts> contacts = new ArrayList<Contacts>();
-    @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToOne(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "demography_id")
     private Demography demography = new Demography();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EmployeePosition> position = new ArrayList<EmployeePosition>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EmploymentHistory> employmentHistory = new ArrayList<EmploymentHistory>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EducationHistory> educationHistory = new ArrayList<EducationHistory>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<Identities> identities = new ArrayList<Identities>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<ProfessionalRegistration> professionalRegistration = new ArrayList<ProfessionalRegistration>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EmployeeCourses> courses = new ArrayList<EmployeeCourses>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EmployeeLanguages> languages = new ArrayList<EmployeeLanguages>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EmployeeMentoring> mentoring = new ArrayList<EmployeeMentoring>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<Mentees> mentees = new ArrayList<Mentees>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<MentorExpertiseArea> expertiseArea = new ArrayList<MentorExpertiseArea>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<PersonRoles> personRoles = new ArrayList<PersonRoles>();
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "person_id")
     private List<EmployeeActionPlan> actionPlans = new ArrayList<EmployeeActionPlan>();
 

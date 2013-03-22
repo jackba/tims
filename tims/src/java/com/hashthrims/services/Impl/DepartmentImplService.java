@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("departmentService")
-@Transactional
+
 public class DepartmentImplService implements DepartmentService{
      @Autowired
     private DepartmentDAO departmentDAO;
@@ -33,7 +33,7 @@ public class DepartmentImplService implements DepartmentService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Department entity) {
         departmentDAO.persist(entity);

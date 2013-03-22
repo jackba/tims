@@ -8,27 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  *
  * @author stud
  */
 @Service("competencyService")
-@Transactional
-public class CompetencyImplService implements CompetencyService{
-     @Autowired
-    private CompetencyDAO competencyDAO;
+public class CompetencyImplService implements CompetencyService {
 
+    @Autowired
+    private CompetencyDAO competencyDAO;
 
     @Override
     public EmployeeCourses find(Long id) {
-        if(id!= null){
-        return competencyDAO.find(id);
+        if (id != null) {
+            return competencyDAO.find(id);
         }
         return null;
     }
 
-    @Transactional(readOnly= false)
+  
     @Override
     public void persist(EmployeeCourses entity) {
         competencyDAO.persist(entity);
@@ -47,22 +45,22 @@ public class CompetencyImplService implements CompetencyService{
 
     @Override
     public List<EmployeeCourses> findAll() {
-         return  competencyDAO.findAll();
+        return competencyDAO.findAll();
     }
 
     @Override
     public List<EmployeeCourses> findInRange(int firstResult, int maxResults) {
-         return competencyDAO.findInRange(firstResult, maxResults);
+        return competencyDAO.findInRange(firstResult, maxResults);
     }
 
     @Override
     public long count() {
-         return  competencyDAO.count();
+        return competencyDAO.count();
     }
 
     @Override
     public EmployeeCourses getByPropertyName(String propertyName, String propertyValue) {
-                return competencyDAO.getByPropertyName(propertyName, propertyValue);
+        return competencyDAO.getByPropertyName(propertyName, propertyValue);
     }
 
     /**
@@ -83,6 +81,4 @@ public class CompetencyImplService implements CompetencyService{
     public List<EmployeeCourses> getEntitiesByProperName(String propertyName, String propertyValue) {
         return competencyDAO.getEntitiesByProperName(propertyName, propertyValue);
     }
-
-
 }

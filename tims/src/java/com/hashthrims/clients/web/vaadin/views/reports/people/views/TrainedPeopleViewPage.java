@@ -6,8 +6,8 @@ package com.hashthrims.clients.web.vaadin.views.reports.people.views;
 
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
-import com.hashthrims.clients.web.vaadin.views.reports.people.forms.DateSearchCombo;
-import com.hashthrims.clients.web.vaadin.views.reports.people.forms.LocationCombo;
+import com.hashthrims.clients.web.vaadin.views.reports.people.forms.TrainedDateSearchCombo;
+import com.hashthrims.clients.web.vaadin.views.reports.people.forms.TrainedLocationCombo;
 import com.hashthrims.clients.web.vaadin.views.reports.people.tables.PeopleTable;
 import com.vaadin.addon.tableexport.ExcelExport;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -33,8 +33,8 @@ public class TrainedPeopleViewPage extends VerticalLayout implements
     private static ClientDataService data = new ClientDataService();
     private DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT);
     private Table table = new Table();
-    private final LocationCombo locationCombo = new LocationCombo();
-    private final DateSearchCombo dateSearchCombo = new DateSearchCombo();
+    private final TrainedLocationCombo locationCombo = new TrainedLocationCombo();
+    private final TrainedDateSearchCombo dateSearchCombo = new TrainedDateSearchCombo();
 
     public TrainedPeopleViewPage(HashThrimsMain app) {
 
@@ -90,7 +90,7 @@ public class TrainedPeopleViewPage extends VerticalLayout implements
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    private void getTableReport(LocationCombo locationCombo, DateSearchCombo dateSearchCombo) {
+    private void getTableReport(TrainedLocationCombo locationCombo, TrainedDateSearchCombo dateSearchCombo) {
         removeComponent(table);
         table = new PeopleTable().getTable(locationCombo, dateSearchCombo);
         addComponent(table);

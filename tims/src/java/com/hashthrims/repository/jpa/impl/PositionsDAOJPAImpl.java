@@ -11,6 +11,7 @@ import com.hashthrims.repository.jpa.PositionsDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +48,8 @@ public class PositionsDAOJPAImpl  implements PositionsDAO {
     }
 
     @Override
+     @Cacheable(value = "positions")
+    @Transactional(readOnly = true)
     public List<Positions> findAll() {
         return (List<Positions>) em.createQuery("SELECT a FROM Positions a").getResultList();
     }

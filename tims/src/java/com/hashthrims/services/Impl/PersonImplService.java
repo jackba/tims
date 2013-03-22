@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author abismail
  */
 @Service("personService")
-@Transactional
 public class PersonImplService implements PersonService{
      @Autowired
     private PersonDAO personDAO;
@@ -31,7 +30,7 @@ public class PersonImplService implements PersonService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+   
     @Override
     public void persist(Person entity) {
         personDAO.persist(entity);

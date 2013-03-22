@@ -11,7 +11,6 @@ import com.hashthrims.services.RaceListService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("raceListService")
-@Transactional
+
 public class RaceListImplService implements RaceListService{
      @Autowired
     private RaceListDAO raceListDAO;
@@ -33,7 +32,7 @@ public class RaceListImplService implements RaceListService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(RaceList entity) {
         raceListDAO.persist(entity);

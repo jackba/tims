@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("addressTypeService")
-@Transactional
+
 public class AddressTypeImplService implements AddressTypeService{
      @Autowired
     private AddressTypeDAO addressTypeDAO;
@@ -34,7 +34,7 @@ public class AddressTypeImplService implements AddressTypeService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+  
     @Override
     public void persist(AddressType entity) {
         addressTypeDAO.persist(entity);

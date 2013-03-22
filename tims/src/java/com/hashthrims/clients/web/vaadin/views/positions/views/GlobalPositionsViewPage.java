@@ -4,6 +4,7 @@
  */
 package com.hashthrims.clients.web.vaadin.views.positions.views;
 
+import com.google.common.collect.Lists;
 import com.hashthrims.clients.web.vaadin.HashThrimsMain;
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
 
@@ -15,7 +16,6 @@ import com.hashthrims.clients.web.vaadin.views.positions.table.GlobalPositionTab
 import com.hashthrims.domain.offices.Department;
 import com.hashthrims.domain.offices.Facility;
 import com.hashthrims.domain.positions.GlobalPositions;
-import com.hashthrims.domain.positions.Positions;
 import com.hashthrims.infrastructure.factories.positions.PositionsFactory;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import com.vaadin.data.Item;
@@ -32,6 +32,8 @@ import com.vaadin.ui.VerticalLayout;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -134,7 +136,6 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
     }
 
     public void saveNewPosition(Form form) {
-
         final String positionCode = fieldValues.getStringFields(form.getField("positionCode").getValue());
 
 
@@ -154,7 +155,6 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
         dfields.put("positionStatus", positionStatus);
         dfields.put("positionType", positionType);
         dfields.put("supervisor", supervisor);
-
         final GlobalPositions p = factory.createGlobalPosition(val, dfields);
         data.getGlobalPositionsService().persist(p);
         addPositionsToAllFacilities(val, dfields);
@@ -193,14 +193,10 @@ public class GlobalPositionsViewPage extends VerticalLayout implements
     private void addPositionsToAllFacilities(StringValues val, Map<String, Long> dfields) {
 
         List<Facility> facilities = data.getFacilityService().findAll();
-        for (Facility facility : facilities) {
-            final String positionComments = "No Comments";
-            val.setPositionComments(positionComments);
-            Long facililty = facility.getId();
-            dfields.put("facililty", facililty);
-            final Positions p = factory.createPosition(val, dfields);
-            data.getPositionsService().persist(p);
-
-        }
+//        List<List<Facility>> parts = Lists.partition(facilities, 10);
+        ForkJoinPool pool=new ForkJoinPool();
+        Task task=new Task(facilities, val, dfields);
+        pool.execute(task);
+        pool.shutdown();
     }
 }

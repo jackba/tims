@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("classificationsService")
-@Transactional
+
 public class ClassificationsImplService implements ClassificationsService{
      @Autowired
     private ClassificationDAO classificationsDAO;
@@ -34,7 +34,7 @@ public class ClassificationsImplService implements ClassificationsService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(Classifications entity) {
         classificationsDAO.persist(entity);

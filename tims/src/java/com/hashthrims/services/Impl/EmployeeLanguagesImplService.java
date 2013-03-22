@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("employeeLanguagesService")
-@Transactional
+
 public class EmployeeLanguagesImplService implements EmployeeLanguagesService{
      @Autowired
     private EmployeeLanguagesDAO languagesDAO;
@@ -28,7 +28,7 @@ public class EmployeeLanguagesImplService implements EmployeeLanguagesService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(EmployeeLanguages entity) {
         languagesDAO.persist(entity);

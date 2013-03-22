@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("criteriaService")
-@Transactional
+
 public class CriteriaImplService implements CriteriaService{
      @Autowired
     private CriteriaDAO criteriaDAO;
@@ -33,7 +33,7 @@ public class CriteriaImplService implements CriteriaService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+  
     @Override
     public void persist(Criteria entity) {
         criteriaDAO.persist(entity);

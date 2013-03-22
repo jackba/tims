@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("languageService")
-@Transactional
+
 public class LanguageImplService implements LanguageService{
      @Autowired
     private LanguageDAO languageDAO;
@@ -33,7 +33,7 @@ public class LanguageImplService implements LanguageService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Language entity) {
         languageDAO.persist(entity);

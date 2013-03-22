@@ -11,14 +11,13 @@ import com.hashthrims.services.TrainingFunderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author staff
  */
 @Service("trainingFunderService")
-@Transactional
+
 public class TrainingFunderImplService implements TrainingFunderService{
 
     @Autowired
@@ -33,7 +32,7 @@ public class TrainingFunderImplService implements TrainingFunderService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(TrainingFunder entity) {
         trainingFunderDAO.persist(entity);

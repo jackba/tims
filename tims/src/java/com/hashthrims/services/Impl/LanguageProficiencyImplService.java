@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("languageProficiencyService")
-@Transactional
+
 public class LanguageProficiencyImplService implements LangauageProficiencyService{
      @Autowired
     private LanguageProficiencyDAO languageProficiencyDAO;
@@ -34,7 +34,7 @@ public class LanguageProficiencyImplService implements LangauageProficiencyServi
         return null;
     }
 
-    @Transactional(readOnly= false)
+  
     @Override
     public void persist(LanguageProficiency entity) {
         getLanguageProficiencyDAO().persist(entity);

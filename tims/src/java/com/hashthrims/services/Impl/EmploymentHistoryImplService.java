@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author abismail
  */
 @Service("employmenthistoryService")
-@Transactional
+
 public class EmploymentHistoryImplService implements EmploymentHistoryService{
      @Autowired
     private EmploymentHistoryDAO employmentHistoryDAO;
@@ -32,7 +32,7 @@ public class EmploymentHistoryImplService implements EmploymentHistoryService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(EmploymentHistory entity) {
         employmentHistoryDAO.persist(entity);

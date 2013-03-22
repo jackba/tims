@@ -12,7 +12,6 @@ import com.hashthrims.services.SalarySourcesService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -20,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("salarySourcesService")
-@Transactional
+
 public class SalarySourcesImplService implements SalarySourcesService{
      @Autowired
     private SalarySourcesDAO salarySourcesDAO;
@@ -34,7 +33,7 @@ public class SalarySourcesImplService implements SalarySourcesService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(SalarySources entity) {
         salarySourcesDAO.persist(entity);

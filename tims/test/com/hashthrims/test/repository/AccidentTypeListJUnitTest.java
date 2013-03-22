@@ -60,7 +60,6 @@ public class AccidentTypeListJUnitTest {
 
         AccidentTypeList u = new AccidentTypeList();
         u.setAccidentName("Car accident");
-
         accidentTypeListDAO = (AccidentTypeListDAO) ctx.getBean("accidentTypeListDAO");
         accidentTypeListDAO.persist(u);
         accidentTypeListid = u.getId();

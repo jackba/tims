@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("facilityMentorsService")
-@Transactional
+
 public class FacilityMentorsImplService implements FacilityMentorsService {
 
     @Autowired
@@ -31,7 +31,7 @@ public class FacilityMentorsImplService implements FacilityMentorsService {
         return null;
     }
 
-    @Transactional(readOnly = false)
+ 
     @Override
     public void persist(FacilityMentors entity) {
         facilityMentorsDAO.persist(entity);

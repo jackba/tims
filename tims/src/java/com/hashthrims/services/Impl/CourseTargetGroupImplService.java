@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("courseTargetGroupService")
-@Transactional
+
 public class CourseTargetGroupImplService implements CourseTargetGroupService{
      @Autowired
     private CourseTargetGroupDAO courseTargetGroupDAO;
@@ -33,7 +33,7 @@ public class CourseTargetGroupImplService implements CourseTargetGroupService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(CourseTargetGroup entity) {
         courseTargetGroupDAO.persist(entity);

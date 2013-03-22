@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("nodesService")
-@Transactional
+
 public class NodesImplService implements NodesService{
      @Autowired
     private NodesDAO nodesDAO;
@@ -33,7 +33,7 @@ public class NodesImplService implements NodesService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Nodes entity) {
         nodesDAO.persist(entity);

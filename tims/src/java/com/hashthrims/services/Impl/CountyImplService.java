@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("countyService")
-@Transactional
+
 public class CountyImplService implements CountyService{
      @Autowired
     private CountyDAO countyDAO;
@@ -33,7 +33,7 @@ public class CountyImplService implements CountyService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+   
     @Override
     public void persist(County entity) {
         countyDAO.persist(entity);

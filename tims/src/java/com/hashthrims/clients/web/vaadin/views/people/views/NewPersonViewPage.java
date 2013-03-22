@@ -186,6 +186,7 @@ public class NewPersonViewPage extends VerticalLayout implements
     }
 
     private void saveNewPerson(Form form) {
+       
         Map<String, String> names = new HashMap<String, String>();
         Map<String, Collection<Long>> lists = new HashMap<String, Collection<Long>>();
         Map<String, Long> demo = new HashMap<String, Long>();
@@ -243,6 +244,7 @@ public class NewPersonViewPage extends VerticalLayout implements
         if (firstname != null || surname != null) {
             p = factory.createNewPerson(names, lists, demo, dates);
             data.getPersonService().persist(p);
+            
         } else {
             throw new UnsupportedOperationException("First Name and Last Name needed");
         }

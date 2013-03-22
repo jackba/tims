@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("cadresService")
-@Transactional
+
 public class CadresImplService implements CadresService{
      @Autowired
     private CadresDAO cadresDAO;
@@ -34,7 +34,7 @@ public class CadresImplService implements CadresService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Cadres entity) {
         cadresDAO.persist(entity);

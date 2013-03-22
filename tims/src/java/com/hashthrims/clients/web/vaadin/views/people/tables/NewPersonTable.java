@@ -50,8 +50,6 @@ public class NewPersonTable extends Table {
         }
 
 
-        // Add Data Columns
-        // List<Person> persons = data.getPersonService().findAll();
         for (final Person person : persons) {
             Button detailsField = new Button("show details");
             detailsField.setData(person.getId());

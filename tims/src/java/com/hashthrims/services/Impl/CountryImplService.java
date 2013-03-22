@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("countryService")
-@Transactional
+
 public class CountryImplService implements CountryService{
      @Autowired
     private CountryDAO countryDAO;
@@ -33,7 +33,7 @@ public class CountryImplService implements CountryService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Country entity) {
         countryDAO.persist(entity);

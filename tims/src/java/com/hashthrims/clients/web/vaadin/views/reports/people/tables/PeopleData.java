@@ -5,8 +5,8 @@
 package com.hashthrims.clients.web.vaadin.views.reports.people.tables;
 
 import com.hashthrims.clients.web.vaadin.data.ClientDataService;
-import com.hashthrims.clients.web.vaadin.views.reports.people.forms.DateSearchCombo;
-import com.hashthrims.clients.web.vaadin.views.reports.people.forms.LocationCombo;
+import com.hashthrims.clients.web.vaadin.views.reports.people.forms.TrainedDateSearchCombo;
+import com.hashthrims.clients.web.vaadin.views.reports.people.forms.TrainedLocationCombo;
 import com.hashthrims.clients.web.vaadin.views.reports.people.model.PeopleReport;
 import com.hashthrims.infrastructure.util.DataFieldsUtil;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ class PeopleData {
     public PeopleData() {
     }
 
-    List<PeopleReport> getPeople(LocationCombo locationCombo, DateSearchCombo dateSearchCombo) {
+    List<PeopleReport> getPeople(TrainedLocationCombo locationCombo, TrainedDateSearchCombo dateSearchCombo) {
         List<PeopleReport> people = new ArrayList<PeopleReport>();
         Date startDate = date.getDateFields(dateSearchCombo.getStartDate().getValue());
         Date endDate = date.getDateFields(dateSearchCombo.getEndDate().getValue());

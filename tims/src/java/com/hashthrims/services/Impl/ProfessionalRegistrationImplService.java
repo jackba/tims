@@ -6,29 +6,25 @@ import com.hashthrims.services.ProfessionalRegistrationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 /**
  *
  * @author stud
  */
 @Service("professionalRegistrationService")
-@Transactional
-public class ProfessionalRegistrationImplService implements ProfessionalRegistrationService{
-     @Autowired
-    private ProfessionalRegistrationDAO professionalregistrationDAO;
+public class ProfessionalRegistrationImplService implements ProfessionalRegistrationService {
 
+    @Autowired
+    private ProfessionalRegistrationDAO professionalregistrationDAO;
 
     @Override
     public ProfessionalRegistration find(Long id) {
-        if(id!= null){
-        return professionalregistrationDAO.find(id);
+        if (id != null) {
+            return professionalregistrationDAO.find(id);
         }
         return null;
     }
 
-    @Transactional(readOnly= false)
     @Override
     public void persist(ProfessionalRegistration entity) {
         professionalregistrationDAO.persist(entity);
@@ -47,22 +43,22 @@ public class ProfessionalRegistrationImplService implements ProfessionalRegistra
 
     @Override
     public List<ProfessionalRegistration> findAll() {
-         return  professionalregistrationDAO.findAll();
+        return professionalregistrationDAO.findAll();
     }
 
     @Override
     public List<ProfessionalRegistration> findInRange(int firstResult, int maxResults) {
-         return professionalregistrationDAO.findInRange(firstResult, maxResults);
+        return professionalregistrationDAO.findInRange(firstResult, maxResults);
     }
 
     @Override
     public long count() {
-         return  professionalregistrationDAO.count();
+        return professionalregistrationDAO.count();
     }
 
     @Override
     public ProfessionalRegistration getByPropertyName(String propertyName, String propertyValue) {
-                return professionalregistrationDAO.getByPropertyName(propertyName, propertyValue);
+        return professionalregistrationDAO.getByPropertyName(propertyName, propertyValue);
     }
 
     /**
@@ -83,6 +79,4 @@ public class ProfessionalRegistrationImplService implements ProfessionalRegistra
     public List<ProfessionalRegistration> getEntitiesByProperName(String propertyName, String propertyValue) {
         return professionalregistrationDAO.getEntitiesByProperName(propertyName, propertyValue);
     }
-
-
 }

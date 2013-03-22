@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("competencyTypeService")
-@Transactional
+
 public class CompetencyTypeImplService implements CompetencyTypeService{
      @Autowired
     private CompetencyTypeDAO competencyTypeDAO;
@@ -33,7 +33,7 @@ public class CompetencyTypeImplService implements CompetencyTypeService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(CompetencyType entity) {
         competencyTypeDAO.persist(entity);

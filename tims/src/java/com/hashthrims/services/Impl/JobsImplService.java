@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("jobsService")
-@Transactional
+
 public class JobsImplService implements JobsService{
      @Autowired
     private JobsDAO jobsDAO;
@@ -33,7 +33,7 @@ public class JobsImplService implements JobsService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(Jobs entity) {
         jobsDAO.persist(entity);

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("degreeService")
-@Transactional
+
 public class DegreeImplService implements DegreeService{
      @Autowired
     private DegreeDAO degreeDAO;
@@ -33,7 +33,7 @@ public class DegreeImplService implements DegreeService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Degree entity) {
         degreeDAO.persist(entity);

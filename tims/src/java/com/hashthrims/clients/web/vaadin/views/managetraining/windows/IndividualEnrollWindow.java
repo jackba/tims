@@ -82,13 +82,13 @@ public class IndividualEnrollWindow extends Window implements Button.ClickListen
         final Button source = event.getButton();
         if (source == enrollParticipant) {
             enrollParticipant(course.getId(), new Long(participatnts.getValue().toString()));
+           // UPDATE THE TABLE WITH FRESH DATA COPY
             closeWindow();
         }
         if (source == addNewPerson) {
             canvas.removeAllComponents();
             canvas.addComponent(newPerson);
             canvas.addComponent(cancelAdditionOfNewPerson);
-
 
         }
         if (source == cancelAdditionOfNewPerson) {

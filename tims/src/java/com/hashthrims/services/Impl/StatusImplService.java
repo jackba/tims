@@ -11,7 +11,6 @@ import com.hashthrims.services.StatusService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("statusService")
-@Transactional
+
 public class StatusImplService implements StatusService{
      @Autowired
     private StatusDAO statusDAO;
@@ -33,7 +32,7 @@ public class StatusImplService implements StatusService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Status entity) {
         statusDAO.persist(entity);

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("benefitFrequencyService")
-@Transactional
+
 public class BenefitFrequencyImplService implements BenefitFrequencyService{
      @Autowired
     private BenefitFrequencyDAO benefitFrequencyDAO;
@@ -33,7 +33,7 @@ public class BenefitFrequencyImplService implements BenefitFrequencyService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+  
     @Override
     public void persist(BenefitFrequency entity) {
         benefitFrequencyDAO.persist(entity);

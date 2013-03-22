@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("globalPositionsService")
-@Transactional
+
 public class GlobalPositionsImplService implements GlobalPositionsService{
      @Autowired
     private GlobalPositionsDAO globalPositionsDAO;
@@ -33,7 +33,7 @@ public class GlobalPositionsImplService implements GlobalPositionsService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(GlobalPositions entity) {
         getGlobalPositionsDAO().persist(entity);

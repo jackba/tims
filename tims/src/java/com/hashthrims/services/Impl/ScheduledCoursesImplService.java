@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author staff
  */
 @Service("scheduledCoursesService")
-@Transactional
+
 public class ScheduledCoursesImplService implements ScheduledCoursesService{
 
     @Autowired
@@ -33,7 +33,7 @@ public class ScheduledCoursesImplService implements ScheduledCoursesService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(ScheduledCourses entity) {
         scheduledCoursesDAO.persist(entity);

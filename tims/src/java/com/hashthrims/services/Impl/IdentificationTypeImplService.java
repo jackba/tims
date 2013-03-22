@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("identificationTypeService")
-@Transactional
+
 public class IdentificationTypeImplService implements IdentificationTypeService{
      @Autowired
     private IdentificationTypeDAO identificationTypeDAO;
@@ -33,7 +33,7 @@ public class IdentificationTypeImplService implements IdentificationTypeService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(IdentificationType entity) {
         identificationTypeDAO.persist(entity);

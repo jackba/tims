@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("demographyService")
-@Transactional
+
 public class DemographyImplService implements DemographyService{
      @Autowired
     private DemographyDAO demographyDAO;
@@ -33,7 +33,7 @@ public class DemographyImplService implements DemographyService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Demography entity) {
         demographyDAO.persist(entity);

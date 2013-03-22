@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("employeebenefitsService")
-@Transactional
+
 public class EmployeeBenefitsImplService implements EmployeeBenefitsService{
      @Autowired
     private EmployeeBenefitsDAO employeebenefitsDAO;
@@ -28,7 +28,7 @@ public class EmployeeBenefitsImplService implements EmployeeBenefitsService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(EmployeeBenefits entity) {
         employeebenefitsDAO.persist(entity);

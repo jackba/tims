@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("competencyTasksService")
-@Transactional
+
 public class CompetencyTasksImplService implements CompetencyTasksService {
 
     @Autowired
@@ -31,7 +31,7 @@ public class CompetencyTasksImplService implements CompetencyTasksService {
         return null;
     }
 
-    @Transactional(readOnly = false)
+  
     @Override
     public void persist(CompetencyTasks entity) {
         competencyTasksDAO.persist(entity);

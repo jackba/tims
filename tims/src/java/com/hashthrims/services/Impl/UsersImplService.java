@@ -11,7 +11,6 @@ import com.hashthrims.services.UsersService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("usersService")
-@Transactional
+
 public class UsersImplService implements UsersService{
      @Autowired
     private UsersDAO usersDAO;
@@ -33,7 +32,7 @@ public class UsersImplService implements UsersService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+  
     @Override
     public void persist(Users entity) {
         usersDAO.persist(entity);

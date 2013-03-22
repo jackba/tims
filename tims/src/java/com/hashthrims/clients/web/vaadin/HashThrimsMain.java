@@ -85,7 +85,7 @@ public class HashThrimsMain extends Application implements HttpServletRequestLis
         throw new Exception("failed to Login");
     }
 
-    private void loadProtectedResources() {
+    private  void loadProtectedResources() {
 
         final TabAccordian accordian = new TabAccordian(this);
         final LandingPage dashBoard = new LandingPage(this);

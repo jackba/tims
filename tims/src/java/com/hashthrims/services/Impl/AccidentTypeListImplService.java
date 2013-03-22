@@ -3,8 +3,6 @@ package com.hashthrims.services.Impl;
 
 import com.hashthrims.domain.employeelist.AccidentTypeList;
 import com.hashthrims.repository.jpa.AccidentTypeListDAO;
-import com.hashthrims.repository.jpa.AccidentTypeListDAO;
-import com.hashthrims.services.AccidentTypeListService;
 import com.hashthrims.services.AccidentTypeListService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("accidentTypeListService")
-@Transactional
+
 public class AccidentTypeListImplService implements AccidentTypeListService{
      @Autowired
     private AccidentTypeListDAO accidentTypeListDAO;
@@ -31,7 +29,7 @@ public class AccidentTypeListImplService implements AccidentTypeListService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+    
     @Override
     public void persist(AccidentTypeList entity) {
         accidentTypeListDAO.persist(entity);

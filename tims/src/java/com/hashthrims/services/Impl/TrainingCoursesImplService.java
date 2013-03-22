@@ -5,8 +5,6 @@
 
 package com.hashthrims.services.Impl;
 
-import com.hashthrims.domain.traininglist.CourseCompetencies;
-import com.hashthrims.domain.traininglist.CourseFunders;
 import com.hashthrims.domain.traininglist.TrainingCourses;
 import com.hashthrims.repository.jpa.CourseCompetenciesDAO;
 import com.hashthrims.repository.jpa.CourseFundersDAO;
@@ -15,14 +13,13 @@ import com.hashthrims.services.TrainingCoursesService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author staff
  */
 @Service("trainingCoursesService")
-@Transactional
+
 public class TrainingCoursesImplService implements TrainingCoursesService{
 
     @Autowired
@@ -43,7 +40,7 @@ public class TrainingCoursesImplService implements TrainingCoursesService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(TrainingCourses entity) {
         trainingCoursesDAO.persist(entity);

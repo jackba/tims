@@ -145,12 +145,13 @@ public class NewPersonForm {
                 }
                 selectRaceList.setNewItemsAllowed(false);
                 selectRaceList.addListener(this);
+                selectRaceList.setRequired(true);
                 selectRaceList.setImmediate(true);
                 selectRaceList.setWidth("250");
                 return selectRaceList;
             } else if ("dob".equals(propertyId)) {
                  field = new DateField("Date of Birth (dd/mm/yyyy):");
-                ((DateField) field).setRequired(true);
+               
                 ((DateField) field).setDateFormat("dd/MM/yyyy");
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
@@ -189,7 +190,7 @@ public class NewPersonForm {
                 field = new TextField("Indentity Value:");
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
-                ((TextField) field).setRequired(true);
+              
                 ((TextField) field).setRequiredError("Please Enter Value");
             } else if ("idType".equals(propertyId)) {
                 //List<String> idTypes = data.getAddressTypeService().findAll();
@@ -205,7 +206,6 @@ public class NewPersonForm {
                 selectAddressTypeList.addListener(this);
                 selectAddressTypeList.setImmediate(true);
                 selectAddressTypeList.setWidth("250");
-                selectAddressTypeList.setRequired(true);
                 return selectAddressTypeList;
             } else if ("facilityId".equals(propertyId)) {
                 List<Facility> facilities = data.getFacilityService().findAll();
@@ -219,12 +219,14 @@ public class NewPersonForm {
                 selectFacilityList.addListener(this);
                 selectFacilityList.setImmediate(true);
                 selectFacilityList.setWidth("250");
+                selectFacilityList.setRequired(true);
 
                 return selectFacilityList;
             } else if ("positionId".equals(propertyId)) {
-
+                
                 selectPositionList = new Select("Position");
                 selectPositionList.setNewItemsAllowed(false);
+                selectPositionList.setRequired(true);
                 selectPositionList.addListener(this);
                 if (facility != null) {
                     positions = facility.getPositions();
@@ -245,7 +247,7 @@ public class NewPersonForm {
                 return selectPositionList;
             } else if ("startDate".equals(propertyId)) {
                 field = new DateField("Date Started (dd/mm/yyyy):");
-                ((DateField) field).setRequired(true);
+                
                  ((DateField) field).setDateFormat("dd/MM/yyyy");
                 ((DateField) field).setRequiredError("Please Enter Value");
                 ((DateField) field).setWidth(250, Sizeable.UNITS_PIXELS);
@@ -255,7 +257,7 @@ public class NewPersonForm {
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
 
-                ((TextField) field).setRequired(true);
+              
                 ((TextField) field).setRequiredError("Please Enter Value");
             } else if ("cellnumber".equals(propertyId)) {
                 field = new TextField("Cell Number:");
@@ -263,14 +265,14 @@ public class NewPersonForm {
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
 
-                ((TextField) field).setRequired(true);
+              
                 ((TextField) field).setRequiredError("Please Enter Value");
             } else if ("faxnumber".equals(propertyId)) {
                 field = new TextField("fax Number:");
 
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
-                ((TextField) field).setRequired(true);
+             
                 ((TextField) field).setRequiredError("Please Enter Value");
             } else if ("email".equals(propertyId)) {
                 field = new TextField("Email :");
@@ -278,7 +280,7 @@ public class NewPersonForm {
                 ((TextField) field).setColumns(20);
                 ((TextField) field).setNullRepresentation("");
 
-                ((TextField) field).setRequired(true);
+              
                 ((TextField) field).setRequiredError("Please Enter Value");
             }
 

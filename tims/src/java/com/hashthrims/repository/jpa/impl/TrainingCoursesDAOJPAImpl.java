@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +48,7 @@ public class TrainingCoursesDAOJPAImpl implements TrainingCoursesDAO{
     }
 
     @Override
+     @Cacheable(value = "courses")
     public List<TrainingCourses> findAll() {
         return (List<TrainingCourses>) em.createQuery("SELECT a FROM TrainingCourses a").getResultList();
     }

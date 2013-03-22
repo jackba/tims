@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("courseCriteriaService")
-@Transactional
+
 public class CourseCriteriaImplService implements CourseCriteriaService{
      @Autowired
     private CourseCriteriaDAO courseCriteriaDAO;
@@ -33,7 +33,7 @@ public class CourseCriteriaImplService implements CourseCriteriaService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(CourseCriteria entity) {
         courseCriteriaDAO.persist(entity);

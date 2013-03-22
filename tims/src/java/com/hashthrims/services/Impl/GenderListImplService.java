@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("genderListService")
-@Transactional
+
 public class GenderListImplService implements GenderListService{
      @Autowired
     private GenderListDAO genderListDAO;
@@ -34,7 +34,7 @@ public class GenderListImplService implements GenderListService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(GenderList entity) {
         genderListDAO.persist(entity);

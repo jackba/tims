@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("disciplinaryactionService")
-@Transactional
+
 public class DisciplinaryActionImplService implements DisciplinaryActionService{
      @Autowired
     private DisciplinaryActionDAO disciplinaryactionDAO;
@@ -28,7 +28,7 @@ public class DisciplinaryActionImplService implements DisciplinaryActionService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(DisciplinaryAction entity) {
         disciplinaryactionDAO.persist(entity);

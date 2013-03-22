@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.services.Impl;
 
 import com.hashthrims.domain.jobs.SalaryGrade;
@@ -13,27 +12,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  *
  * @author stud
  */
 @Service("salaryGradesService")
-@Transactional
-public class SalaryGradesImplService implements SalaryGradesService{
-     @Autowired
-    private SalaryGradesDAO salaryGradesDAO;
+public class SalaryGradesImplService implements SalaryGradesService {
 
+    @Autowired
+    private SalaryGradesDAO salaryGradesDAO;
 
     @Override
     public SalaryGrade find(Long id) {
-        if(id!= null){
-        return salaryGradesDAO.find(id);
+        if (id != null) {
+            return salaryGradesDAO.find(id);
         }
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(SalaryGrade entity) {
         salaryGradesDAO.persist(entity);
@@ -52,22 +49,22 @@ public class SalaryGradesImplService implements SalaryGradesService{
 
     @Override
     public List<SalaryGrade> findAll() {
-         return  salaryGradesDAO.findAll();
+        return salaryGradesDAO.findAll();
     }
 
     @Override
     public List<SalaryGrade> findInRange(int firstResult, int maxResults) {
-         return salaryGradesDAO.findInRange(firstResult, maxResults);
+        return salaryGradesDAO.findInRange(firstResult, maxResults);
     }
 
     @Override
     public long count() {
-         return  salaryGradesDAO.count();
+        return salaryGradesDAO.count();
     }
 
     @Override
     public SalaryGrade getByPropertyName(String propertyName, String propertyValue) {
-                return salaryGradesDAO.getByPropertyName(propertyName, propertyValue);
+        return salaryGradesDAO.getByPropertyName(propertyName, propertyValue);
     }
 
     /**
@@ -88,6 +85,4 @@ public class SalaryGradesImplService implements SalaryGradesService{
     public List<SalaryGrade> getEntitiesByProperName(String propertyName, String propertyValue) {
         return salaryGradesDAO.getEntitiesByProperName(propertyName, propertyValue);
     }
-
-
 }

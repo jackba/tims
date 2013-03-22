@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.repository.jpa.impl;
 
 import com.hashthrims.domain.Person;
@@ -11,17 +10,20 @@ import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author abismail
  */
 @Repository("personDAO")
 @Transactional
-public class PersonDAOJPAImpl implements PersonDAO{
+public class PersonDAOJPAImpl implements PersonDAO {
 
-    @PersistenceContext(type=PersistenceContextType.EXTENDED)
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override
@@ -30,22 +32,29 @@ public class PersonDAOJPAImpl implements PersonDAO{
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value = "persons", allEntries = true)
     public void persist(Person entity) {
         em.persist(entity);
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value = "persons", allEntries = true)
     public void merge(Person entity) {
         em.merge(entity);
     }
 
     @Override
+    @CacheEvict(value = "persons", allEntries = true)
     public void remove(Person entity) {
-        Person id =em.find(Person.class, entity.getId());
+        Person id = em.find(Person.class, entity.getId());
         em.remove(id);
     }
 
     @Override
+    @Cacheable(value = "persons")
+    @Transactional(readOnly = true)
     public List<Person> findAll() {
         return (List<Person>) em.createQuery("SELECT a FROM Person a").getResultList();
     }
@@ -57,7 +66,7 @@ public class PersonDAOJPAImpl implements PersonDAO{
 
     @Override
     public long count() {
-         return (Long) em.createQuery("SELECT count(a) FROM Person a").getSingleResult();
+        return (Long) em.createQuery("SELECT count(a) FROM Person a").getSingleResult();
     }
 
     @Override

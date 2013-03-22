@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("courseTypeNameService")
-@Transactional
+
 public class CourseTypeNameImplService implements CourseTypeService{
      @Autowired
     private CourseTypeNameDAO CourseTypeNameDAO;
@@ -28,7 +28,7 @@ public class CourseTypeNameImplService implements CourseTypeService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(CourseTypeName entity) {
         CourseTypeNameDAO.persist(entity);

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("mentorExpertiseAreaService")
-@Transactional
+
 public class MentorExpertiseAreaImplService implements MentorExpertiseAreaService{
      @Autowired
     private MentorExpertiseAreaDAO mentorExpertiseAreaDAO;
@@ -33,7 +33,7 @@ public class MentorExpertiseAreaImplService implements MentorExpertiseAreaServic
         return null;
     }
 
-    @Transactional(readOnly= false)
+  
     @Override
     public void persist(MentorExpertiseArea entity) {
         mentorExpertiseAreaDAO.persist(entity);

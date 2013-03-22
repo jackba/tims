@@ -11,13 +11,12 @@ import com.hashthrims.services.SubjectService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author abismail
  */
 @Service("subjectService")
-@Transactional
+
 public class SubjectImplService implements SubjectService{
 
     @Autowired
@@ -32,7 +31,7 @@ public class SubjectImplService implements SubjectService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+    
     @Override
     public void persist(Subject entity) {
         usersDAO.persist(entity);

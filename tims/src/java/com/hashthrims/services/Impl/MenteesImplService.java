@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("menteesService")
-@Transactional
+
 public class MenteesImplService implements MenteesService{
      @Autowired
     private MenteesDAO menteesDAO;
@@ -33,7 +33,7 @@ public class MenteesImplService implements MenteesService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Mentees entity) {
         menteesDAO.persist(entity);

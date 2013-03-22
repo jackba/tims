@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("registrationBodyService")
-@Transactional
+
 public class RegistrationBodyImplService implements RegistrationBodyService{
      @Autowired
     private RegistrationBodyDAO registrationBodyDAO;
@@ -33,7 +33,7 @@ public class RegistrationBodyImplService implements RegistrationBodyService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+   
     @Override
     public void persist(RegistrationBody entity) {
         registrationBodyDAO.persist(entity);

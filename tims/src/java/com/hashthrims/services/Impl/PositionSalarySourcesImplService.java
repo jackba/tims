@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("positionSalarySourcesService")
-@Transactional
+
 public class PositionSalarySourcesImplService implements PositionSalarySourcesService {
 
     @Autowired
@@ -27,7 +27,7 @@ public class PositionSalarySourcesImplService implements PositionSalarySourcesSe
         return null;
     }
 
-    @Transactional(readOnly = false)
+   
     @Override
     public void persist(PositionSalarySources entity) {
         getPositionSalarySourcesDAO().persist(entity);

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("educationTypeService")
-@Transactional
+
 public class EducationTypeImplService implements EducationTypeService{
      @Autowired
     private EducationTypeDAO educationTypeDAO;
@@ -33,7 +33,7 @@ public class EducationTypeImplService implements EducationTypeService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(EducationType entity) {
         educationTypeDAO.persist(entity);

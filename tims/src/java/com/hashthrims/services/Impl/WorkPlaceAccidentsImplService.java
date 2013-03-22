@@ -6,7 +6,6 @@ import com.hashthrims.services.WorkPlaceAccidentsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -14,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("workplaceaccidentsService")
-@Transactional
+
 public class WorkPlaceAccidentsImplService implements WorkPlaceAccidentsService{
      @Autowired
     private WorkPlaceAccidentsDAO workplaceaccidentsDAO;
@@ -28,7 +27,7 @@ public class WorkPlaceAccidentsImplService implements WorkPlaceAccidentsService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(WorkPlaceAccidents entity) {
         workplaceaccidentsDAO.persist(entity);

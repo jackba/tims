@@ -43,9 +43,9 @@ public class PeopleReportsMenuView extends VerticalLayout {
         tab.setHeight("100%");
         tab.setWidth("100%");
 
-        tab.addTab(trainedTabs, "Trained People", null);
-        tab.addTab(mentoredTabs, "Mentored People", null);
-        tab.addTab(nimartTabs, "Nimart People", null);
+        tab.addTab(trainedTabs, "Trained People REPORTS", null);
+        tab.addTab(mentoredTabs, "Mentored People REPORTS", null);
+        tab.addTab(nimartTabs, "Nimart People REPORTS", null);
 
         if (selectedTab.equals("TRAINED")) {
             tab.setSelectedTab(trainedTabs);

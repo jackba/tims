@@ -11,7 +11,6 @@ import com.hashthrims.services.TargetGroupService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("targetGroupService")
-@Transactional
+
 public class TargetGroupImplService implements TargetGroupService{
      @Autowired
     private TargetGroupDAO targetGroupDAO;
@@ -33,7 +32,7 @@ public class TargetGroupImplService implements TargetGroupService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(TargetGroup entity) {
         targetGroupDAO.persist(entity);

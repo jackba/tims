@@ -4,8 +4,8 @@
  */
 package com.hashthrims.clients.web.vaadin.views.reports.people.tables;
 
-import com.hashthrims.clients.web.vaadin.views.reports.people.forms.DateSearchCombo;
-import com.hashthrims.clients.web.vaadin.views.reports.people.forms.LocationCombo;
+import com.hashthrims.clients.web.vaadin.views.reports.people.forms.TrainedDateSearchCombo;
+import com.hashthrims.clients.web.vaadin.views.reports.people.forms.TrainedLocationCombo;
 import com.hashthrims.clients.web.vaadin.views.reports.people.model.PeopleReport;
 import com.vaadin.ui.Table;
 import java.util.Date;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class PeopleTable {
 
-    public Table getTable(LocationCombo locationCombo, DateSearchCombo dateSearchCombo) {
+    public Table getTable(TrainedLocationCombo locationCombo, TrainedDateSearchCombo dateSearchCombo) {
         Table table = new Table();
         table.setSizeFull();
 
@@ -56,7 +56,7 @@ public class PeopleTable {
         return table;
     }
 
-    private List<PeopleReport> getListOfPeople(LocationCombo locationCombo, DateSearchCombo dateSearchCombo) {
+    private List<PeopleReport> getListOfPeople(TrainedLocationCombo locationCombo, TrainedDateSearchCombo dateSearchCombo) {
         return new PeopleData().getPeople(locationCombo, dateSearchCombo);
     }
 

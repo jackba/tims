@@ -11,14 +11,13 @@ import com.hashthrims.services.TrainingCourseStatusService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author staff
  */
 @Service("trainingCourseStatusService")
-@Transactional
+
 public class TrainingCourseStatusImplService implements TrainingCourseStatusService{
 
     @Autowired
@@ -33,7 +32,6 @@ public class TrainingCourseStatusImplService implements TrainingCourseStatusServ
         return null;
     }
 
-    @Transactional(readOnly= false)
     @Override
     public void persist(TrainingCourseStatus entity) {
         trainingCourseStatusDAO.persist(entity);

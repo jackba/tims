@@ -2,9 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.services.Impl;
-
 
 import com.hashthrims.domain.Identities;
 import com.hashthrims.repository.jpa.IdentitiesDAO;
@@ -13,26 +11,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author abismail
  */
 @Service("identitiesService")
-@Transactional
-public class IdentitiesImplService implements IdentitiesService{
-     @Autowired
-    private IdentitiesDAO identitiesDAO;
+public class IdentitiesImplService implements IdentitiesService {
 
+    @Autowired
+    private IdentitiesDAO identitiesDAO;
 
     @Override
     public Identities find(Long id) {
-        if(id!= null){
-        return identitiesDAO.find(id);
+        if (id != null) {
+            return identitiesDAO.find(id);
         }
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Identities entity) {
         identitiesDAO.persist(entity);
@@ -51,22 +49,22 @@ public class IdentitiesImplService implements IdentitiesService{
 
     @Override
     public List<Identities> findAll() {
-         return  identitiesDAO.findAll();
+        return identitiesDAO.findAll();
     }
 
     @Override
     public List<Identities> findInRange(int firstResult, int maxResults) {
-         return identitiesDAO.findInRange(firstResult, maxResults);
+        return identitiesDAO.findInRange(firstResult, maxResults);
     }
 
     @Override
     public long count() {
-         return  identitiesDAO.count();
+        return identitiesDAO.count();
     }
 
     @Override
     public Identities getByPropertyName(String propertyName, String propertyValue) {
-                return identitiesDAO.getByPropertyName(propertyName, propertyValue);
+        return identitiesDAO.getByPropertyName(propertyName, propertyValue);
     }
 
     /**

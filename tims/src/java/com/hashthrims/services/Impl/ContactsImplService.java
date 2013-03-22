@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("contactsService")
-@Transactional
+
 public class ContactsImplService implements ContactsService{
      @Autowired
     private ContactsDAO contactsDAO;
@@ -28,7 +28,7 @@ public class ContactsImplService implements ContactsService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(Contacts entity) {
         contactsDAO.persist(entity);

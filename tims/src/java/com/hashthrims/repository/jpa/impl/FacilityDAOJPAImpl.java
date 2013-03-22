@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hashthrims.repository.jpa.impl;
 
 import com.hashthrims.domain.offices.Facility;
@@ -10,6 +9,8 @@ import com.hashthrims.repository.jpa.FacilityDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository("facilityDAO")
 @Transactional
-public class FacilityDAOJPAImpl implements FacilityDAO{
+public class FacilityDAOJPAImpl implements FacilityDAO {
 
     @PersistenceContext
     private EntityManager em;
@@ -30,22 +31,26 @@ public class FacilityDAOJPAImpl implements FacilityDAO{
     }
 
     @Override
+    @CacheEvict(value = "facilities", allEntries = true)
     public void persist(Facility entity) {
         em.persist(entity);
     }
 
     @Override
+    @CacheEvict(value = "facilities", allEntries = true)
     public void merge(Facility entity) {
         em.merge(entity);
     }
 
     @Override
+    @CacheEvict(value = "facilities", allEntries = true)
     public void remove(Facility entity) {
-        Facility acc =em.find(Facility.class, entity.getId());
+        Facility acc = em.find(Facility.class, entity.getId());
         em.remove(acc);
     }
 
     @Override
+    @Cacheable(value = "facilities")
     public List<Facility> findAll() {
         return (List<Facility>) em.createQuery("SELECT a FROM Facility a").getResultList();
     }
@@ -57,7 +62,7 @@ public class FacilityDAOJPAImpl implements FacilityDAO{
 
     @Override
     public long count() {
-         return (Long) em.createQuery("SELECT count(a) FROM Facility a").getSingleResult();
+        return (Long) em.createQuery("SELECT count(a) FROM Facility a").getSingleResult();
     }
 
     @Override
@@ -68,8 +73,7 @@ public class FacilityDAOJPAImpl implements FacilityDAO{
 
     @Override
     public List<Facility> getEntitiesByProperName(String propertyName, String propertyValue) {
-          List<Facility> list = em.createQuery("SELECT e FROM  Facility e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
+        List<Facility> list = em.createQuery("SELECT e FROM  Facility e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
         return list;
     }
-
 }

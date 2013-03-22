@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("cityService")
-@Transactional
+
 public class CityImplService implements CityService{
      @Autowired
     private CityDAO cityDAO;
@@ -33,7 +33,7 @@ public class CityImplService implements CityService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+ 
     @Override
     public void persist(City entity) {
         cityDAO.persist(entity);

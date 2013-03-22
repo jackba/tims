@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("currencyService")
-@Transactional
+
 public class CurrencyImplService implements CurrencyService{
      @Autowired
     private CurrencyDAO currencyDAO;
@@ -33,7 +33,7 @@ public class CurrencyImplService implements CurrencyService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+
     @Override
     public void persist(Currency entity) {
         currencyDAO.persist(entity);

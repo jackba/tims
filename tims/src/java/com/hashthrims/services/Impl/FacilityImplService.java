@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author stud
  */
 @Service("facilityService")
-@Transactional
+
 public class FacilityImplService implements FacilityService{
      @Autowired
     private FacilityDAO facilityDAO;
@@ -33,7 +33,7 @@ public class FacilityImplService implements FacilityService{
         return null;
     }
 
-    @Transactional(readOnly= false)
+   
     @Override
     public void persist(Facility entity) {
         facilityDAO.persist(entity);
